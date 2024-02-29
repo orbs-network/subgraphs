@@ -1,0 +1,35 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ExclusiveDutchOrderReactor
+    network: matic
+    source:
+      address: "0x21Da9737764527e75C17F1AB26Cb668b66dEE0a0"
+      abi: ExclusiveDutchOrderReactor
+      startBlock: 46826301
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Fill
+      abis:
+        - name: ExclusiveDutchOrderReactor
+          file: ./abis/ExclusiveDutchOrderReactor.json
+        - name: ERC20Contract
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: chainlinkOracle
+          file: ./abis/oracle.json
+        - name: UniswapV2Pair
+          file: ./abis/UniswapV2Pair.json
+      eventHandlers:
+        - event: Fill(indexed bytes32,indexed address,indexed address,uint256)
+          handler: handleFill
+          receipt: true
+      file: ./src/exclusive-dutch-order-reactor.ts

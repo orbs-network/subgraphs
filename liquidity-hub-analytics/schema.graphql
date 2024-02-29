@@ -1,0 +1,40 @@
+type Fill @entity(immutable: true) {
+  id: Bytes!
+  orderHash: Bytes! # bytes32
+  filler: Bytes! # address
+  swapper: Bytes! # address
+  nonce: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Swap @entity(immutable: true) {
+  id: Bytes!
+  userAddress: String!
+  srcTokenSymbol: String
+  srcTokenAddress: String
+  srcAmount: String
+  dstTokenSymbol: String
+  dstTokenUsdValue: BigDecimal!
+  dstTokenAddress: String
+  dexAmountOut: String
+  executorAddress: String!
+  timestamp: String!
+  txHash: Bytes!
+  fees: String
+  gasFees: String
+}
+
+type SwapDaily @entity {
+    id: String!
+    date: String!
+    dailyTotalCalculatedValue: BigDecimal!
+    dailyCount: Int
+}
+
+type SwapTotal @entity {
+    id: String!
+    cumulativeTotalCalculatedValue: BigDecimal!
+    totalCount: Int
+}
