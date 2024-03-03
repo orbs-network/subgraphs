@@ -1,6 +1,7 @@
 # Liquidity Hub Analytics Subgraph
 
-https://thegraph.com/studio/subgraph/liquidy-hub-analytics/
+https://thegraph.com/explorer/subgraphs/3PoRophV5nkusfKGkk2D5rL6ibErsTvmUvYsaHNTUsGZ
+
 
 This subgraph, `liquidity-hub-analytics`, is designed to capture and analyze Fill events happening on the Liquidity Hub protocol.
 
