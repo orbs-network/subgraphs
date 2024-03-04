@@ -108,19 +108,19 @@ export function fetchUSDValue(asset: string): BigDecimal | null {
     return null;
 }
 
-export function fetchDstTokenUsdValue(swap: Swap): BigDecimal {
+export function fetchTokenUsdValue(swap: Swap): BigDecimal {
     let baseAssetsUsd: BigDecimal | null;
 
-    if (swap.dstTokenSymbol && swap.dexAmountOut) {
-        baseAssetsUsd = fetchUSDValue(swap.dstTokenSymbol!);
-        if (baseAssetsUsd) {
-            return baseAssetsUsd * BigDecimal.fromString(swap.dexAmountOut!)
-        }
-    }
     if (swap.srcAmount) {
         baseAssetsUsd = fetchUSDValue(swap.srcTokenSymbol!)
         if (baseAssetsUsd) {
             return baseAssetsUsd * BigDecimal.fromString(swap.srcAmount!)
+        }
+    }
+    if (swap.dstTokenSymbol && swap.dexAmountOut) {
+        baseAssetsUsd = fetchUSDValue(swap.dstTokenSymbol!);
+        if (baseAssetsUsd) {
+            return baseAssetsUsd * BigDecimal.fromString(swap.dexAmountOut!)
         }
     }
     return BigDecimal.fromString("0");

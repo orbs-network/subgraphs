@@ -45,11 +45,10 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
     srcTokenSymbol
     srcTokenAddress
     txHash
-    dstTokenUsdValue
+    dollarValue
     fees
     gasFees
     timestamp
-    dstTokenUsdValue
     executorAddress
   }
 }
@@ -69,11 +68,10 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
     srcTokenSymbol
     srcTokenAddress
     txHash
-    dstTokenUsdValue
     fees
     gasFees
     timestamp
-    dstTokenUsdValue
+    dollarValue
     executorAddress
   }
 }

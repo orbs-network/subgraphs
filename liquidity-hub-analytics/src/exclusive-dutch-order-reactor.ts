@@ -3,7 +3,7 @@ import {Fill as FillEvent,} from "../generated/ExclusiveDutchOrderReactor/Exclus
 import {Fill, Swap, SwapDaily, SwapTotal} from "../generated/schema"
 import {
   bytesToBigInt,
-  fetchDstTokenUsdValue,
+  fetchTokenUsdValue,
   fetchTokenSymbol,
   formatTimestamp,
   getFeesAddress,
@@ -90,7 +90,7 @@ export function handleFill(event: FillEvent): void {
     }
   }
   swap.dexAmountOut = dexAmountOut.toString()
-  swap.dstTokenUsdValue = fetchDstTokenUsdValue(swap);
+  swap.dollarValue = fetchTokenUsdValue(swap);
   swap.save();
 
   // store daily volume
@@ -99,11 +99,11 @@ export function handleFill(event: FillEvent): void {
   if (daily == null) {
     daily = new SwapDaily(day)
     daily.date = day
-    daily.dailyTotalCalculatedValue = swap.dstTokenUsdValue
+    daily.dailyTotalCalculatedValue = swap.dollarValue
     daily.dailyCount = 1
   }
   else {
-    daily.dailyTotalCalculatedValue = daily.dailyTotalCalculatedValue + swap.dstTokenUsdValue
+    daily.dailyTotalCalculatedValue = daily.dailyTotalCalculatedValue + swap.dollarValue
     daily.dailyCount += 1
   }
   daily.save()
@@ -112,11 +112,11 @@ export function handleFill(event: FillEvent): void {
   let total = SwapTotal.load(SWAP_TOTAL_ID)
   if (total == null) {
     total = new SwapTotal(SWAP_TOTAL_ID)
-    total.cumulativeTotalCalculatedValue = swap.dstTokenUsdValue
+    total.cumulativeTotalCalculatedValue = swap.dollarValue
     total.totalCount = 1
   }
   else {
-    total.cumulativeTotalCalculatedValue = total.cumulativeTotalCalculatedValue + swap.dstTokenUsdValue
+    total.cumulativeTotalCalculatedValue = total.cumulativeTotalCalculatedValue + swap.dollarValue
     total.totalCount += 1
   }
   total.save()

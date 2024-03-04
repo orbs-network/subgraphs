@@ -16,7 +16,7 @@ type Swap @entity(immutable: true) {
   srcTokenAddress: String
   srcAmount: String
   dstTokenSymbol: String
-  dstTokenUsdValue: BigDecimal!
+  dollarValue: BigDecimal!
   dstTokenAddress: String
   dexAmountOut: String
   executorAddress: String!
