@@ -4,8 +4,8 @@ This subgraph, `liquidity-hub-analytics`, is designed to capture and analyze Fil
 
 Currently supports [Quickswap](https://quickswap.exchange) on Polygon and [Thena](https://thena.fi) on BSC.
 
-#### [Polygon subgraph](https://thegraph.com/explorer/subgraphs/3PoRophV5nkusfKGkk2D5rL6ibErsTvmUvYsaHNTUsGZ)
-#### BSC subgraph
+- #### [Polygon subgraph](https://thegraph.com/explorer/subgraphs/3PoRophV5nkusfKGkk2D5rL6ibErsTvmUvYsaHNTUsGZ)
+- #### [BSC subgraph](https://thegraph.com/explorer/subgraphs/A3itXkopA3FG5CGKJrzQZPB2FWsC9BWw3b7GBdK4zGf2)
 
 ## Schemas
 ### Fill
