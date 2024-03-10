@@ -1,15 +1,39 @@
 # Liquidity Hub Analytics Subgraph
 
-https://thegraph.com/explorer/subgraphs/3PoRophV5nkusfKGkk2D5rL6ibErsTvmUvYsaHNTUsGZ
-
-
 This subgraph, `liquidity-hub-analytics`, is designed to capture and analyze Fill events happening on the Liquidity Hub protocol.
 
-Currently supports [Quickswap](https://quickswap.exchange) on Polygon.
+Currently supports [Quickswap](https://quickswap.exchange) on Polygon and [Thena](https://thena.fi) on BSC.
 
+#### [Polygon subgraph](https://thegraph.com/explorer/subgraphs/3PoRophV5nkusfKGkk2D5rL6ibErsTvmUvYsaHNTUsGZ)
+#### BSC subgraph
 
 ## Schemas
-
+### Fill
+Describes the Fill event
+- id: Bytes!
+- orderHash: Bytes!
+- filler: Bytes!
+- swapper: Bytes!
+- nonce: BigInt!
+- blockNumber: BigInt!
+- blockTimestamp: BigInt!
+- transactionHash: Bytes!
+### Swap
+Describes a swap tx executed via LH
+- id: Bytes!
+- userAddress: String!
+- srcTokenSymbol: String
+- srcTokenAddress: String
+- srcAmount: String
+- dstTokenSymbol: String
+- dollarValue: BigDecimal!
+- dstTokenAddress: String
+- dexAmountOut: String
+- executorAddress: String!
+- timestamp: String!
+- txHash: Bytes!
+- fees: String
+- gasFees: String
 
 ## Event Handler
 
@@ -25,6 +49,19 @@ The event handler defined in this subgraph is responsible for processing `Fill` 
 - Transaction logs are analyzed to extract relevant information such as token transfers and fees.
 - Calculations are performed to determine the value of tokens exchanged in USD.
 - Daily and cumulative volumes are updated based on the swap data.
+
+## Building and deploying
+First, create/edit the relevant json in the config dir.
+
+#### `npm run prepare-<network>`
+Generates subgraph.yaml and constants.ts for a particular network.
+Currently supported networks are matic and bsc.
+
+#### `graph codegen && graph build`
+Generates AssemblyScript types for smart contract ABIs and the subgraph schema + Compiles the subgraph to WebAssembly.
+
+#### `npm run deploy-<network>`
+Deploys the subgraph for particular network to the official Graph Node. Runs the "prepare" command as well.
 
 ## Usage
 To utilize this subgraph, deploy it to a suitable indexing service such as The Graph, and query the generated GraphQL API to retrieve analytics data related to Liquidity Hub protocol swaps.

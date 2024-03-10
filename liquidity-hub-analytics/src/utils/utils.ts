@@ -12,9 +12,12 @@ import {
     EXECUTOR_ADDRESS_V4,
     FACTOR_1E8,
     FEES_ADDRESS,
-    getAssetInfo,
+    getOracleAddress,
     ORDER_SIGNATURE,
+    QUICK_DECIMALS,
     QUICK_USDC_POOL,
+    THE_BUSD_POOL,
+    THE_DECIMALS,
     TUPLE_PREFIX
 } from "./constants";
 import {Swap} from "../../generated/schema";
@@ -75,6 +78,22 @@ export function fetchTokenSymbol(tokenAddress: Address): string {
     return symbolValue;
 }
 
+export function fetchTokenDecimals(tokenAddress: Address): BigInt {
+    let contract = ERC20Contract.bind(tokenAddress);
+
+    // try types uint8 for decimals
+    let decimalResult = contract.try_decimals();
+    if (!decimalResult.reverted) {
+        return decimalResult.value;
+    }
+
+    log.warning(
+        "[getTokenParams]token {} decimals() call reverted; default to 18 decimals",
+        [tokenAddress.toHexString()]
+    );
+    return BigInt.fromI32(18)
+}
+
 function generateDivFactor(input: string): BigDecimal {
     let num: i32 = <i32>parseInt(input, 10);
     return BigDecimal.fromString("1" + "0".repeat(num));
@@ -89,20 +108,26 @@ export function addTrailingZeroes(input: string): BigDecimal {
     return BigDecimal.fromString(result);
 }
 
-function getQuickPrice(): BigDecimal {
-    const contract = UniswapV2Pair.bind(Address.fromString(QUICK_USDC_POOL));
+function getV2Price(poolAddress: string): BigDecimal {
+    const contract = UniswapV2Pair.bind(Address.fromString(poolAddress));
+    const token0 = contract.token0()
+    const token0Decimals = fetchTokenDecimals(token0)
+    const token1 = contract.token1()
+    const token1Decimals = fetchTokenDecimals(token1)
     const reserves = contract.getReserves()
-    return (reserves.value0.toBigDecimal()/BigDecimal.fromString("1e6")) / (reserves.value1.toBigDecimal()/BigDecimal.fromString("1e18"))
+    return (reserves.value0.toBigDecimal()/BigDecimal.fromString(token0Decimals.toString())) / (reserves.value1.toBigDecimal()/BigDecimal.fromString(token1Decimals.toString()))
 }
 
-export function fetchUSDValue(asset: string): BigDecimal | null {
-    if (asset == "QUICK") return getQuickPrice()/BigDecimal.fromString("1e18");
-    const assetInfo = getAssetInfo(asset);
-    if (assetInfo) {
-        const assetAddress: Address = Address.fromString(assetInfo[0]);
-        if (assetAddress) {
-            const oracleContract = chainlinkOracle.bind(assetAddress);
-            return oracleContract.latestAnswer().divDecimal(generateDivFactor(assetInfo[1])).div(FACTOR_1E8); // divide by decimals and by 1e8
+export function fetchUSDValue(assetName: string, assetAddress: string): BigDecimal | null {
+    if (assetName == "QUICK") return getV2Price(QUICK_USDC_POOL)/BigDecimal.fromString(QUICK_DECIMALS); // only for matic
+    if (assetName == "THE") return getV2Price(THE_BUSD_POOL)/BigDecimal.fromString(THE_DECIMALS); // only for bsc
+    const oracle = getOracleAddress(assetName);
+    if (oracle) {
+        const oracleAddress: Address = Address.fromString(oracle);
+        const assetDecimals = fetchTokenDecimals(Address.fromString(assetAddress)).toString()
+        if (oracleAddress) {
+            const oracleContract = chainlinkOracle.bind(oracleAddress);
+            return oracleContract.latestAnswer().divDecimal(generateDivFactor(assetDecimals)).div(FACTOR_1E8); // divide by decimals and by 1e8
         }
     }
     return null;
@@ -112,13 +137,13 @@ export function fetchTokenUsdValue(swap: Swap): BigDecimal {
     let baseAssetsUsd: BigDecimal | null;
 
     if (swap.srcAmount) {
-        baseAssetsUsd = fetchUSDValue(swap.srcTokenSymbol!)
+        baseAssetsUsd = fetchUSDValue(swap.srcTokenSymbol!, swap.srcTokenAddress!)
         if (baseAssetsUsd) {
             return baseAssetsUsd * BigDecimal.fromString(swap.srcAmount!)
         }
     }
     if (swap.dstTokenSymbol && swap.dexAmountOut) {
-        baseAssetsUsd = fetchUSDValue(swap.dstTokenSymbol!);
+        baseAssetsUsd = fetchUSDValue(swap.dstTokenSymbol!, swap.dstTokenAddress!);
         if (baseAssetsUsd) {
             return baseAssetsUsd * BigDecimal.fromString(swap.dexAmountOut!)
         }

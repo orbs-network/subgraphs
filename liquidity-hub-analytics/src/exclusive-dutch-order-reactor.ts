@@ -1,16 +1,16 @@
-import {Address, BigInt, ByteArray, crypto, ethereum} from '@graphprotocol/graph-ts'
+import {Address, BigInt, ByteArray, crypto, ethereum, log} from '@graphprotocol/graph-ts'
 import {Fill as FillEvent,} from "../generated/ExclusiveDutchOrderReactor/ExclusiveDutchOrderReactor"
 import {Fill, Swap, SwapDaily, SwapTotal} from "../generated/schema"
 import {
   bytesToBigInt,
-  fetchTokenUsdValue,
   fetchTokenSymbol,
+  fetchTokenUsdValue,
   formatTimestamp,
   getFeesAddress,
   getOrderOutput,
   hexStringToAmount,
 } from "./utils/utils"
-import {EXECUTE_SIGNATURE_V4, SWAP_TOTAL_ID, TREASURY_ADDRESS} from "./utils/constants";
+import {NATIVE_ASSET, SWAP_TOTAL_ID, TREASURY_ADDRESS} from "./utils/constants";
 
 export function handleFill(event: FillEvent): void {
   // TODO: will have to change once we introduce multi-orders AND once we implement swapper != receiver
@@ -30,9 +30,11 @@ export function handleFill(event: FillEvent): void {
   swap.timestamp = formatTimestamp(event.block.timestamp)
   swap.userAddress = event.params.swapper.toHexString()
 
+  log.debug('txHash: {}', [swap.txHash.toHexString()])
+
   const executorAddress = event.params.filler.toHexString()
   swap.executorAddress = executorAddress
-  const feesAddress: string = getFeesAddress(event, EXECUTE_SIGNATURE_V4);
+  const feesAddress: string = getFeesAddress(event, executorAddress);
 
   // TODO: change in case of contract changes
   const orderOutput: Array<ethereum.Value> = getOrderOutput(event, executorAddress)
@@ -52,8 +54,8 @@ export function handleFill(event: FillEvent): void {
   swap.dstTokenAddress = outputTokenAddress.toHexString()
   let dexAmountOut = BigInt.fromString("0")
 
-  if (outputTokenAddress == Address.zero()) { // zero address indicates that this is not a token but native MATIC
-    swap.dstTokenSymbol = "MATIC";
+  if (outputTokenAddress == Address.zero()) { // zero address indicates that this is not a token but native asset
+    swap.dstTokenSymbol = NATIVE_ASSET;
     // swapper might get multiple outputs (e.g. fee refund). Need to find the biggest one and use the average between min and max amount out
     for (let i = 0; i < swapperOutputs.length; i++) {
       const swapperOutput = swapperOutputs[i]
@@ -86,6 +88,9 @@ export function handleFill(event: FillEvent): void {
       }
       else if (to == feesAddress && thisLog.address.toHexString() == swap.dstTokenAddress) {
         swap.fees = hexStringToAmount(thisLog.data);
+      }
+      else if (!swap.gasFees && to == TREASURY_ADDRESS && thisLog.address.toHexString() == swap.dstTokenAddress) {
+        swap.gasFees = hexStringToAmount(thisLog.data);
       }
     }
   }
