@@ -34,6 +34,17 @@ Describes a swap tx executed via LH
 - txHash: Bytes!
 - fees: String
 - gasFees: String
+#### SwapDaily
+Trading volume divided into days 
+- id: String!
+- date: String!
+- dailyTotalCalculatedValue: BigDecimal!
+- dailyCount: Int
+#### SwapTotal
+Accumulated trading volume
+- id: String!
+- cumulativeTotalCalculatedValue: BigDecimal!
+- totalCount: Int
 
 ## Event Handler
 
