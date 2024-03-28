@@ -1,0 +1,15 @@
+{
+  "network": "base",
+  "startBlock": "10567228",
+  "reactorAddress": "0xe9E78109c89162cEF32Bfe7cBCEe1f31312fc1F6",
+  "nativeAsset": "ETH",
+  "executorAddressV4": "0xBeF2e13a4eFE626b5F3833D9DCb2f03895060FD4",
+  "treasuryAddress": "0xdfaa8117df6d1f4745d61722d9aac8f3aa87cd1e",
+  "usdt": "0xf19d560eB8d2ADf07BD6D13ed03e1D11215721F9",
+  "usdc": "0x7e860098F58bBFC8648a4311b374B1D669a2bc6B",
+  "dai": "0x591e79239a7d679378eC8c847e5038150364C78F",
+  "eth": "0x71041dddad3595F9CEd3DcCFBe3D1F4b0a16Bb70",
+  "btc": "0xCCADC697c55bbB68dc5bCdf8d3CBe83CdD4E071E",
+  "link": "0x17CAb8FE31E32f08326e5E27412894e49B0f9D65",
+  "sol": "0x975043adBb80fc32276CbF9Bbcfd4A601a12462D"
+}

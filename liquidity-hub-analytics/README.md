@@ -2,10 +2,11 @@
 
 This subgraph, `liquidity-hub-analytics`, is designed to capture and analyze Fill events happening on the Liquidity Hub protocol.
 
-Currently supports [Quickswap](https://quickswap.exchange) on Polygon and [Thena](https://thena.fi) on BSC.
-
-- #### [Polygon subgraph](https://thegraph.com/explorer/subgraphs/3PoRophV5nkusfKGkk2D5rL6ibErsTvmUvYsaHNTUsGZ)
-- #### [BSC subgraph](https://thegraph.com/explorer/subgraphs/A3itXkopA3FG5CGKJrzQZPB2FWsC9BWw3b7GBdK4zGf2)
+Currently supports:
+- [Quickswap](https://quickswap.exchange) on Polygon: [Polygon subgraph](https://thegraph.com/explorer/subgraphs/3PoRophV5nkusfKGkk2D5rL6ibErsTvmUvYsaHNTUsGZ)
+- [Thena](https://thena.fi) on BSC: [BSC subgraph](https://thegraph.com/explorer/subgraphs/A3itXkopA3FG5CGKJrzQZPB2FWsC9BWw3b7GBdK4zGf2)
+- [SpookySwap](https://spooky.fi) on BSC: [FTM subgraph](https://thegraph.com/explorer/subgraphs/4VBQsK9AFVqieegH3Pn6d4mjJDyNKgYbZqnHBMWnc3a7)
+- [IntentX](https://app.intentx.io/spot-trading) on Base: [Base subgraph](https://thegraph.com/explorer/subgraphs/GyMgk1kzLVDjb9BbswjvdbUbGPbpmbwpDFJG9dRzevQs)
 
 ## Schemas
 ### Fill
@@ -34,13 +35,13 @@ Describes a swap tx executed via LH
 - txHash: Bytes!
 - fees: String
 - gasFees: String
-#### SwapDaily
+### SwapDaily
 Trading volume divided into days 
 - id: String!
 - date: String!
 - dailyTotalCalculatedValue: BigDecimal!
 - dailyCount: Int
-#### SwapTotal
+### SwapTotal
 Accumulated trading volume
 - id: String!
 - cumulativeTotalCalculatedValue: BigDecimal!
@@ -62,15 +63,14 @@ The event handler defined in this subgraph is responsible for processing `Fill` 
 - Daily and cumulative volumes are updated based on the swap data.
 
 ## Building and deploying
-First, create/edit the relevant json in the config dir.
-
+1. Create a new subgraph via the studio web UI.
+2. Authenticate in CLI: `graph auth --studio <key>`
+3. Create/edit the relevant json in the config dir and add the relevant scripts in package.json.
 #### `npm run prepare-<network>`
 Generates subgraph.yaml and constants.ts for a particular network.
 Currently supported networks are matic and bsc.
-
 #### `graph codegen && graph build`
 Generates AssemblyScript types for smart contract ABIs and the subgraph schema + Compiles the subgraph to WebAssembly.
-
 #### `npm run deploy-<network>`
 Deploys the subgraph for particular network to the official Graph Node. Runs the "prepare" command as well.
 

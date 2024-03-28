@@ -18,7 +18,10 @@ import {
     QUICK_USDC_POOL,
     THE_BUSD_POOL,
     THE_DECIMALS,
-    TUPLE_PREFIX
+    TUPLE_PREFIX,
+    BOO_WFTM_POOL,
+    WFTM_ADDRESS,
+    BOO_DECIMALS
 } from "./constants";
 import {Swap} from "../../generated/schema";
 
@@ -121,6 +124,11 @@ function getV2Price(poolAddress: string): BigDecimal {
 export function fetchUSDValue(assetName: string, assetAddress: string): BigDecimal | null {
     if (assetName == "QUICK") return getV2Price(QUICK_USDC_POOL)/BigDecimal.fromString(QUICK_DECIMALS); // only for matic
     if (assetName == "THE") return getV2Price(THE_BUSD_POOL)/BigDecimal.fromString(THE_DECIMALS); // only for bsc
+    if (assetName == "BOO") { // only for ftm
+        const booWftm = getV2Price(BOO_WFTM_POOL);
+        const ftmPrice = fetchUSDValue("WFTM", WFTM_ADDRESS);
+        return booWftm * ftmPrice!;
+    }
     const oracle = getOracleAddress(assetName);
     if (oracle) {
         const oracleAddress: Address = Address.fromString(oracle);
@@ -170,7 +178,7 @@ export function getFeesAddress(event: ethereum.Event, executorAddress: string): 
 
 export function getOrderOutput(event: ethereum.Event, executorAddress: string): Array<ethereum.Value> { // TODO: will have to change once we introduce multi-orders
     const executeSig = executorAddress == EXECUTOR_ADDRESS_V4 ? EXECUTE_SIGNATURE_V4 :
-        [EXECUTOR_ADDRESS_V3, EXECUTOR_ADDRESS_V2].includes(executorAddress) ? EXECUTE_SIGNATURE_V2 :EXECUTE_SIGNATURE_V1
+        [EXECUTOR_ADDRESS_V3, EXECUTOR_ADDRESS_V2].includes(executorAddress) ? EXECUTE_SIGNATURE_V2 : EXECUTE_SIGNATURE_V1
 
     const executeDecoded = parseTX(event, executeSig)
     const orderRaw = executeSig == EXECUTE_SIGNATURE_V1 ?

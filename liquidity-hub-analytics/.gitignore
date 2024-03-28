@@ -71,3 +71,5 @@ custom_typings/
 
 #DS_Store
 .DS_Store
+/subgraph.yaml
+/src/utils/constants.ts

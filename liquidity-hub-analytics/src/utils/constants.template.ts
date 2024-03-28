@@ -6,27 +6,33 @@ export const TUPLE_PREFIX = '0x0000000000000000000000000000000000000000000000000
 export const ORDER_SIGNATURE = '((address,address,uint256,uint256,address,bytes),uint256,uint256,address,uint256,(address,uint256,uint256),(address,uint256,uint256,address)[])'
 export const SWAP_TOTAL_ID = "TOTAL"
 
-export const EXECUTOR_ADDRESS_V1 = '{{executorAddressV1}}'
-export const EXECUTE_SIGNATURE_V1 = '{{executeSignatureV1}}'
-export const EXECUTOR_ADDRESS_V2 = '{{executorAddressV2}}'
-export const EXECUTOR_ADDRESS_V3 = '{{executorAddressV3}}'
-export const EXECUTE_SIGNATURE_V2 = '{{executeSignatureV2}}'
-export const EXECUTOR_ADDRESS_V4 = '{{executorAddressV4}}'
+// The following addresses should be in lower case
 
-export const TREASURY_ADDRESS = '{{treasuryAddress}}'
-export const FEES_ADDRESS = '{{feesAddress}}'
+export const EXECUTOR_ADDRESS_V1 = '{{executorAddressV1}}'.toLowerCase()
+export const EXECUTE_SIGNATURE_V1 = '{{executeSignatureV1}}'.toLowerCase()
+export const EXECUTOR_ADDRESS_V2 = '{{executorAddressV2}}'.toLowerCase()
+export const EXECUTOR_ADDRESS_V3 = '{{executorAddressV3}}'.toLowerCase()
+export const EXECUTE_SIGNATURE_V2 = '{{executeSignatureV2}}'.toLowerCase()
+export const EXECUTOR_ADDRESS_V4 = '{{executorAddressV4}}'.toLowerCase()
 
-export const QUICK_USDC_POOL = '{{quickUsdtPool}}'
+export const TREASURY_ADDRESS = '{{treasuryAddress}}'.toLowerCase()
+export const FEES_ADDRESS = '{{feesAddress}}'.toLowerCase()
+
+export const QUICK_USDC_POOL = '{{quickUsdtPool}}'.toLowerCase()
 export const QUICK_DECIMALS = '{{quickDecimals}}'
 
-export const THE_BUSD_POOL = '{{theBusdPool}}'
+export const THE_BUSD_POOL = '{{theBusdPool}}'.toLowerCase()
 export const THE_DECIMALS = '{{theDecimals}}'
+
+export const BOO_WFTM_POOL = '{{booWftmPool}}'.toLowerCase()
+export const BOO_DECIMALS = '{{booDecimals}}'
+export const WFTM_ADDRESS = '{{wftmAddress}}'
 
 export const NATIVE_ASSET = '{{nativeAsset}}'
 
 export function getOracleAddress(asset: string): string | null {
-    if (asset == "USDT" || asset == "USDV" || asset == "lisUSD") return '{{usdt}}' // address, decimals
-    if (asset == "USDC" || asset == "axlUSDC") return '{{usdc}}'
+    if (asset == "USDT" || asset == "USDV" || asset == "lisUSD") return '{{usdt}}'
+    if (asset == "USDC" || asset == "axlUSDC" || asset === "multiUSDC") return '{{usdc}}'
     if (asset == "TUSD") return '{{tusd}}'
     if (asset == "DAI" || asset == "BUSD") return '{{dai}}'
     if (asset == "USDD") return '{{usdd}}'
@@ -49,7 +55,7 @@ export function getOracleAddress(asset: string): string | null {
     if (asset == "DOT") return '{{dot}}'
     if (asset == "ETC") return '{{etc}}'
     if (asset == "FIL") return '{{fil}}'
-    if (asset == "FTM") return '{{ftm}}'
+    if (asset == "FTM" || asset == "WFTM") return '{{ftm}}'
     if (asset == "FXS") return '{{fxs}}'
     if (asset == "GRT") return '{{grt}}'
     if (asset == "ICP") return '{{icp}}'
