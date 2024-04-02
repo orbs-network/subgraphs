@@ -1,29 +1,19 @@
-import {Address, BigDecimal, BigInt, Bytes, ethereum, log} from "@graphprotocol/graph-ts";
-import {ERC20Contract} from "../../generated/ExclusiveDutchOrderReactor/ERC20Contract";
-import {ERC20SymbolBytes} from "../../generated/ExclusiveDutchOrderReactor/ERC20SymbolBytes";
-import {chainlinkOracle} from "../../generated/ExclusiveDutchOrderReactor/chainlinkOracle";
-import {UniswapV2Pair} from "../../generated/ExclusiveDutchOrderReactor/UniswapV2Pair";
+import {Address, BigDecimal, BigInt, Bytes, log} from "@graphprotocol/graph-ts";
+import {ERC20Contract} from "../../generated/TWAP/ERC20Contract";
+import {ERC20SymbolBytes} from "../../generated/TWAP/ERC20SymbolBytes";
+import {chainlinkOracle} from "../../generated/TWAP/chainlinkOracle";
+import {UniswapV2Pair} from "../../generated/TWAP/UniswapV2Pair";
 import {
-    EXECUTE_SIGNATURE_V1,
-    EXECUTE_SIGNATURE_V2,
-    EXECUTE_SIGNATURE_V4,
-    EXECUTOR_ADDRESS_V2,
-    EXECUTOR_ADDRESS_V3,
-    EXECUTOR_ADDRESS_V4,
+    BOO_WFTM_POOL,
     FACTOR_1E8,
-    FEES_ADDRESS,
-    getOracleAddress,
-    ORDER_SIGNATURE,
+    getOracleAddress, NATIVE_ASSET,
     QUICK_DECIMALS,
     QUICK_USDC_POOL,
     THE_BUSD_POOL,
     THE_DECIMALS,
-    TUPLE_PREFIX,
-    BOO_WFTM_POOL,
-    WFTM_ADDRESS,
-    BOO_DECIMALS
+    WFTM_ADDRESS
 } from "./constants";
-import {Swap} from "../../generated/schema";
+import {OrderFilled} from "../../generated/schema";
 
 export function bytesToBigInt(b: Bytes): BigInt | null {
     if (b.length > 32) {
@@ -49,6 +39,9 @@ export function hexStringToAmount(data: Bytes): string {
 }
 
 export function fetchTokenSymbol(tokenAddress: Address): string {
+
+    if (tokenAddress == Address.zero()) return NATIVE_ASSET;
+
     let contract = ERC20Contract.bind(tokenAddress);
     let contractSymbolBytes = ERC20SymbolBytes.bind(tokenAddress);
 
@@ -141,49 +134,20 @@ export function fetchUSDValue(assetName: string, assetAddress: string): BigDecim
     return null;
 }
 
-export function fetchTokenUsdValue(swap: Swap): BigDecimal {
+export function fetchTokenUsdValue(order: OrderFilled): BigDecimal {
     let baseAssetsUsd: BigDecimal | null;
 
-    if (swap.srcAmount) {
-        baseAssetsUsd = fetchUSDValue(swap.srcTokenSymbol!, swap.srcTokenAddress!)
+    if (order.srcAmountIn) {
+        baseAssetsUsd = fetchUSDValue(order.srcTokenSymbol!, order.srcTokenAddress!)
         if (baseAssetsUsd) {
-            return baseAssetsUsd * BigDecimal.fromString(swap.srcAmount!)
+            return baseAssetsUsd * BigDecimal.fromString(order.srcAmountIn)
         }
     }
-    if (swap.dstTokenSymbol && swap.dexAmountOut) {
-        baseAssetsUsd = fetchUSDValue(swap.dstTokenSymbol!, swap.dstTokenAddress!);
+    if (order.dstTokenSymbol && order.dstAmountOut) {
+        baseAssetsUsd = fetchUSDValue(order.dstTokenSymbol!, order.dstTokenAddress!);
         if (baseAssetsUsd) {
-            return baseAssetsUsd * BigDecimal.fromString(swap.dexAmountOut!)
+            return baseAssetsUsd * BigDecimal.fromString(order.dstAmountOut)
         }
     }
     return BigDecimal.fromString("0");
-}
-
-function parseTX(event: ethereum.Event, executeSig: string): ethereum.Tuple {
-    const inputDataHexString = event.transaction.input.toHexString().slice(10); // take away function signature: '0x????????'
-    const hexStringToDecode = TUPLE_PREFIX + inputDataHexString; // prepend tuple offset
-    const executeRaw = Bytes.fromByteArray(Bytes.fromHexString(hexStringToDecode));
-    return ethereum.decode(executeSig, executeRaw)!.toTuple()
-}
-
-function parseFeesAddress(event: ethereum.Event, executeSig: string): string {
-    const executeDecoded = parseTX(event, executeSig);
-    return executeDecoded.at(2).toAddress().toHexString()
-}
-
-export function getFeesAddress(event: ethereum.Event, executorAddress: string): string {
-    if (executorAddress == EXECUTOR_ADDRESS_V4) return parseFeesAddress(event, EXECUTE_SIGNATURE_V4)
-    return FEES_ADDRESS
-}
-
-export function getOrderOutput(event: ethereum.Event, executorAddress: string): Array<ethereum.Value> { // TODO: will have to change once we introduce multi-orders
-    const executeSig = executorAddress == EXECUTOR_ADDRESS_V4 ? EXECUTE_SIGNATURE_V4 :
-        [EXECUTOR_ADDRESS_V3, EXECUTOR_ADDRESS_V2].includes(executorAddress) ? EXECUTE_SIGNATURE_V2 : EXECUTE_SIGNATURE_V1
-
-    const executeDecoded = parseTX(event, executeSig)
-    const orderRaw = executeSig == EXECUTE_SIGNATURE_V1 ?
-        executeDecoded.at(0).toTuple().at(0).toBytes() :
-        executeDecoded.at(0).toArray().at(0).toTuple().at(0).toBytes()
-    const order = ethereum.decode(ORDER_SIGNATURE, orderRaw)
-    return order!.toTuple().at(-1).toArray()
 }

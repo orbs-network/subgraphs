@@ -1,72 +1,34 @@
-type OrderBid @entity(immutable: true) {
-  id: Bytes!
-  TWAP_id: BigInt! # uint64
-  maker: Bytes! # address
-  exchange: Bytes! # address
-  slippagePercent: BigInt! # uint32
-  bid_time: BigInt! # uint32
-  bid_taker: Bytes! # address
-  bid_exchange: Bytes! # address
-  bid_dstAmount: BigInt! # uint256
-  bid_dstFee: BigInt! # uint256
-  bid_data: Bytes! # bytes
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrderCanceled @entity(immutable: true) {
-  id: Bytes!
-  TWAP_id: BigInt! # uint64
-  maker: Bytes! # address
-  sender: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrderCompleted @entity(immutable: true) {
-  id: Bytes!
-  TWAP_id: BigInt! # uint64
-  maker: Bytes! # address
-  exchange: Bytes! # address
-  taker: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type OrderCreated @entity(immutable: true) {
-  id: Bytes!
-  TWAP_id: BigInt! # uint64
-  maker: Bytes! # address
-  exchange: Bytes! # address
-  ask_exchange: Bytes! # address
-  ask_srcToken: Bytes! # address
-  ask_dstToken: Bytes! # address
-  ask_srcAmount: BigInt! # uint256
-  ask_srcBidAmount: BigInt! # uint256
-  ask_dstMinAmount: BigInt! # uint256
-  ask_deadline: BigInt! # uint32
-  ask_bidDelay: BigInt! # uint32
-  ask_fillDelay: BigInt! # uint32
-  ask_data: Bytes! # bytes
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
 type OrderFilled @entity(immutable: true) {
-  id: Bytes!
-  TWAP_id: BigInt! # uint64
-  maker: Bytes! # address
-  exchange: Bytes! # address
-  taker: Bytes! # address
-  srcAmountIn: BigInt! # uint256
-  dstAmountOut: BigInt! # uint256
-  dstFee: BigInt! # uint256
-  srcFilledAmount: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
+    id: Bytes!
+    TWAP_id: Int
+    userAddress: Bytes! # address
+    exchange: Bytes! # address
+    dex: String!
+    taker: Bytes! # address
+    srcAmountIn: String!
+    dstAmountOut: String!
+    dstFee: BigInt! # uint256
+    srcFilledAmount: BigInt! # uint256
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
+    timestamp: String!
+    srcTokenAddress: String
+    dstTokenAddress: String
+    srcTokenSymbol: String
+    dstTokenSymbol: String
+    dollarValue: BigDecimal!
+}
+
+type FilledDaily @entity {
+    id: String!
+    date: String!
+    dailyTotalCalculatedValue: BigDecimal!
+    dailyCount: Int
+}
+
+type FilledTotal @entity {
+    id: String!
+    cumulativeTotalCalculatedValue: BigDecimal!
+    totalCount: Int
 }

@@ -5,21 +5,21 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: ExclusiveDutchOrderReactor
+    name: TWAP
     network: {{network}}
     source:
-      address: '{{reactorAddress}}'
-      abi: ExclusiveDutchOrderReactor
+      address: '{{twapAddress}}'
+      abi: TWAP
       startBlock: {{startBlock}}
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
-        - Fill
+        - OrderFilled
       abis:
-        - name: ExclusiveDutchOrderReactor
-          file: ./abis/ExclusiveDutchOrderReactor.json
+        - name: TWAP
+          file: ./abis/TWAP.json
         - name: ERC20Contract
           file: ./abis/ERC20.json
         - name: ERC20SymbolBytes
@@ -29,7 +29,6 @@ dataSources:
         - name: UniswapV2Pair
           file: ./abis/UniswapV2Pair.json
       eventHandlers:
-        - event: Fill(indexed bytes32,indexed address,indexed address,uint256)
-          handler: handleFill
-          receipt: true
-      file: ./src/exclusive-dutch-order-reactor.ts
+        - event: OrderFilled(indexed uint64,indexed address,indexed address,address,uint256,uint256,uint256,uint256)
+          handler: handleOrderFilled
+      file: ./src/twap.ts
