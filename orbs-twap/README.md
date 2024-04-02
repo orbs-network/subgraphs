@@ -2,6 +2,8 @@
 
 This subgraph, `orbs-twap`, is designed to capture and analyze Fill events happening on the [dTWAP](https://www.orbs.com/dtwap/) protocol.
 
+Currently supports:
+- [BSC](https://thegraph.com/explorer/subgraphs/4NfXEi8rreQsnAr4aJ45RLCKgnjcWX46Lbt9SadiCcz6)
 
 ## Schemas
 ### OrderFilled
