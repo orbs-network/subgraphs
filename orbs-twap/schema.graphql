@@ -17,7 +17,8 @@ type OrderFilled @entity(immutable: true) {
     dstTokenAddress: String
     srcTokenSymbol: String
     dstTokenSymbol: String
-    dollarValue: BigDecimal!
+    dollarValueIn: BigDecimal!
+    dollarValueOut: BigDecimal!
 }
 
 type FilledDaily @entity {

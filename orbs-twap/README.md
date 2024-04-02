@@ -26,7 +26,8 @@ Describes the Fill event
 - dstTokenAddress: String
 - srcTokenSymbol: String
 - dstTokenSymbol: String
-- dollarValue: BigDecimal!
+- dollarValueIn: BigDecimal!
+- dollarValueOut: BigDecimal!
 ### FilledDaily
 Trading volume divided into days 
 - id: String!
@@ -77,7 +78,8 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
       dstTokenAddress
       srcTokenSymbol
       dstTokenSymbol
-      dollarValue
+      dollarValueIn
+      dollarValueOut
   }
 }
 ```
@@ -103,7 +105,8 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
       dstTokenAddress
       srcTokenSymbol
       dstTokenSymbol
-      dollarValue
+      dollarValueIn
+      dollarValueOut
   }
 }
 ```
@@ -129,7 +132,8 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
       dstTokenAddress
       srcTokenSymbol
       dstTokenSymbol
-      dollarValue
+      dollarValueIn
+      dollarValueOut
   }
 }
 ```
@@ -155,7 +159,8 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
       dstTokenAddress
       srcTokenSymbol
       dstTokenSymbol
-      dollarValue
+      dollarValueIn
+      dollarValueOut
   }
 }
 ```

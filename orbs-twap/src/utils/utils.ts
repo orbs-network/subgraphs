@@ -114,13 +114,13 @@ function getV2Price(poolAddress: string): BigDecimal {
     return (reserves.value0.toBigDecimal()/BigDecimal.fromString(token0Decimals.toString())) / (reserves.value1.toBigDecimal()/BigDecimal.fromString(token1Decimals.toString()))
 }
 
-export function fetchUSDValue(assetName: string, assetAddress: string): BigDecimal | null {
+export function fetchUSDValue(assetName: string, assetAddress: string): BigDecimal {
     if (assetName == "QUICK") return getV2Price(QUICK_USDC_POOL)/BigDecimal.fromString(QUICK_DECIMALS); // only for matic
     if (assetName == "THE") return getV2Price(THE_BUSD_POOL)/BigDecimal.fromString(THE_DECIMALS); // only for bsc
     if (assetName == "BOO") { // only for ftm
         const booWftm = getV2Price(BOO_WFTM_POOL);
         const ftmPrice = fetchUSDValue("WFTM", WFTM_ADDRESS);
-        return booWftm * ftmPrice!;
+        return booWftm * ftmPrice;
     }
     const oracle = getOracleAddress(assetName);
     if (oracle && oracle != '') {
@@ -129,24 +129,6 @@ export function fetchUSDValue(assetName: string, assetAddress: string): BigDecim
         if (oracleAddress) {
             const oracleContract = chainlinkOracle.bind(oracleAddress);
             return oracleContract.latestAnswer().divDecimal(generateDivFactor(assetDecimals)).div(FACTOR_1E8); // divide by decimals and by 1e8
-        }
-    }
-    return null;
-}
-
-export function fetchTokenUsdValue(order: OrderFilled): BigDecimal {
-    let baseAssetsUsd: BigDecimal | null;
-
-    if (order.srcAmountIn) {
-        baseAssetsUsd = fetchUSDValue(order.srcTokenSymbol!, order.srcTokenAddress!)
-        if (baseAssetsUsd) {
-            return baseAssetsUsd * BigDecimal.fromString(order.srcAmountIn)
-        }
-    }
-    if (order.dstTokenSymbol && order.dstAmountOut) {
-        baseAssetsUsd = fetchUSDValue(order.dstTokenSymbol!, order.dstTokenAddress!);
-        if (baseAssetsUsd) {
-            return baseAssetsUsd * BigDecimal.fromString(order.dstAmountOut)
         }
     }
     return BigDecimal.fromString("0");

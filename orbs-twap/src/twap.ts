@@ -1,5 +1,5 @@
-import {Address} from '@graphprotocol/graph-ts'
-import {fetchTokenSymbol, fetchTokenUsdValue, formatTimestamp,} from "./utils/utils"
+import {Address, BigDecimal} from '@graphprotocol/graph-ts'
+import {fetchTokenSymbol, fetchUSDValue, formatTimestamp,} from "./utils/utils"
 import {TWAP_ADDRESS, FILLED_TOTAL_ID, getDexByRouter} from "./utils/constants";
 import {OrderFilled as OrderFilledEvent, TWAP} from "../generated/TWAP/TWAP"
 import {OrderFilled, FilledDaily, FilledTotal} from "../generated/schema"
@@ -34,7 +34,12 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
   entity.srcTokenSymbol = fetchTokenSymbol(srcTokenAddress)
   entity.dstTokenSymbol = fetchTokenSymbol(dstTokenAddress)
 
-  entity.dollarValue = fetchTokenUsdValue(entity);
+  entity.dollarValueIn = fetchUSDValue(entity.srcTokenSymbol!, entity.srcTokenAddress!) * BigDecimal.fromString(event.params.srcAmountIn.toString())
+  entity.dollarValueOut = fetchUSDValue(entity.dstTokenSymbol!, entity.dstTokenAddress!) * BigDecimal.fromString(event.params.dstAmountOut.toString())
+  let dollarValue: BigDecimal = entity.dollarValueIn;
+  if (entity.dollarValueOut != BigDecimal.zero()) {
+    dollarValue = entity.dollarValueOut
+  }
 
   entity.save()
 
@@ -44,11 +49,11 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
   if (daily == null) {
     daily = new FilledDaily(day)
     daily.date = day
-    daily.dailyTotalCalculatedValue = entity.dollarValue
+    daily.dailyTotalCalculatedValue = dollarValue
     daily.dailyCount = 1
   }
   else {
-    daily.dailyTotalCalculatedValue = daily.dailyTotalCalculatedValue + entity.dollarValue
+    daily.dailyTotalCalculatedValue = daily.dailyTotalCalculatedValue + dollarValue
     daily.dailyCount += 1
   }
   daily.save()
@@ -57,11 +62,11 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
   let total = FilledTotal.load(FILLED_TOTAL_ID)
   if (total == null) {
     total = new FilledTotal(FILLED_TOTAL_ID)
-    total.cumulativeTotalCalculatedValue = entity.dollarValue
+    total.cumulativeTotalCalculatedValue = dollarValue
     total.totalCount = 1
   }
   else {
-    total.cumulativeTotalCalculatedValue = total.cumulativeTotalCalculatedValue + entity.dollarValue
+    total.cumulativeTotalCalculatedValue = total.cumulativeTotalCalculatedValue + dollarValue
     total.totalCount += 1
   }
   total.save()
