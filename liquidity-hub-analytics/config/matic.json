@@ -10,9 +10,11 @@
   "executeSignatureV1": "((bytes,bytes),(address,address,uint256,address,bytes)[])",
   "executeSignatureV2": "((bytes,bytes)[],(address,bytes)[])",
   "treasuryAddress": "0x7ae466596c57241459ebae32d2e64f51da68f3b8",
-  "quickUsdtPool": "0x747375305b825c49fb97ee0ac09d19ec9ef94bd2",
+  "quickAddress": "0xb5c064f955d8e7f38fe0460c556a72987494ee17",
+  "quickUsdcPool": "0x747375305b825c49fb97ee0ac09d19ec9ef94bd2",
   "quickDecimals": "1e18",
   "feesAddress": "0xbd098db9ad3dbaf2bdaf581340b2662d9a3ca8d2",
+
   "usdt": "0x0A6513e40db6EB1b165753AD52E80663aeA50545",
   "usdc": "0xfE4A8cc5b5B2366C1B58Bea3858e81843581b2F7",
   "tusd": "0x7C5D415B64312D38c56B54358449d0a4058339d2",

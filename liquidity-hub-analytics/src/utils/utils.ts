@@ -21,7 +21,9 @@ import {
     TUPLE_PREFIX,
     BOO_WFTM_POOL,
     WFTM_ADDRESS,
-    BOO_DECIMALS
+    QUICK_ADDRESS,
+    BOO_ADDRESS,
+    THE_ADDRESS
 } from "./constants";
 import {Swap} from "../../generated/schema";
 
@@ -102,15 +104,6 @@ function generateDivFactor(input: string): BigDecimal {
     return BigDecimal.fromString("1" + "0".repeat(num));
 }
 
-export function addTrailingZeroes(input: string): BigDecimal {
-    let num: i32 = <i32>parseInt(input, 10);
-    let result: string = "1";
-    for (let i: i32 = 0; i < num; i++) {
-        result += "0";
-    }
-    return BigDecimal.fromString(result);
-}
-
 function getV2Price(poolAddress: string): BigDecimal {
     const contract = UniswapV2Pair.bind(Address.fromString(poolAddress));
     const token0 = contract.token0()
@@ -118,13 +111,13 @@ function getV2Price(poolAddress: string): BigDecimal {
     const token1 = contract.token1()
     const token1Decimals = fetchTokenDecimals(token1)
     const reserves = contract.getReserves()
-    return (reserves.value0.toBigDecimal()/BigDecimal.fromString(token0Decimals.toString())) / (reserves.value1.toBigDecimal()/BigDecimal.fromString(token1Decimals.toString()))
+    return (reserves.value0.toBigDecimal()/generateDivFactor(token0Decimals.toString())) / (reserves.value1.toBigDecimal()/generateDivFactor(token1Decimals.toString()))
 }
 
 export function fetchUSDValue(assetName: string, assetAddress: string): BigDecimal | null {
-    if (assetName == "QUICK") return getV2Price(QUICK_USDC_POOL)/BigDecimal.fromString(QUICK_DECIMALS); // only for matic
-    if (assetName == "THE") return getV2Price(THE_BUSD_POOL)/BigDecimal.fromString(THE_DECIMALS); // only for bsc
-    if (assetName == "BOO") { // only for ftm
+    if (assetName == "QUICK" && assetAddress == QUICK_ADDRESS) return getV2Price(QUICK_USDC_POOL)/BigDecimal.fromString(QUICK_DECIMALS); // only for matic
+    if (assetName == "THE" && assetAddress == THE_ADDRESS) return getV2Price(THE_BUSD_POOL)/BigDecimal.fromString(THE_DECIMALS); // only for bsc
+    if (assetName == "BOO" && assetAddress == BOO_ADDRESS) { // only for ftm
         const booWftm = getV2Price(BOO_WFTM_POOL);
         const ftmPrice = fetchUSDValue("WFTM", WFTM_ADDRESS);
         return booWftm * ftmPrice!;

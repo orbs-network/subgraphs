@@ -18,12 +18,15 @@ export const EXECUTOR_ADDRESS_V4 = '{{executorAddressV4}}'.toLowerCase()
 export const TREASURY_ADDRESS = '{{treasuryAddress}}'.toLowerCase()
 export const FEES_ADDRESS = '{{feesAddress}}'.toLowerCase()
 
-export const QUICK_USDC_POOL = '{{quickUsdtPool}}'.toLowerCase()
+export const QUICK_ADDRESS = '{{quickAddress}}'.toLowerCase()
+export const QUICK_USDC_POOL = '{{quickUsdcPool}}'.toLowerCase()
 export const QUICK_DECIMALS = '{{quickDecimals}}'
 
+export const THE_ADDRESS = '{{theAddress}}'.toLowerCase()
 export const THE_BUSD_POOL = '{{theBusdPool}}'.toLowerCase()
 export const THE_DECIMALS = '{{theDecimals}}'
 
+export const BOO_ADDRESS = '{{booAddress}}'.toLowerCase()
 export const BOO_WFTM_POOL = '{{booWftmPool}}'.toLowerCase()
 export const BOO_DECIMALS = '{{booDecimals}}'
 export const WFTM_ADDRESS = '{{wftmAddress}}'

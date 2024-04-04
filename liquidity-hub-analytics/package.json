@@ -4,18 +4,14 @@
   "scripts": {
     "codegen": "graph codegen",
     "build": "graph build",
-    "deploy": "graph deploy --node https://api.studio.thegraph.com/deploy/ liquidy-hub-analytics",
-    "create-local": "graph create --node http://localhost:8020/ liquidy-hub-analytics",
-    "remove-local": "graph remove --node http://localhost:8020/ liquidy-hub-analytics",
-    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 liquidy-hub-analytics",
     "prepare-matic": "mustache config/matic.json subgraph.template.yaml > subgraph.yaml && mustache config/matic.json src/utils/constants.template.ts > src/utils/constants.ts",
     "prepare-bsc": "mustache config/bsc.json subgraph.template.yaml > subgraph.yaml && mustache config/bsc.json src/utils/constants.template.ts > src/utils/constants.ts",
-    "deploy-matic": "npm run prepare-matic && graph deploy --studio liquidyhub-analytics---polygon",
-    "deploy-bsc": "npm run prepare-bsc && graph deploy --studio liquidyhub-analytics---bsc",
+    "deploy-matic": "npm run codegen && npm run prepare-matic && graph deploy --studio liquidyhub-analytics---polygon",
+    "deploy-bsc": "npm run codegen && npm run prepare-bsc && graph deploy --studio liquidyhub-analytics---bsc",
     "prepare-base": "mustache config/base.json subgraph.template.yaml > subgraph.yaml && mustache config/base.json src/utils/constants.template.ts > src/utils/constants.ts",
-    "deploy-base": "npm run prepare-base && graph deploy --studio liquidyhub-analytics---base",
+    "deploy-base": "npm run codegen && npm run prepare-base && graph deploy --studio liquidyhub-analytics---base",
     "prepare-fantom": "mustache config/fantom.json subgraph.template.yaml > subgraph.yaml && mustache config/fantom.json src/utils/constants.template.ts > src/utils/constants.ts",
-    "deploy-fantom": "npm run prepare-fantom && graph deploy --studio liquidyhub-analytics---fantom"
+    "deploy-fantom": "npm run codegen && npm run prepare-fantom && graph deploy --studio liquidyhub-analytics---fantom"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.67.3",

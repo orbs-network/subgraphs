@@ -5,9 +5,11 @@
   "nativeAsset": "FTM",
   "executorAddressV4": "0xACb08e5A61D859320eeaaDA38CE7346840F40e60",
   "treasuryAddress": "0x83Ea86A719b19c855A192Fd3340c27e9bFb93547",
+  "booAddress": "0x841fad6eae12c286d1fd18d1d525dffa75c7effe",
   "booWftmPool": "0xEc7178F4C41f346b2721907F5cF7628E388A7a58",
   "booDecimals": "1e18",
   "wftmAddress": "0x21be370d5312f44cb42ce377bc9b8a0cef1a4c83",
+
   "usdt": "0xF64b636c5dFe1d3555A847341cDC449f612307d0",
   "usdc": "0x2553f4eeb82d5A26427b8d1106C51499CBa5D99c",
   "dai": "0x91d5DEFAFfE2854C7D02F50c80FA1fdc8A721e52",

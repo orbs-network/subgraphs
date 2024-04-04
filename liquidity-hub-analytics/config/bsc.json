@@ -5,9 +5,11 @@
   "nativeAsset": "BNB",
   "executorAddressV4": "0x120971cac17b63ffdadf862724925914b025a9e6",
   "treasuryAddress": "0xb1baf397b3946a81c7f5c54807474ecf194dc446",
+  "theAddress": "0xf4c8e32eadec4bfe97e0f595add0f4450a863a11",
   "theBusdPool": "0x34b897289fccb43c048b2cea6405e840a129e021",
   "feesAddress": "0xbe2dae039bb3b92e8f457e69bfd6543604a297f2",
   "theDecimals": "1e18",
+
   "usdt": "0xB97Ad0E74fa7d920791E90258A6E2085088b4320",
   "usdc": "0x51597f405303C4377E36123cBc172b13269EA163",
   "usdd": "0x51c78c299C42b058Bf11d47FbB74aC437C6a0c8C",
