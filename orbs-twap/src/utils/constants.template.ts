@@ -5,20 +5,25 @@ export const FILLED_TOTAL_ID = "TOTAL"
 
 export const TWAP_ADDRESS = '{{twapAddress}}'
 
-export const QUICK_USDC_POOL = '{{quickUsdtPool}}'.toLowerCase()
+export const QUICK_ADDRESS = '{{quickAddress}}'.toLowerCase()
+export const QUICK_USDC_POOL = '{{quickUsdcPool}}'.toLowerCase()
 export const QUICK_DECIMALS = '{{quickDecimals}}'
 
+export const THE_ADDRESS = '{{theAddress}}'.toLowerCase()
 export const THE_BUSD_POOL = '{{theBusdPool}}'.toLowerCase()
 export const THE_DECIMALS = '{{theDecimals}}'
 
+export const BOO_ADDRESS = '{{booAddress}}'.toLowerCase()
 export const BOO_WFTM_POOL = '{{booWftmPool}}'.toLowerCase()
 export const BOO_DECIMALS = '{{booDecimals}}'
 export const WFTM_ADDRESS = '{{wftmAddress}}'
+
 export const NATIVE_ASSET = '{{nativeAsset}}'
 
 export function getDexByRouter(routerAddress: string): string {
     if (routerAddress == "0xd63430c74c8e70d9dbdca04c6a9e6e9e929028da" || routerAddress == "0xc2abc02acd77bb2407efa22348da9afc8b375290") return "Thena"
     if (routerAddress == "0xb2bafe188fad927240038cc4fff2d771d8a58905") return "PancakeSwap"
+    if (routerAddress == "0x26d0ec4be402bce03aaa8aaf0cf67e9428ba54ef") return "QuickSwap"
     return "Unknown"
 }
 

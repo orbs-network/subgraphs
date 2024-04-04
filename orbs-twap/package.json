@@ -5,7 +5,9 @@
     "codegen": "graph codegen",
     "build": "graph build",
     "prepare-bsc": "mustache config/bsc.json subgraph.template.yaml > subgraph.yaml && mustache config/bsc.json src/utils/constants.template.ts > src/utils/constants.ts",
-    "deploy-bsc": "npm run codegen && npm run prepare-bsc && graph deploy --studio orbs-twap---bsc"
+    "deploy-bsc": "npm run codegen && npm run prepare-bsc && graph deploy --studio orbs-twap---bsc",
+    "prepare-matic": "mustache config/matic.json subgraph.template.yaml > subgraph.yaml && mustache config/matic.json src/utils/constants.template.ts > src/utils/constants.ts",
+    "deploy-matic": "npm run codegen && npm run prepare-matic && graph deploy --studio orbs-twap---polygon"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.67.3",

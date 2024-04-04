@@ -36,9 +36,9 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
 
   entity.dollarValueIn = fetchUSDValue(entity.srcTokenSymbol!, entity.srcTokenAddress!) * BigDecimal.fromString(event.params.srcAmountIn.toString())
   entity.dollarValueOut = fetchUSDValue(entity.dstTokenSymbol!, entity.dstTokenAddress!) * BigDecimal.fromString(event.params.dstAmountOut.toString())
-  let dollarValue: BigDecimal = entity.dollarValueIn;
-  if (entity.dollarValueOut != BigDecimal.zero()) {
-    dollarValue = entity.dollarValueOut
+  let dollarValue: BigDecimal = entity.dollarValueOut;
+  if (entity.dollarValueIn != BigDecimal.zero()) {
+    dollarValue = entity.dollarValueIn
   }
 
   entity.save()
