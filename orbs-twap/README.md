@@ -4,6 +4,7 @@ This subgraph, `orbs-twap`, is designed to capture and analyze Fill events happe
 
 Currently supports:
 - [BSC](https://thegraph.com/explorer/subgraphs/4NfXEi8rreQsnAr4aJ45RLCKgnjcWX46Lbt9SadiCcz6)
+- [Polygon](https://thegraph.com/explorer/subgraphs/3PyRPWSvDnMowGbeBy7aNsvUkD5ZuxdXQw2RdJq4NdXi)
 
 ## Schemas
 ### OrderFilled
