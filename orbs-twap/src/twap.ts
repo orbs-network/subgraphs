@@ -1,6 +1,6 @@
 import {Address, BigDecimal} from '@graphprotocol/graph-ts'
 import {fetchTokenSymbol, fetchUSDValue, formatTimestamp,} from "./utils/utils"
-import {TWAP_ADDRESS, FILLED_TOTAL_ID, getDexByRouter} from "./utils/constants";
+import {TWAP_ADDRESS, getDexByRouter} from "./utils/constants";
 import {OrderFilled as OrderFilledEvent, TWAP} from "../generated/TWAP/TWAP"
 import {OrderFilled, FilledDaily, FilledTotal} from "../generated/schema"
 
@@ -45,12 +45,14 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
 
   // // store daily volume
   const day = entity.timestamp.slice(0, 10)
-  let daily = FilledDaily.load(day)
+  const key = `${entity.dex}_${day}`
+  let daily = FilledDaily.load(key)
   if (daily == null) {
-    daily = new FilledDaily(day)
+    daily = new FilledDaily(key)
     daily.date = day
     daily.dailyTotalCalculatedValue = dollarValue
     daily.dailyCount = 1
+    daily.dex = entity.dex
   }
   else {
     daily.dailyTotalCalculatedValue = daily.dailyTotalCalculatedValue + dollarValue
@@ -59,9 +61,9 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
   daily.save()
 
   // store cumulative volume
-  let total = FilledTotal.load(FILLED_TOTAL_ID)
+  let total = FilledTotal.load(entity.dex)
   if (total == null) {
-    total = new FilledTotal(FILLED_TOTAL_ID)
+    total = new FilledTotal(entity.dex)
     total.cumulativeTotalCalculatedValue = dollarValue
     total.totalCount = 1
   }

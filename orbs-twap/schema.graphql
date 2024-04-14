@@ -26,6 +26,7 @@ type FilledDaily @entity {
     date: String!
     dailyTotalCalculatedValue: BigDecimal!
     dailyCount: Int
+    dex: String!
 }
 
 type FilledTotal @entity {

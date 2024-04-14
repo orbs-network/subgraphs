@@ -165,11 +165,12 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
   }
 }
 ```
-#### Get volume by day
+#### Get volume by day for Thena
 ```graphql
 {
-  filledDailies {
+  filledDailies(where:{dex: "Thena"}) {
     id
+    dailyCount
     dailyTotalCalculatedValue
   }
 }
