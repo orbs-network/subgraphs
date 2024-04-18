@@ -1,8 +1,8 @@
 import {Address, BigDecimal} from '@graphprotocol/graph-ts'
 import {fetchTokenSymbol, fetchUSDValue, formatTimestamp,} from "./utils/utils"
-import {TWAP_ADDRESS, getDexByRouter} from "./utils/constants";
+import {TWAP_ADDRESS, getDexByRouter, UNIQUE_USERS_TODAY_ID} from "./utils/constants";
 import {OrderFilled as OrderFilledEvent, TWAP} from "../generated/TWAP/TWAP"
-import {OrderFilled, FilledDaily, FilledTotal} from "../generated/schema"
+import {OrderFilled, FilledDaily, FilledTotal, DailyActiveUsers, UniqueUsersToday} from "../generated/schema"
 
 export function handleOrderFilled(event: OrderFilledEvent): void {
   let entity = new OrderFilled(
@@ -43,7 +43,7 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
 
   entity.save()
 
-  // // store daily volume
+ // store daily volume
   const day = entity.timestamp.slice(0, 10)
   const key = `${entity.dex}_${day}`
   let daily = FilledDaily.load(key)
@@ -72,4 +72,26 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
     total.totalCount += 1
   }
   total.save()
+
+  // handle DAU - each day we build a new list of unique users and count them
+  const userAddress = entity.userAddress.toHexString()
+  let usersToday = UniqueUsersToday.load(UNIQUE_USERS_TODAY_ID)
+  if (usersToday == null) {
+    usersToday = new UniqueUsersToday(UNIQUE_USERS_TODAY_ID)
+  }
+
+  let dau = DailyActiveUsers.load(day)
+  if (dau == null) { // a new day - override usersToday
+    dau = new DailyActiveUsers(day)
+    dau.count = 1
+    usersToday.userAddresses = [userAddress]
+  }
+  else {
+    if (!usersToday.userAddresses.includes(userAddress)) {
+      usersToday.userAddresses.push(userAddress)
+      dau.count += 1
+    }
+  }
+  usersToday.save()
+  dau.save()
 }

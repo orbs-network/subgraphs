@@ -1,0 +1,38 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Contract
+    network: bsc
+    source:
+      address: "0x25a0A78f5ad07b2474D3D42F1c1432178465936d"
+      abi: Contract
+      startBlock: 28814551
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - OrderBid
+        - OrderCanceled
+        - OrderCompleted
+        - OrderCreated
+        - OrderFilled
+      abis:
+        - name: Contract
+          file: ./abis/Contract.json
+      eventHandlers:
+        - event: OrderBid(indexed uint64,indexed address,indexed address,uint32,(uint32,address,address,uint256,uint256,bytes))
+          handler: handleOrderBid
+        - event: OrderCanceled(indexed uint64,indexed address,address)
+          handler: handleOrderCanceled
+        - event: OrderCompleted(indexed uint64,indexed address,indexed address,address)
+          handler: handleOrderCompleted
+        - event: OrderCreated(indexed uint64,indexed address,indexed address,(address,address,address,uint256,uint256,uint256,uint32,uint32,uint32,bytes))
+          handler: handleOrderCreated
+        - event: OrderFilled(indexed uint64,indexed address,indexed address,address,uint256,uint256,uint256,uint256)
+          handler: handleOrderFilled
+      file: ./src/contract.ts

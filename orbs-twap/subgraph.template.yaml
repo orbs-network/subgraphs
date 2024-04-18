@@ -28,6 +28,8 @@ dataSources:
           file: ./abis/oracle.json
         - name: UniswapV2Pair
           file: ./abis/UniswapV2Pair.json
+        - name: PancakePair
+          file: ./abis/PancakePair.json
       eventHandlers:
         - event: OrderFilled(indexed uint64,indexed address,indexed address,address,uint256,uint256,uint256,uint256)
           handler: handleOrderFilled

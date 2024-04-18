@@ -3,6 +3,7 @@ import {ERC20Contract} from "../../generated/TWAP/ERC20Contract";
 import {ERC20SymbolBytes} from "../../generated/TWAP/ERC20SymbolBytes";
 import {chainlinkOracle} from "../../generated/TWAP/chainlinkOracle";
 import {UniswapV2Pair} from "../../generated/TWAP/UniswapV2Pair";
+import {PancakePair} from "../../generated/TWAP/PancakePair";
 import {
     BOO_WFTM_POOL,
     FACTOR_1E8,
@@ -15,6 +16,7 @@ import {
     QUICK_ADDRESS,
     BOO_ADDRESS,
     THE_ADDRESS,
+    BSWAP_ADDRESS, BSWAP_USDC_POOL, BSWAP_DECIMALS
 } from "./constants";
 
 export function bytesToBigInt(b: Bytes): BigInt | null {
@@ -98,18 +100,45 @@ function generateDivFactor(input: string): BigDecimal {
 }
 
 function getV2Price(poolAddress: string): BigDecimal {
-    const contract = UniswapV2Pair.bind(Address.fromString(poolAddress));
-    const token0 = contract.token0()
+    let token0: Address;
+    let token1: Address;
+    let reserves0: BigDecimal;
+    let reserves1: BigDecimal;
+
+    log.info('poolAddress: {}', [poolAddress])
+
+    const uniContract = UniswapV2Pair.bind(Address.fromString(poolAddress))
+    const tryToken0 = uniContract.try_token0()
+    if (tryToken0.reverted) {
+        log.info('{}', ['reverted'])
+        const pancakeContract = PancakePair.bind(Address.fromString(poolAddress))
+        token0 = pancakeContract.token0()
+        log.info('{}', ['token0'])
+        token1 = pancakeContract.token1()
+        log.info('{}', ['token1'])
+        const reserves = pancakeContract.getReserves()
+        reserves0 = reserves.value0.toBigDecimal()
+        reserves1 = reserves.value1.toBigDecimal()
+    }
+    else {
+        log.info('{}', ['else'])
+        token0 = tryToken0.value
+        log.info('{}', ['else token0'])
+        token1 = uniContract.token1()
+        log.info('{}', ['else token0'])
+        const reserves = uniContract.getReserves()
+        reserves0 = reserves.value0.toBigDecimal()
+        reserves1 = reserves.value1.toBigDecimal()
+    }
     const token0Decimals = fetchTokenDecimals(token0)
-    const token1 = contract.token1()
     const token1Decimals = fetchTokenDecimals(token1)
-    const reserves = contract.getReserves()
-    return (reserves.value0.toBigDecimal()/generateDivFactor(token0Decimals.toString())) / (reserves.value1.toBigDecimal()/generateDivFactor(token1Decimals.toString()))
+    return (reserves0/generateDivFactor(token0Decimals.toString())) / (reserves1/generateDivFactor(token1Decimals.toString()))
 }
 
 export function fetchUSDValue(assetName: string, assetAddress: string): BigDecimal {
     if (assetName == "QUICK" && assetAddress == QUICK_ADDRESS) return getV2Price(QUICK_USDC_POOL)/BigDecimal.fromString(QUICK_DECIMALS); // only for matic
     if (assetName == "THE" && assetAddress == THE_ADDRESS) return getV2Price(THE_BUSD_POOL)/BigDecimal.fromString(THE_DECIMALS); // only for bsc
+    if (assetName == "BSWAP" && assetAddress == BSWAP_ADDRESS) return BigDecimal.fromString(BSWAP_DECIMALS)/getV2Price(BSWAP_USDC_POOL); // only for base
     if (assetName == "BOO" && assetAddress == BOO_ADDRESS) { // only for ftm
         const booWftm = getV2Price(BOO_WFTM_POOL);
         const ftmPrice = fetchUSDValue("WFTM", WFTM_ADDRESS);

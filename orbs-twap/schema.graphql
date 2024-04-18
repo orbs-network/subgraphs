@@ -34,3 +34,13 @@ type FilledTotal @entity {
     cumulativeTotalCalculatedValue: BigDecimal!
     totalCount: Int
 }
+
+type DailyActiveUsers @entity {
+    id: String!
+    count: Int!
+}
+
+type UniqueUsersToday @entity {
+    id: String!
+    userAddresses: [String!]!
+}
