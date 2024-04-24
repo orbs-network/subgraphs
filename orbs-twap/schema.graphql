@@ -37,10 +37,45 @@ type FilledTotal @entity {
 
 type DailyActiveUsers @entity {
     id: String!
+    userAddresses: [String!]!
     count: Int!
 }
 
-type UniqueUsersToday @entity {
+type OrderCreated @entity(immutable: true) {
+    id: Bytes!
+    Contract_id: BigInt! # uint64
+    maker: Bytes! # address
+    exchange: Bytes! # address
+    ask_exchange: Bytes! # address
+    ask_srcToken: Bytes! # address
+    ask_dstToken: Bytes! # address
+    ask_srcAmount: BigInt! # uint256
+    ask_srcBidAmount: BigInt! # uint256
+    ask_dstMinAmount: BigInt! # uint256
+    ask_deadline: BigInt! # uint32
+    ask_bidDelay: BigInt! # uint32
+    ask_fillDelay: BigInt! # uint32
+    ask_data: Bytes! # bytes
+    blockNumber: BigInt!
+    blockTimestamp: BigInt!
+    transactionHash: Bytes!
+    srcTokenSymbol: String
+    dstTokenSymbol: String
+    dollarValueIn: BigDecimal!
+    timestamp: String!
+    dex: String!
+}
+
+type CreatedDaily @entity {
     id: String!
-    userAddresses: [String!]!
+    date: String!
+#    dailyTotalCalculatedValue: BigDecimal
+    dailyCount: Int
+    dex: String!
+}
+
+type CreatedTotal @entity {
+    id: String!
+#    cumulativeTotalCalculatedValue: BigDecimal
+    totalCount: Int
 }

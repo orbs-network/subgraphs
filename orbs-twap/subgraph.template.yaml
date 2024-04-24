@@ -33,4 +33,6 @@ dataSources:
       eventHandlers:
         - event: OrderFilled(indexed uint64,indexed address,indexed address,address,uint256,uint256,uint256,uint256)
           handler: handleOrderFilled
+        - event: OrderCreated(indexed uint64,indexed address,indexed address,(address,address,address,uint256,uint256,uint256,uint32,uint32,uint32,bytes))
+          handler: handleOrderCreated
       file: ./src/twap.ts
