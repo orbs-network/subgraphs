@@ -5,6 +5,8 @@ This subgraph, `orbs-twap`, is designed to capture and analyze Fill events happe
 Currently supports:
 - [BSC](https://thegraph.com/explorer/subgraphs/4NfXEi8rreQsnAr4aJ45RLCKgnjcWX46Lbt9SadiCcz6)
 - [Polygon](https://thegraph.com/explorer/subgraphs/3PyRPWSvDnMowGbeBy7aNsvUkD5ZuxdXQw2RdJq4NdXi)
+- [Base](https://thegraph.com/explorer/subgraphs/DFhaPQb3HATXkpsWNZw3gydYHehLBVEDiSk4iBdZJyps)
+- [Arbitrum](https://thegraph.com/explorer/subgraphs/83bpQexEaqBjHaQbKoFTbtvCXuo5RudRkfLgtRUYqo2c)
 
 ## Schemas
 ### OrderFilled
@@ -83,7 +85,9 @@ Accumulated trading volume
 ## Building and deploying
 1. Create a new subgraph via the studio web UI.
 2. Authenticate in CLI: `graph auth --studio <key>`
-3. Create/edit the relevant json in the config dir and add the relevant scripts in package.json.
+3. Create/edit the relevant json in the config dir 
+4. For new DEXes - add the exchange address to `getDexByRouter` and the DEX token to `fetchUSDValue`.
+5. add the relevant scripts in package.json.
 #### `npm run prepare-<network>`
 Generates subgraph.yaml and constants.ts for a particular network.
 Currently supported networks are matic and bsc.

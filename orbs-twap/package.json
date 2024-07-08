@@ -9,7 +9,9 @@
     "prepare-matic": "mustache config/matic.json subgraph.template.yaml > subgraph.yaml && mustache config/matic.json src/utils/constants.template.ts > src/utils/constants.ts",
     "deploy-matic": "npm run codegen && npm run prepare-matic && graph deploy --studio orbs-twap---polygon",
     "prepare-base": "mustache config/base.json subgraph.template.yaml > subgraph.yaml && mustache config/base.json src/utils/constants.template.ts > src/utils/constants.ts",
-    "deploy-base": "npm run codegen && npm run prepare-base && graph deploy --studio orbs-twap---base"
+    "deploy-base": "npm run codegen && npm run prepare-base && graph deploy --studio orbs-twap---base",
+    "prepare-arb": "mustache config/arb.json subgraph.template.yaml > subgraph.yaml && mustache config/arb.json src/utils/constants.template.ts > src/utils/constants.ts",
+    "deploy-arb": "npm run codegen && npm run prepare-arb && graph deploy --studio orbs-twap---arbitrum"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.67.3",

@@ -16,7 +16,7 @@ import {
     QUICK_ADDRESS,
     BOO_ADDRESS,
     THE_ADDRESS,
-    BSWAP_ADDRESS, BSWAP_USDC_POOL, BSWAP_DECIMALS
+    BSWAP_ADDRESS, CHR_ADDRESS, CHR_USDC_POOL, CHR_DECIMALS, ARX_ADDRESS, ARX_WETH_POOL, BSWAP_WETH_POOL, BASE_WETH_ADDRESS, ARB_WETH_ADDRESS
 } from "./constants";
 
 export function bytesToBigInt(b: Bytes): BigInt | null {
@@ -125,7 +125,7 @@ function getV2Price(poolAddress: string): BigDecimal {
         token0 = tryToken0.value
         log.info('{}', ['else token0'])
         token1 = uniContract.token1()
-        log.info('{}', ['else token0'])
+        log.info('{}', ['else token1'])
         const reserves = uniContract.getReserves()
         reserves0 = reserves.value0.toBigDecimal()
         reserves1 = reserves.value1.toBigDecimal()
@@ -138,7 +138,17 @@ function getV2Price(poolAddress: string): BigDecimal {
 export function fetchUSDValue(assetName: string, assetAddress: string): BigDecimal {
     if (assetName == "QUICK" && assetAddress == QUICK_ADDRESS) return getV2Price(QUICK_USDC_POOL)/BigDecimal.fromString(QUICK_DECIMALS); // only for matic
     if (assetName == "THE" && assetAddress == THE_ADDRESS) return getV2Price(THE_BUSD_POOL)/BigDecimal.fromString(THE_DECIMALS); // only for bsc
-    if (assetName == "BSWAP" && assetAddress == BSWAP_ADDRESS) return BigDecimal.fromString(BSWAP_DECIMALS)/getV2Price(BSWAP_USDC_POOL); // only for base
+    if (assetName == "CHR" && assetAddress == CHR_ADDRESS) return BigDecimal.fromString(CHR_DECIMALS)/getV2Price(CHR_USDC_POOL); // only for arbitrum
+    if (assetName == "ARX" && assetAddress == ARX_ADDRESS) { // only for arbitrum
+        const arxWeth = getV2Price(ARX_WETH_POOL)
+        const wethPrice = fetchUSDValue("WETH", ARB_WETH_ADDRESS);
+        return arxWeth * wethPrice
+    }
+    if (assetName == "BSWAP" && assetAddress == BSWAP_ADDRESS) { // only for base
+        const bswapWeth = getV2Price(BSWAP_WETH_POOL)
+        const wethPrice = fetchUSDValue("WETH", BASE_WETH_ADDRESS);
+        return bswapWeth * wethPrice
+    }
     if (assetName == "BOO" && assetAddress == BOO_ADDRESS) { // only for ftm
         const booWftm = getV2Price(BOO_WFTM_POOL);
         const ftmPrice = fetchUSDValue("WFTM", WFTM_ADDRESS);

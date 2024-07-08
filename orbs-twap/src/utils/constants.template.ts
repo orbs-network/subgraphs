@@ -14,27 +14,41 @@ export const THE_BUSD_POOL = '{{theBusdPool}}'.toLowerCase()
 export const THE_DECIMALS = '{{theDecimals}}'
 
 export const BSWAP_ADDRESS = '{{bswapAddress}}'.toLowerCase()
-export const BSWAP_USDC_POOL = '{{bswapUsdcPool}}'.toLowerCase()
+export const BSWAP_WETH_POOL = '{{bswapWethPool}}'.toLowerCase()
 export const BSWAP_DECIMALS = '{{bswapDecimals}}'
+export const BASE_WETH_ADDRESS = '{{baseWethAddress}}'.toLowerCase()
 
 export const BOO_ADDRESS = '{{booAddress}}'.toLowerCase()
 export const BOO_WFTM_POOL = '{{booWftmPool}}'.toLowerCase()
 export const BOO_DECIMALS = '{{booDecimals}}'
 export const WFTM_ADDRESS = '{{wftmAddress}}'
 
+export const CHR_ADDRESS = '{{chrAddress}}'.toLowerCase()
+export const CHR_USDC_POOL = '{{chrUsdcPool}}'.toLowerCase()
+export const CHR_DECIMALS = '{{chrDecimals}}'
+
+export const ARX_ADDRESS = '{{arxAddress}}'.toLowerCase()
+export const ARX_WETH_POOL = '{{arxWethPool}}'.toLowerCase()
+export const ARX_DECIMALS = '{{arxDecimals}}'
+export const ARB_WETH_ADDRESS = '{{arbWethAddress}}'.toLowerCase()
+
+
 export const NATIVE_ASSET = '{{nativeAsset}}'
 
-export function getDexByRouter(routerAddress: string): string {
+export function getDexByRouter(routerAddress: string): string { // use only lower case
     if (routerAddress == "0xd63430c74c8e70d9dbdca04c6a9e6e9e929028da" || routerAddress == "0xc2abc02acd77bb2407efa22348da9afc8b375290") return "Thena"
     if (routerAddress == "0xb2bafe188fad927240038cc4fff2d771d8a58905") return "PancakeSwap"
     if (routerAddress == "0x26d0ec4be402bce03aaa8aaf0cf67e9428ba54ef") return "QuickSwap"
     if (routerAddress == "0xefe1b6096838949156e5130604434a2a13c68c68") return "BaseSwap"
+    if (routerAddress == "0x10695e3c265639e46d45c7bb427a4a4fd449af1e") return "SushiSwap"
+    if (routerAddress == "0x8ffde23fba2d7aea9c3cbf2d5b7b533bb46754a8") return "Arbidex"
+    if (routerAddress == "0xceff098c9199c5d9cf24078dc14eb8f787631cc0") return "Chronos"
     return "Unknown"
 }
 
 export function getOracleAddress(asset: string): string | null {
-    if (asset == "USDT" || asset == "USDV" || asset == "lisUSD") return '{{usdt}}'
-    if (asset == "USDC" || asset == "axlUSDC" || asset === "multiUSDC") return '{{usdc}}'
+    if (asset == "USDT" || asset == "USDV" || asset == "lisUSD" || asset == "USD+") return '{{usdt}}'
+    if (asset == "USDC" || asset == "axlUSDC" || asset == "multiUSDC" || asset == "USDbC") return '{{usdc}}'
     if (asset == "TUSD") return '{{tusd}}'
     if (asset == "DAI" || asset == "BUSD") return '{{dai}}'
     if (asset == "USDD") return '{{usdd}}'

@@ -102,6 +102,11 @@ export function handleOrderCreated(event: OrderCreatedEvent): void {
   entity.dstTokenSymbol = fetchTokenSymbol(Address.fromBytes(entity.ask_dstToken))
   entity.dex = getDexByRouter(entity.exchange.toHexString())
 
+  // log.info('ask_srcToken: {}', [entity.ask_srcToken.toHexString()])
+  // log.info('ask_dstToken: {}', [entity.ask_dstToken.toHexString()])
+  // log.info('srcTokenSymbol/assetName: {}', [entity.srcTokenSymbol!])
+  // log.info('dstTokenSymbol: {}', [entity.dstTokenSymbol!])
+
   entity.dollarValueIn = fetchUSDValue(entity.srcTokenSymbol!, entity.ask_srcToken.toHexString()) * BigDecimal.fromString(entity.ask_srcAmount.toString())
 
   entity.save()
