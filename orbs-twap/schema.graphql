@@ -79,3 +79,8 @@ type CreatedTotal @entity {
 #    cumulativeTotalCalculatedValue: BigDecimal
     totalCount: Int
 }
+
+type Status @entity {
+    id: String!
+    status: String
+}

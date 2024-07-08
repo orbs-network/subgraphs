@@ -1,8 +1,8 @@
 import {Address, BigDecimal, log} from '@graphprotocol/graph-ts'
 import {fetchTokenSymbol, fetchUSDValue, formatTimestamp,} from "./utils/utils"
 import {TWAP_ADDRESS, getDexByRouter} from "./utils/constants";
-import {OrderFilled as OrderFilledEvent, OrderCreated as OrderCreatedEvent, TWAP} from "../generated/TWAP/TWAP"
-import {OrderFilled, FilledDaily, FilledTotal, DailyActiveUsers, OrderCreated, CreatedDaily, CreatedTotal} from "../generated/schema"
+import {OrderFilled as OrderFilledEvent, OrderCreated as OrderCreatedEvent, OrderCompleted as OrderCompletedEvent, OrderCanceled as OrderCanceledEvent, TWAP} from "../generated/TWAP/TWAP"
+import {OrderFilled, FilledDaily, FilledTotal, DailyActiveUsers, OrderCreated, CreatedDaily, CreatedTotal, Status} from "../generated/schema"
 
 export function handleOrderFilled(event: OrderFilledEvent): void {
   let entity = new OrderFilled(
@@ -111,6 +111,9 @@ export function handleOrderCreated(event: OrderCreatedEvent): void {
 
   entity.save()
 
+  let statusEntity = new Status(event.params.id.toString())
+  statusEntity.save()
+
   const day = entity.timestamp.slice(0, 10)
   const key = `${entity.dex}_${day}`
 
@@ -159,4 +162,16 @@ export function handleOrderCreated(event: OrderCreatedEvent): void {
     }
   }
   dau.save()
+}
+
+export function handleOrderCompleted(event: OrderCompletedEvent): void {
+  let entity = Status.load(event.params.id.toString())!
+  entity.status = "COMPLETED"
+  entity.save()
+}
+
+export function handleOrderCanceled(event: OrderCanceledEvent): void {
+  let entity = Status.load(event.params.id.toString())!
+  entity.status = "CANCELED"
+  entity.save()
 }

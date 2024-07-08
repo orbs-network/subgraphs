@@ -35,4 +35,8 @@ dataSources:
           handler: handleOrderFilled
         - event: OrderCreated(indexed uint64,indexed address,indexed address,(address,address,address,uint256,uint256,uint256,uint32,uint32,uint32,bytes))
           handler: handleOrderCreated
+        - event: OrderCanceled(indexed uint64,indexed address,address)
+          handler: handleOrderCanceled
+        - event: OrderCompleted(indexed uint64,indexed address,indexed address,address)
+          handler: handleOrderCompleted
       file: ./src/twap.ts
