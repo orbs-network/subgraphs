@@ -1,0 +1,19 @@
+{
+  "network": "blast-mainnet",
+  "startBlock": "988193",
+  "reactorAddress": "0xe9E78109c89162cEF32Bfe7cBCEe1f31312fc1F6",
+  "nativeAsset": "ETH",
+  "executorAddressV4": "0x2f815a7C8047aa649960eaDB1557249fFc93A0CD",
+  "treasuryAddress": "0xE92329709A7C19e1568294fc3693a064CcaeAc39",
+  "pythOracleAddress":"0xA2aa501b19aff244D90cc15a4Cf739D2725B5729",
+
+  "eth": "0xff61491a931112ddf1bd8147cd1b641375f79f5825126d665480874634fd0ace",
+  "btc": "0xe62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43",
+  "blast": "0x057345a7e9ef0f36dca8ad1c4e5788808b85f3084cc7b0d8cb29ac5012d88f0d",
+  "blur": "0x856aac602516addee497edf6f50d39e8c95ae5fb0da1ed434a8c2ab9c3e877e9",
+  "usdb": "0x41283d3f78ccb459a24e5f1f1b9f5a72a415a26ff9ce0391a6878f4cda6b477b",
+  "usdc": "0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+  "usdt": "0x2b89b9dc8fdf9f34709a5b106b472f0f39bb6ca9ce04b0fd7f2e971688e2e53b",
+  "usde": "0x6ec879b1e9963de5ee97e9c8710b742d6228252a5e2ca12d4ae81d7fe5ee8c5d",
+  "pxeth": "0x834be8951394714988606b3a1ac299c48bd07d68e5abb02766bcf881fdc1e69c"
+}

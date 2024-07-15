@@ -5,8 +5,9 @@ This subgraph, `liquidity-hub-analytics`, is designed to capture and analyze Fil
 Currently supports:
 - [Quickswap](https://quickswap.exchange) on Polygon: [Polygon subgraph](https://thegraph.com/explorer/subgraphs/3PoRophV5nkusfKGkk2D5rL6ibErsTvmUvYsaHNTUsGZ)
 - [Thena](https://thena.fi) on BSC: [BSC subgraph](https://thegraph.com/explorer/subgraphs/A3itXkopA3FG5CGKJrzQZPB2FWsC9BWw3b7GBdK4zGf2)
-- [SpookySwap](https://spooky.fi) on BSC: [FTM subgraph](https://thegraph.com/explorer/subgraphs/4VBQsK9AFVqieegH3Pn6d4mjJDyNKgYbZqnHBMWnc3a7)
+- [SpookySwap](https://spooky.fi) on FTM: [FTM subgraph](https://thegraph.com/explorer/subgraphs/4VBQsK9AFVqieegH3Pn6d4mjJDyNKgYbZqnHBMWnc3a7)
 - [IntentX](https://app.intentx.io/spot-trading) on Base: [Base subgraph](https://thegraph.com/explorer/subgraphs/GyMgk1kzLVDjb9BbswjvdbUbGPbpmbwpDFJG9dRzevQs)
+- [Fenix](https://www.fenixfinance.io/trade/swap) on Blast: [Blast subgraph](https://thegraph.com/explorer/subgraphs/9t4ThzX4V8hZFFkRaeyobkRMS2e6KYHoNuM7qgRdFfRj)
 
 ## Schemas
 ### Fill
