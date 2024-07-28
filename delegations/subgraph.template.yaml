@@ -1,0 +1,50 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Delegations
+    network: {{network}}
+    source:
+      address: "0x513d30e66641cB1f2670b5994DD8E2B61ED3C23c"
+      abi: Delegations
+      startBlock: {{startBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ContractRegistryAddressUpdated
+        - Delegated
+        - DelegatedStakeChanged
+        - DelegationInitialized
+        - DelegationsImported
+        - InitializationComplete
+        - Locked
+        - RegistryManagementTransferred
+        - Unlocked
+      abis:
+        - name: Delegations
+          file: ./abis/Delegations.json
+      eventHandlers:
+        - event: ContractRegistryAddressUpdated(address)
+          handler: handleContractRegistryAddressUpdated
+        - event: Delegated(indexed address,indexed address)
+          handler: handleDelegated
+        - event: DelegatedStakeChanged(indexed address,uint256,uint256,indexed address,uint256)
+          handler: handleDelegatedStakeChanged
+        - event: DelegationInitialized(indexed address,indexed address)
+          handler: handleDelegationInitialized
+#        - event: DelegationsImported(address[],indexed address)
+#          handler: handleDelegationsImported
+        - event: InitializationComplete()
+          handler: handleInitializationComplete
+        - event: Locked()
+          handler: handleLocked
+        - event: RegistryManagementTransferred(indexed address,indexed address)
+          handler: handleRegistryManagementTransferred
+        - event: Unlocked()
+          handler: handleUnlocked
+      file: ./src/delegations.ts

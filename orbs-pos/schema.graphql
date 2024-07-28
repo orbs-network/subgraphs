@@ -36,14 +36,14 @@ type DelegationInitialized @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-#type DelegationsImported @entity(immutable: true) {
-#  id: Bytes!
-#  from: [Bytes!]! # address[]
-#  to: Bytes! # address
-#  blockNumber: BigInt!
-#  blockTimestamp: BigInt!
-#  transactionHash: Bytes!
-#}
+type DelegationsImported @entity(immutable: true) {
+  id: Bytes!
+  from: [Bytes!]! # address[]
+  to: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
 
 type InitializationComplete @entity(immutable: true) {
   id: Bytes!
@@ -76,14 +76,4 @@ type Unlocked @entity(immutable: true) {
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
-}
-
-type GuardianToDelegators @entity {
-  id: String!
-  delegators: [String!]!
-}
-
-type DelegatorToGuardian @entity {
-  id: String!
-  guardian: String!
 }

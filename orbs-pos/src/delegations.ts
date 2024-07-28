@@ -3,6 +3,7 @@ import {
   Delegated as DelegatedEvent,
   DelegatedStakeChanged as DelegatedStakeChangedEvent,
   DelegationInitialized as DelegationInitializedEvent,
+  DelegationsImported as DelegationsImportedEvent,
   InitializationComplete as InitializationCompleteEvent,
   Locked as LockedEvent,
   RegistryManagementTransferred as RegistryManagementTransferredEvent,
@@ -13,12 +14,11 @@ import {
   Delegated,
   DelegatedStakeChanged,
   DelegationInitialized,
+  DelegationsImported,
   InitializationComplete,
   Locked,
   RegistryManagementTransferred,
-  Unlocked,
-  GuardianToDelegators,
-  DelegatorToGuardian
+  Unlocked
 } from "../generated/schema"
 
 export function handleContractRegistryAddressUpdated(
@@ -48,39 +48,6 @@ export function handleDelegated(event: DelegatedEvent): void {
   entity.transactionHash = event.transaction.hash
 
   entity.save()
-
-  const from = event.params.from.toHexString()
-  const to = event.params.to.toHexString()
-
-  let delegator = DelegatorToGuardian.load(from)
-  if (delegator != null) {
-    // Remove delegator from current guardian
-    const currentGuardian = GuardianToDelegators.load(delegator.guardian)!
-    let delegators = currentGuardian.delegators
-    const index = delegators.indexOf(from)
-    if (index != -1) {
-      delegators.splice(index, 1)
-      currentGuardian.delegators = delegators
-      currentGuardian.save()
-    }
-  } else {
-    // Create a new delegator
-    delegator = new DelegatorToGuardian(from)
-  }
-  delegator.guardian = to
-  delegator.save()
-
-  // Update the new guardian
-  let guardian = GuardianToDelegators.load(to)
-  if (guardian == null) {
-    guardian = new GuardianToDelegators(to)
-    guardian.delegators = [from]
-  } else {
-    const delegators = guardian.delegators
-    delegators.push(from)
-    guardian.delegators = delegators
-  }
-  guardian.save()
 }
 
 export function handleDelegatedStakeChanged(
@@ -118,21 +85,21 @@ export function handleDelegationInitialized(
   entity.save()
 }
 
-// export function handleDelegationsImported(
-//   event: DelegationsImportedEvent
-// ): void {
-//   let entity = new DelegationsImported(
-//     event.transaction.hash.concatI32(event.logIndex.toI32())
-//   )
-//   entity.from = event.params.from
-//   entity.to = event.params.to
-//
-//   entity.blockNumber = event.block.number
-//   entity.blockTimestamp = event.block.timestamp
-//   entity.transactionHash = event.transaction.hash
-//
-//   entity.save()
-// }
+export function handleDelegationsImported(
+  event: DelegationsImportedEvent
+): void {
+  let entity = new DelegationsImported(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.from = event.params.from
+  entity.to = event.params.to
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
 
 export function handleInitializationComplete(
   event: InitializationCompleteEvent
