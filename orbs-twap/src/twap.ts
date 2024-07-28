@@ -17,6 +17,8 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
   entity.dstFee = event.params.dstFee
   entity.srcFilledAmount = event.params.srcFilledAmount
 
+  entity.type = entity.srcAmountIn == entity.srcFilledAmount.toString() ? "LIMIT" : "TWAP"
+
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
   entity.transactionHash = event.transaction.hash
@@ -101,6 +103,8 @@ export function handleOrderCreated(event: OrderCreatedEvent): void {
   entity.srcTokenSymbol = fetchTokenSymbol(Address.fromBytes(entity.ask_srcToken))
   entity.dstTokenSymbol = fetchTokenSymbol(Address.fromBytes(entity.ask_dstToken))
   entity.dex = getDexByRouter(entity.exchange.toHexString())
+
+  entity.type = entity.ask_srcAmount == entity.ask_srcBidAmount ? "LIMIT" : "TWAP"
 
   // log.info('ask_srcToken: {}', [entity.ask_srcToken.toHexString()])
   // log.info('ask_dstToken: {}', [entity.ask_dstToken.toHexString()])

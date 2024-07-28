@@ -19,6 +19,7 @@ type OrderFilled @entity(immutable: true) {
     dstTokenSymbol: String
     dollarValueIn: BigDecimal!
     dollarValueOut: BigDecimal!
+    type: String!
 }
 
 type FilledDaily @entity {
@@ -64,6 +65,7 @@ type OrderCreated @entity(immutable: true) {
     dollarValueIn: BigDecimal!
     timestamp: String!
     dex: String!
+    type: String!
 }
 
 type CreatedDaily @entity {

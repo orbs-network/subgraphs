@@ -31,6 +31,7 @@ Describes the Fill event
 - dstTokenSymbol: String
 - dollarValueIn: BigDecimal!
 - dollarValueOut: BigDecimal!
+- type: String!
 ### FilledDaily
 Trading volume divided into days 
 - id: String!
@@ -66,6 +67,7 @@ Accumulated trading volume
 - dollarValueIn: BigDecimal!
 - timestamp: String!
 - dex: String!
+- type: String!
 
 ### CreatedDaily
 - id: String!
@@ -126,6 +128,37 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
         srcTokenSymbol
         timestamp
         transactionHash
+        type
+    }
+}
+```
+#### LIMIT orders created
+```graphql
+{
+    orderCreateds(where:{type:"LIMIT"}) { # other option is TWAP
+        id
+        Contract_id
+        ask_bidDelay
+        ask_data
+        ask_deadline
+        ask_dstMinAmount
+        ask_dstToken
+        ask_fillDelay
+        ask_exchange
+        ask_srcToken
+        ask_srcBidAmount
+        ask_srcAmount
+        blockNumber
+        blockTimestamp
+        dex
+        dollarValueIn
+        dstTokenSymbol
+        exchange
+        maker
+        srcTokenSymbol
+        timestamp
+        transactionHash
+        type
     }
 }
 ```
@@ -180,6 +213,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
       dstTokenSymbol
       dollarValueIn
       dollarValueOut
+      type
   }
 }
 ```
@@ -207,6 +241,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
       dstTokenSymbol
       dollarValueIn
       dollarValueOut
+      type
   }
 }
 ```
@@ -234,6 +269,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
       dstTokenSymbol
       dollarValueIn
       dollarValueOut
+      type
   }
 }
 ```
@@ -261,6 +297,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
       dstTokenSymbol
       dollarValueIn
       dollarValueOut
+      type
   }
 }
 ```
