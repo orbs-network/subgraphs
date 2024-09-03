@@ -78,6 +78,47 @@ type Unlocked @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
+type Delegator @entity {
+  id: Bytes!
+  lastChangeBlock: BigInt!
+  lastChangeTime: BigInt!
+  address: Bytes!
+  stake: BigInt!
+  nonStake: BigInt!
+}
+
+type DelegatorMap @entity {
+  id: Bytes!
+  delegator: Delegator!
+}
+
+type DelegateActions @entity(immutable: true) {
+  id: String!
+  lastChangeBlock: BigInt!
+  lastChangeTime: BigInt!
+  address: Bytes!
+  stake: BigInt!
+  nonStake: BigInt
+}
+
+type DelegationStakes @entity {
+  id: String!
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  selfStake: BigInt!
+  delegatedStake: BigInt!
+  totalStake: BigInt!
+  nDelegates: BigInt!
+}
+
+type GuardianInfo @entity {
+  id: Bytes!
+  delegatorMap: DelegatorMap
+  delegationStake: [DelegationStakes!]
+  delegateActions: [DelegateActions!]
+  nDelegates: BigInt!
+}
+
 type GuardianToDelegators @entity {
   id: String!
   delegators: [String!]!

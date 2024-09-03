@@ -18,8 +18,14 @@ import {
   RegistryManagementTransferred,
   Unlocked,
   GuardianToDelegators,
-  DelegatorToGuardian
+  DelegatorToGuardian,
+  Delegator,
+  DelegatorMap,
+  GuardianInfo,
+  DelegationStakes,
+  DelegateActions
 } from "../generated/schema"
+import {BigInt} from "@graphprotocol/graph-ts";
 
 export function handleContractRegistryAddressUpdated(
   event: ContractRegistryAddressUpdatedEvent
@@ -100,6 +106,55 @@ export function handleDelegatedStakeChanged(
   entity.transactionHash = event.transaction.hash
 
   entity.save()
+
+  let g = GuardianInfo.load(entity.addr)
+  let dm: DelegatorMap | null = null
+  let d: Delegator | null = null
+
+  if (g == null) {
+    g = new GuardianInfo(entity.addr)
+    g.nDelegates = BigInt.fromI32(0)
+  }
+  if (entity.delegator != entity.addr) {
+    // Check if the GuardianInfo already has a delegatorMap
+    if (g.delegatorMap != null) {
+      dm = DelegatorMap.load(g.delegatorMap)
+    } else {
+      dm = new DelegatorMap(entity.delegator)
+      g.delegatorMap = entity.delegator // Assuming delegatorMap is a reference by ID
+      g.nDelegates = g.nDelegates.plus(BigInt.fromI32(1)) // Increment the delegate count
+    }
+
+    // Check if the DelegatorMap already has the delegator
+    d = Delegator.load(entity.delegator)
+    if (d == null) {
+      d = new Delegator(entity.delegator)
+    }
+
+    d.lastChangeBlock = entity.blockNumber
+    d.lastChangeTime = entity.blockTimestamp
+    d.address = entity.delegator
+    d.stake = entity.delegatorContributedStake
+    d.save()
+
+    dm.delegator = entity.delegator // Store delegator ID as a reference
+    dm.save()
+  }
+
+    // let ds = g.delegationStakes
+    // if (ds != null) {
+    //   ds.blockNumber = entity.blockNumber
+    //   ds.selfStake = entity.selfDelegatedStake
+    //   ds.delegatedStake = entity.delegatedStake.minus(entity.selfDelegatedStake)
+    //   ds.totalStake = entity.delegatedStake
+    //   ds.nDelegates = g.nDelegates
+    // }
+    // else {
+    //
+    // }
+    // g.delegatorMap = dm
+    // d.delegationStakes = DelegationStakes
+    g.save()
 }
 
 export function handleDelegationInitialized(
