@@ -37,7 +37,7 @@ export const NATIVE_ASSET = '{{nativeAsset}}'
 
 export function getOracleAddress(asset: string): string | null {
     if (asset == "USDT" || asset == "USDV" || asset == "lisUSD") return '{{usdt}}'
-    if (asset == "USDC" || asset == "axlUSDC" || asset === "multiUSDC") return '{{usdc}}'
+    if (asset == "USDC" || asset == "axlUSDC" || asset == "multiUSDC" || asset == "USDC.e") return '{{usdc}}'
     if (asset == "TUSD") return '{{tusd}}'
     if (asset == "USDB") return '{{usdb}}'
     if (asset == "USDe") return '{{usde}}'

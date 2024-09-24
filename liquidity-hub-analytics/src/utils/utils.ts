@@ -152,7 +152,9 @@ export function fetchUSDValue(assetName: string, assetAddress: string): BigDecim
     }
     const oracleId = getOracleAddress(assetName);
     if (oracleId && oracleId != '') {
+        log.info("oracleId {}", [oracleId])
         const assetDecimals = fetchTokenDecimals(Address.fromString(assetAddress)).toString()
+        log.info("assetDecimals {}", [assetDecimals])
         if (oracleId.length == 66) {
             return fetchPriceFromPyth(oracleId).div(generateDivFactor(assetDecimals))
         } else {
@@ -161,6 +163,7 @@ export function fetchUSDValue(assetName: string, assetAddress: string): BigDecim
             return oracleContract.latestAnswer().divDecimal(generateDivFactor(assetDecimals)).div(FACTOR_1E8); // divide by decimals and by 1e8
         }
     }
+    log.info("no oracleId", [])
     return null;
 }
 
