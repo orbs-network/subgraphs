@@ -13,7 +13,9 @@
     "prepare-fantom": "mustache config/fantom.json subgraph.template.yaml > subgraph.yaml && mustache config/fantom.json src/utils/constants.template.ts > src/utils/constants.ts",
     "deploy-fantom": "npm run codegen && npm run prepare-fantom && graph deploy --studio liquidyhub-analytics---fantom",
     "prepare-blast": "mustache config/blast.json subgraph.template.yaml > subgraph.yaml && mustache config/blast.json src/utils/constants.template.ts > src/utils/constants.ts",
-    "deploy-blast": "npm run codegen && npm run prepare-blast && graph deploy --studio liquidyhub-analytics---blast"
+    "deploy-blast": "npm run codegen && npm run prepare-blast && graph deploy --studio liquidyhub-analytics---blast",
+    "prepare-mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml && mustache config/mainnet.json src/utils/constants.template.ts > src/utils/constants.ts",
+    "deploy-mainnet": "npm run codegen && npm run prepare-mainnet && graph deploy --studio liquidyhub-analytics---mainnet"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.67.3",
