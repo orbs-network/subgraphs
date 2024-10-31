@@ -32,6 +32,7 @@ export const ARX_WETH_POOL = '{{arxWethPool}}'.toLowerCase()
 export const ARX_DECIMALS = '{{arxDecimals}}'
 export const ARB_WETH_ADDRESS = '{{arbWethAddress}}'.toLowerCase()
 
+export const PYTH_ORACLE_ADDRESS = '{{pythOracleAddress}}'
 
 export const NATIVE_ASSET = '{{nativeAsset}}'
 
@@ -44,6 +45,7 @@ export function getDexByRouter(routerAddress: string): string { // use only lowe
     if (routerAddress == "0xc55943fa6509004b2903ed8f8ab7347bfc47d0ba") return "SushiSwap"
     if (routerAddress == "0x8ffde23fba2d7aea9c3cbf2d5b7b533bb46754a8") return "Arbidex"
     if (routerAddress == "0xceff098c9199c5d9cf24078dc14eb8f787631cc0") return "Chronos"
+    if (routerAddress == "0x101e1b65bb516fb5f4547c80bae0b51f1b8d7a22") return "DragonSwap"
     return "Unknown"
 }
 
@@ -103,5 +105,6 @@ export function getOracleAddress(asset: string): string | null {
     if (asset == "TAO") return '{{tao}}'
     if (asset == "ENS") return '{{ens}}'
     if (asset == "STETH") return '{{steth}}'
+    if (asset == "SEI" || asset == "WSEI") return '{{sei}}'
     return null;
 }

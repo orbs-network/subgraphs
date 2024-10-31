@@ -13,7 +13,9 @@
     "prepare-arb": "mustache config/arb.json subgraph.template.yaml > subgraph.yaml && mustache config/arb.json src/utils/constants.template.ts > src/utils/constants.ts",
     "deploy-arb": "npm run codegen && npm run prepare-arb && graph deploy --studio orbs-twap---arbitrum",
     "prepare-mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml && mustache config/mainnet.json src/utils/constants.template.ts > src/utils/constants.ts",
-    "deploy-mainnet": "npm run codegen && npm run prepare-mainnet && graph deploy --studio orbs-twap---mainnet"
+    "deploy-mainnet": "npm run codegen && npm run prepare-mainnet && graph deploy --studio orbs-twap---mainnet",
+    "prepare-sei": "mustache config/sei.json subgraph.template.yaml > subgraph.yaml && mustache config/sei.json src/utils/constants.template.ts > src/utils/constants.ts",
+    "deploy-sei": "npm run codegen && npm run prepare-sei && graph deploy --studio orbs-twap---sei"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.67.3",

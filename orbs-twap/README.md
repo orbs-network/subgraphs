@@ -7,6 +7,9 @@ Currently supports:
 - [Polygon](https://thegraph.com/explorer/subgraphs/3PyRPWSvDnMowGbeBy7aNsvUkD5ZuxdXQw2RdJq4NdXi)
 - [Base](https://thegraph.com/explorer/subgraphs/DFhaPQb3HATXkpsWNZw3gydYHehLBVEDiSk4iBdZJyps)
 - [Arbitrum](https://thegraph.com/explorer/subgraphs/83bpQexEaqBjHaQbKoFTbtvCXuo5RudRkfLgtRUYqo2c)
+- [Blast](https://thegraph.com/explorer/subgraphs/9t4ThzX4V8hZFFkRaeyobkRMS2e6KYHoNuM7qgRdFfRj)
+- [Mainnet](https://thegraph.com/explorer/subgraphs/Bf7bvMYcJbDAvYWJmhMpHZ4cpFjqzkhK6GXXEpnPRq6)
+- [Sei](https://thegraph.com/explorer/subgraphs/5zjzRnURzoddyFSZBw5E5NAM3oBgPq3NasTYbtMk6EL6)
 
 ## Schemas
 ### OrderFilled
@@ -15,7 +18,7 @@ Describes the Fill event
 - TWAP_id: Int!
 - userAddress: Bytes!
 - exchange: Bytes!
--  dex: String!
+- dex: String!
 - taker: Bytes!
 - srcAmountIn: String!
 - dstAmountOut: String!

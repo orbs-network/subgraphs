@@ -2,6 +2,7 @@ import {Address, BigDecimal, BigInt, Bytes, log} from "@graphprotocol/graph-ts";
 import {ERC20Contract} from "../../generated/TWAP/ERC20Contract";
 import {ERC20SymbolBytes} from "../../generated/TWAP/ERC20SymbolBytes";
 import {chainlinkOracle} from "../../generated/TWAP/chainlinkOracle";
+import {pythOracle} from "../../generated/TWAP/pythOracle";
 import {UniswapV2Pair} from "../../generated/TWAP/UniswapV2Pair";
 import {PancakePair} from "../../generated/TWAP/PancakePair";
 import {
@@ -16,7 +17,8 @@ import {
     QUICK_ADDRESS,
     BOO_ADDRESS,
     THE_ADDRESS,
-    BSWAP_ADDRESS, CHR_ADDRESS, CHR_USDC_POOL, CHR_DECIMALS, ARX_ADDRESS, ARX_WETH_POOL, BSWAP_WETH_POOL, BASE_WETH_ADDRESS, ARB_WETH_ADDRESS
+    BSWAP_ADDRESS, CHR_ADDRESS, CHR_USDC_POOL, CHR_DECIMALS, ARX_ADDRESS, ARX_WETH_POOL, BSWAP_WETH_POOL, BASE_WETH_ADDRESS, ARB_WETH_ADDRESS,
+    PYTH_ORACLE_ADDRESS
 } from "./constants";
 
 export function bytesToBigInt(b: Bytes): BigInt | null {
@@ -135,10 +137,35 @@ function getV2Price(poolAddress: string): BigDecimal {
     return (reserves0/generateDivFactor(token0Decimals.toString())) / (reserves1/generateDivFactor(token1Decimals.toString()))
 }
 
+function fetchPriceFromPyth(priceFeedId: string): BigDecimal {
+    const pythOracleContract = pythOracle.bind(Address.fromString(PYTH_ORACLE_ADDRESS))
+    let getPriceResult = pythOracleContract.try_getPrice(Bytes.fromHexString(priceFeedId))
+    let price: BigInt
+    let expo: i32
+    if (!getPriceResult.reverted) {
+        log.info('{}', ['using getPrice'])
+        price = getPriceResult.value.price
+        expo = getPriceResult.value.expo
+    } else {
+        log.info('{}', ['using getPriceUnsafe'])
+        const getPriceUnsafeResult = pythOracleContract.try_getPriceUnsafe(Bytes.fromHexString(priceFeedId))
+        if (getPriceUnsafeResult.reverted) return BigDecimal.fromString("0")
+        price = getPriceUnsafeResult.value.price
+        expo = getPriceUnsafeResult.value.expo
+    }
+    log.info('price: {}, expo: {}', [price.toString(), expo.toString()])
+
+    const scaleFactor = BigInt.fromI32(10).pow(u8(Math.abs(expo)))
+    const result = price.toBigDecimal().div(scaleFactor.toBigDecimal())
+
+    log.info('finished fetchPriceFromPyth. result: {}', [result.toString()])
+    return result
+}
+
 export function fetchUSDValue(assetName: string, assetAddress: string): BigDecimal {
-    if (assetName == "QUICK" && assetAddress == QUICK_ADDRESS) return getV2Price(QUICK_USDC_POOL)/BigDecimal.fromString(QUICK_DECIMALS); // only for matic
-    if (assetName == "THE" && assetAddress == THE_ADDRESS) return getV2Price(THE_BUSD_POOL)/BigDecimal.fromString(THE_DECIMALS); // only for bsc
-    if (assetName == "CHR" && assetAddress == CHR_ADDRESS) return BigDecimal.fromString(CHR_DECIMALS)/getV2Price(CHR_USDC_POOL); // only for arbitrum
+    if (assetName == "QUICK" && assetAddress == QUICK_ADDRESS) return getV2Price(QUICK_USDC_POOL) / BigDecimal.fromString(QUICK_DECIMALS); // only for matic
+    if (assetName == "THE" && assetAddress == THE_ADDRESS) return getV2Price(THE_BUSD_POOL) / BigDecimal.fromString(THE_DECIMALS); // only for bsc
+    if (assetName == "CHR" && assetAddress == CHR_ADDRESS) return BigDecimal.fromString(CHR_DECIMALS) / getV2Price(CHR_USDC_POOL); // only for arbitrum
     if (assetName == "ARX" && assetAddress == ARX_ADDRESS) { // only for arbitrum
         const arxWeth = getV2Price(ARX_WETH_POOL)
         const wethPrice = fetchUSDValue("WETH", ARB_WETH_ADDRESS);
@@ -156,11 +183,15 @@ export function fetchUSDValue(assetName: string, assetAddress: string): BigDecim
     }
     const oracle = getOracleAddress(assetName);
     if (oracle && oracle != '') {
-        const oracleAddress: Address = Address.fromString(oracle);
         const assetDecimals = fetchTokenDecimals(Address.fromString(assetAddress)).toString()
-        if (oracleAddress) {
-            const oracleContract = chainlinkOracle.bind(oracleAddress);
-            return oracleContract.latestAnswer().divDecimal(generateDivFactor(assetDecimals)).div(FACTOR_1E8); // divide by decimals and by 1e8
+        if (oracle.length == 66) {
+            return fetchPriceFromPyth(oracle).div(generateDivFactor(assetDecimals))
+        } else {
+            const oracleAddress: Address = Address.fromString(oracle);
+            if (oracleAddress) {
+                const oracleContract = chainlinkOracle.bind(oracleAddress);
+                return oracleContract.latestAnswer().divDecimal(generateDivFactor(assetDecimals)).div(FACTOR_1E8); // divide by decimals and by 1e8
+            }
         }
     }
     return BigDecimal.fromString("0");

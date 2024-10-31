@@ -26,6 +26,8 @@ dataSources:
           file: ./abis/ERC20SymbolBytes.json
         - name: chainlinkOracle
           file: ./abis/oracle.json
+        - name: pythOracle
+          file: ./abis/pythOracle.json
         - name: UniswapV2Pair
           file: ./abis/UniswapV2Pair.json
         - name: PancakePair
