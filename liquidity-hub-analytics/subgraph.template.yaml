@@ -35,3 +35,36 @@ dataSources:
           handler: handleFill
           receipt: true
       file: ./src/exclusive-dutch-order-reactor.ts
+  - kind: ethereum
+    name: ExecutorV5
+    network: {{network}}
+    source:
+      address: '{{executorAddressV5}}'
+      abi: Executor
+      startBlock: {{startBlockExecutorV5}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Resolved
+        - Surplus
+      abis:
+        - name: Executor
+          file: ./abis/Executor.json
+        - name: ERC20Contract
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: chainlinkOracle
+          file: ./abis/chainlinkOracle.json
+        - name: pythOracle
+          file: ./abis/pythOracle.json
+        - name: UniswapV2Pair
+          file: ./abis/UniswapV2Pair.json
+      eventHandlers:
+        - event: Resolved(indexed bytes32,indexed address,indexed address,address,address,uint256,uint256)
+          handler: handleResolved
+        - event: Surplus(indexed address,indexed address,indexed address,uint256,uint256)
+          handler: handleSurplus
+      file: ./src/executor.ts

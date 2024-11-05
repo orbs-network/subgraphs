@@ -1,10 +1,14 @@
 {
   "network": "blast-mainnet",
   "startBlock": "988193",
+  "startBlockExecutorV5": "10009141",
   "reactorAddress": "0xe9E78109c89162cEF32Bfe7cBCEe1f31312fc1F6",
   "nativeAsset": "ETH",
   "executorAddressV4": "0x2f815a7C8047aa649960eaDB1557249fFc93A0CD",
+  "executorAddressV5": "0x2329a3c7f1b83D234Df298b3BB1785cE722AefdE",
   "treasuryAddress": "0xE92329709A7C19e1568294fc3693a064CcaeAc39",
+  "treasuryAddressNew": "0x000066320a467dE62B1548f46465abBB82662331",
+  "feesAddressV5": "0xAA9c9F1cd814AD4284eF1F6C30500563f27339ac",
   "pythOracleAddress":"0xA2aa501b19aff244D90cc15a4Cf739D2725B5729",
 
   "eth": "0xff61491a931112ddf1bd8147cd1b641375f79f5825126d665480874634fd0ace",

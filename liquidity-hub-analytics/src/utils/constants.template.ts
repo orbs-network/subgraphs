@@ -16,6 +16,7 @@ export const EXECUTE_SIGNATURE_V2 = '{{executeSignatureV2}}'.toLowerCase()
 export const EXECUTOR_ADDRESS_V4 = '{{executorAddressV4}}'.toLowerCase()
 
 export const TREASURY_ADDRESS = '{{treasuryAddress}}'.toLowerCase()
+export const TREASURY_ADDRESS_NEW = '{{treasuryAddressNew}}'.toLowerCase()
 export const FEES_ADDRESS = '{{feesAddress}}'.toLowerCase()
 
 export const QUICK_ADDRESS = '{{quickAddress}}'.toLowerCase()

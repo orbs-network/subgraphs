@@ -9,7 +9,7 @@ type Fill @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type Swap @entity(immutable: true) {
+type Swap @entity {
   id: Bytes!
   userAddress: String!
   srcTokenSymbol: String
@@ -37,4 +37,30 @@ type SwapTotal @entity {
     id: String!
     cumulativeTotalCalculatedValue: BigDecimal!
     totalCount: Int
+}
+
+type Resolved @entity(immutable: true) {
+  id: Bytes!
+  orderHash: Bytes! # bytes32
+  swapper: Bytes! # address
+  ref: Bytes! # address
+  inToken: Bytes! # address
+  outToken: Bytes! # address
+  inAmount: BigInt! # uint256
+  outAmount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Surplus @entity(immutable: true) {
+  id: Bytes!
+  swapper: Bytes! # address
+  ref: Bytes! # address
+  token: Bytes! # address
+  amount: BigInt! # uint256
+  refshare: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
 }
