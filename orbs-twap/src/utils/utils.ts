@@ -163,6 +163,7 @@ function fetchPriceFromPyth(priceFeedId: string): BigDecimal {
 }
 
 export function fetchUSDValue(assetName: string, assetAddress: string): BigDecimal {
+    log.info('fetchUSDValue. {}, {}', [assetName, assetAddress])
     if (assetName == "QUICK" && assetAddress == QUICK_ADDRESS) return getV2Price(QUICK_USDC_POOL) / BigDecimal.fromString(QUICK_DECIMALS); // only for matic
     if (assetName == "THE" && assetAddress == THE_ADDRESS) return getV2Price(THE_BUSD_POOL) / BigDecimal.fromString(THE_DECIMALS); // only for bsc
     if (assetName == "CHR" && assetAddress == CHR_ADDRESS) return BigDecimal.fromString(CHR_DECIMALS) / getV2Price(CHR_USDC_POOL); // only for arbitrum
@@ -184,6 +185,7 @@ export function fetchUSDValue(assetName: string, assetAddress: string): BigDecim
     const oracle = getOracleAddress(assetName);
     if (oracle && oracle != '') {
         const assetDecimals = fetchTokenDecimals(Address.fromString(assetAddress)).toString()
+        log.info('assetDecimals. {}', [assetDecimals.toString()])
         if (oracle.length == 66) {
             return fetchPriceFromPyth(oracle).div(generateDivFactor(assetDecimals))
         } else {

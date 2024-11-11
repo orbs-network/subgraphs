@@ -1,6 +1,6 @@
 {
   "network": "bsc",
-  "startBlock": "42880593",
+  "startBlock": "36102005",
   "startBlockExecutorV5": "42880593",
   "reactorAddress": "0xe9E78109c89162cEF32Bfe7cBCEe1f31312fc1F6",
   "nativeAsset": "BNB",

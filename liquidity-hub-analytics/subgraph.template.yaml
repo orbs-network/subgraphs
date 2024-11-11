@@ -65,6 +65,8 @@ dataSources:
       eventHandlers:
         - event: Resolved(indexed bytes32,indexed address,indexed address,address,address,uint256,uint256)
           handler: handleResolved
+          receipt: true
         - event: Surplus(indexed address,indexed address,indexed address,uint256,uint256)
           handler: handleSurplus
+          receipt: true
       file: ./src/executor.ts
