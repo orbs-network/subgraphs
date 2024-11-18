@@ -1,6 +1,6 @@
-import {Address, BigDecimal, log} from '@graphprotocol/graph-ts'
-import {fetchTokenSymbol, fetchUSDValue, formatTimestamp,} from "./utils/utils"
-import {TWAP_ADDRESS, getDexByRouter} from "./utils/constants";
+import {Address, BigDecimal, crypto, log, ByteArray} from '@graphprotocol/graph-ts'
+import {fetchTokenSymbol, fetchUSDValue, formatTimestamp, hexStringToAmount,} from "./utils/utils"
+import {TWAP_ADDRESS, getDexByRouter, FEES_ADDRESS} from "./utils/constants";
 import {OrderFilled as OrderFilledEvent, OrderCreated as OrderCreatedEvent, OrderCompleted as OrderCompletedEvent, OrderCanceled as OrderCanceledEvent, TWAP} from "../generated/TWAP/TWAP"
 import {OrderFilled, FilledDaily, FilledTotal, DailyActiveUsers, OrderCreated, CreatedDaily, CreatedTotal, Status} from "../generated/schema"
 
@@ -41,6 +41,21 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
   let dollarValue: BigDecimal = entity.dollarValueOut;
   if (entity.dollarValueIn != BigDecimal.zero()) {
     dollarValue = entity.dollarValueIn
+  }
+
+  const TRANSFER = "Transfer(address,address,uint256)";
+  const transferSignature = crypto.keccak256(ByteArray.fromUTF8(TRANSFER));
+  const logs = event.receipt!.logs;
+  for (let i = 0; i < logs.length; i++) {
+    const thisLog = logs[i];
+    const logSignature = thisLog.topics[0];
+    if (logSignature == transferSignature) {
+      const to = "0x" + thisLog.topics.at(2).toHexString().slice(26) // remove leading zeroes
+      if (to == FEES_ADDRESS) {
+        entity.dexFee = hexStringToAmount(thisLog.data);
+        break
+      }
+    }
   }
 
   entity.save()
@@ -169,13 +184,17 @@ export function handleOrderCreated(event: OrderCreatedEvent): void {
 }
 
 export function handleOrderCompleted(event: OrderCompletedEvent): void {
-  let entity = Status.load(event.params.id.toString())!
-  entity.status = "COMPLETED"
-  entity.save()
+  let entity = Status.load(event.params.id.toString())
+  if (entity != null) {
+    entity.status = "COMPLETED"
+    entity.save()
+  }
 }
 
 export function handleOrderCanceled(event: OrderCanceledEvent): void {
-  let entity = Status.load(event.params.id.toString())!
-  entity.status = "CANCELED"
-  entity.save()
+  let entity = Status.load(event.params.id.toString())
+  if (entity != null) {
+    entity.status = "CANCELED"
+    entity.save()
+  }
 }

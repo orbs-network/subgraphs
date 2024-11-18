@@ -8,6 +8,7 @@ type OrderFilled @entity(immutable: true) {
     srcAmountIn: String!
     dstAmountOut: String!
     dstFee: BigInt! # uint256
+    dexFee: String
     srcFilledAmount: BigInt! # uint256
     blockNumber: BigInt!
     blockTimestamp: BigInt!

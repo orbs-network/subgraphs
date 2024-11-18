@@ -35,6 +35,7 @@ Describes the Fill event
 - dollarValueIn: BigDecimal!
 - dollarValueOut: BigDecimal!
 - type: String!
+- dexFee: String
 ### FilledDaily
 Trading volume divided into days 
 - id: String!
@@ -217,6 +218,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
       dollarValueIn
       dollarValueOut
       type
+      dexFee
   }
 }
 ```
@@ -245,6 +247,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
       dollarValueIn
       dollarValueOut
       type
+      dexFee
   }
 }
 ```
@@ -273,6 +276,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
       dollarValueIn
       dollarValueOut
       type
+      dexFee
   }
 }
 ```
@@ -301,6 +305,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
       dollarValueIn
       dollarValueOut
       type
+      dexFee
   }
 }
 ```

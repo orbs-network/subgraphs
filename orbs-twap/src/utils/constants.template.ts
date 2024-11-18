@@ -34,6 +34,8 @@ export const ARB_WETH_ADDRESS = '{{arbWethAddress}}'.toLowerCase()
 
 export const PYTH_ORACLE_ADDRESS = '{{pythOracleAddress}}'
 
+export const FEES_ADDRESS = '{{feesAddress}}'
+
 export const NATIVE_ASSET = '{{nativeAsset}}'
 
 export function getDexByRouter(routerAddress: string): string { // use only lower case

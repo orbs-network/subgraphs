@@ -35,6 +35,7 @@ dataSources:
       eventHandlers:
         - event: OrderFilled(indexed uint64,indexed address,indexed address,address,uint256,uint256,uint256,uint256)
           handler: handleOrderFilled
+          receipt: true
         - event: OrderCreated(indexed uint64,indexed address,indexed address,(address,address,address,uint256,uint256,uint256,uint32,uint32,uint32,bytes))
           handler: handleOrderCreated
         - event: OrderCanceled(indexed uint64,indexed address,address)
