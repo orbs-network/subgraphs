@@ -12,6 +12,36 @@ import {
 } from "./utils/utils"
 import {NATIVE_ASSET, SWAP_TOTAL_ID, TREASURY_ADDRESS} from "./utils/constants";
 
+export function calcMetrics(swap: Swap): void {
+  // store daily volume
+  const day = swap.timestamp.slice(0, 10)
+  let daily = SwapDaily.load(day)
+  if (daily == null) {
+    daily = new SwapDaily(day)
+    daily.date = day
+    daily.dailyTotalCalculatedValue = swap.dollarValue
+    daily.dailyCount = 1
+  }
+  else {
+    daily.dailyTotalCalculatedValue = daily.dailyTotalCalculatedValue + swap.dollarValue
+    daily.dailyCount += 1
+  }
+  daily.save()
+
+  // store cumulative volume
+  let total = SwapTotal.load(SWAP_TOTAL_ID)
+  if (total == null) {
+    total = new SwapTotal(SWAP_TOTAL_ID)
+    total.cumulativeTotalCalculatedValue = swap.dollarValue
+    total.totalCount = 1
+  }
+  else {
+    total.cumulativeTotalCalculatedValue = total.cumulativeTotalCalculatedValue + swap.dollarValue
+    total.totalCount += 1
+  }
+  total.save()
+}
+
 export function handleFill(event: FillEvent): void {
   // TODO: will have to change once we introduce multi-orders AND once we implement swapper != receiver
   const id = event.transaction.hash.concatI32(event.logIndex.toI32());
@@ -98,31 +128,5 @@ export function handleFill(event: FillEvent): void {
   swap.dollarValue = fetchTokenUsdValue(swap);
   swap.save();
 
-  // store daily volume
-  const day = swap.timestamp.slice(0, 10)
-  let daily = SwapDaily.load(day)
-  if (daily == null) {
-    daily = new SwapDaily(day)
-    daily.date = day
-    daily.dailyTotalCalculatedValue = swap.dollarValue
-    daily.dailyCount = 1
-  }
-  else {
-    daily.dailyTotalCalculatedValue = daily.dailyTotalCalculatedValue + swap.dollarValue
-    daily.dailyCount += 1
-  }
-  daily.save()
-
-  // store cumulative volume
-  let total = SwapTotal.load(SWAP_TOTAL_ID)
-  if (total == null) {
-    total = new SwapTotal(SWAP_TOTAL_ID)
-    total.cumulativeTotalCalculatedValue = swap.dollarValue
-    total.totalCount = 1
-  }
-  else {
-    total.cumulativeTotalCalculatedValue = total.cumulativeTotalCalculatedValue + swap.dollarValue
-    total.totalCount += 1
-  }
-  total.save()
+  calcMetrics(swap)
 }

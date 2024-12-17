@@ -18,6 +18,7 @@ import {
     BOO_ADDRESS,
     THE_ADDRESS,
     BSWAP_ADDRESS, CHR_ADDRESS, CHR_USDC_POOL, CHR_DECIMALS, ARX_ADDRESS, ARX_WETH_POOL, BSWAP_WETH_POOL, BASE_WETH_ADDRESS, ARB_WETH_ADDRESS,
+    LYNX_ADDRESS, LYNX_WETH_POOL, LYNX_DECIMALS, LINEA_WETH_ADDRESS,
     PYTH_ORACLE_ADDRESS
 } from "./constants";
 
@@ -182,6 +183,11 @@ export function fetchUSDValue(assetName: string, assetAddress: string): BigDecim
         const ftmPrice = fetchUSDValue("WFTM", WFTM_ADDRESS);
         return booWftm * ftmPrice;
     }
+    if (assetName == "LYNX" && assetAddress == LYNX_ADDRESS) { // only for linea
+        const lynxWeth = getV2Price(LYNX_WETH_POOL);
+        const wethPrice = fetchUSDValue("WETH", LINEA_WETH_ADDRESS);
+        return wethPrice/lynxWeth;
+    }
     const oracle = getOracleAddress(assetName);
     if (oracle && oracle != '') {
         const assetDecimals = fetchTokenDecimals(Address.fromString(assetAddress)).toString()
@@ -190,9 +196,11 @@ export function fetchUSDValue(assetName: string, assetAddress: string): BigDecim
             return fetchPriceFromPyth(oracle).div(generateDivFactor(assetDecimals))
         } else {
             const oracleAddress: Address = Address.fromString(oracle);
+            log.info('oracleAddress. {}', [oracleAddress.toHexString()])
             if (oracleAddress) {
                 const oracleContract = chainlinkOracle.bind(oracleAddress);
-                return oracleContract.latestAnswer().divDecimal(generateDivFactor(assetDecimals)).div(FACTOR_1E8); // divide by decimals and by 1e8
+                const latestAnswer = oracleContract.try_latestAnswer()
+                if (!latestAnswer.reverted) return latestAnswer.value.divDecimal(generateDivFactor(assetDecimals)).div(FACTOR_1E8); // divide by decimals and by 1e8
             }
         }
     }

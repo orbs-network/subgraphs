@@ -7,6 +7,7 @@
   "bswapAddress": "0x78a087d713Be963Bf307b18F2Ff8122EF9A63ae9",
   "bswapDecimals": "1e18",
   "baseWethAddress": "0x4200000000000000000000000000000000000006",
+  "feesAddress": "0xfee0000a55d378afbcbbaeaef29b58f8872b7f02",
 
   "usdt": "0xf19d560eB8d2ADf07BD6D13ed03e1D11215721F9",
   "usdc": "0x7e860098F58bBFC8648a4311b374B1D669a2bc6B",

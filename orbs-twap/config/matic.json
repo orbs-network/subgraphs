@@ -6,6 +6,7 @@
   "quickAddress": "0xb5c064f955d8e7f38fe0460c556a72987494ee17",
   "quickUsdcPool": "0x747375305b825c49fb97ee0ac09d19ec9ef94bd2",
   "quickDecimals": "1e18",
+  "feesAddress": "0xfee0000a55d378afbcbbaeaef29b58f8872b7f02",
 
   "usdt": "0x0A6513e40db6EB1b165753AD52E80663aeA50545",
   "usdc": "0xfE4A8cc5b5B2366C1B58Bea3858e81843581b2F7",

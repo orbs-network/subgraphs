@@ -32,6 +32,11 @@ export const ARX_WETH_POOL = '{{arxWethPool}}'.toLowerCase()
 export const ARX_DECIMALS = '{{arxDecimals}}'
 export const ARB_WETH_ADDRESS = '{{arbWethAddress}}'.toLowerCase()
 
+export const LYNX_ADDRESS = '{{lynxAddress}}'.toLowerCase()
+export const LYNX_WETH_POOL = '{{lynxWethPool}}'.toLowerCase()
+export const LYNX_DECIMALS = '{{lynxDecimals}}'
+export const LINEA_WETH_ADDRESS = '{{lineaWethAddress}}'.toLowerCase()
+
 export const PYTH_ORACLE_ADDRESS = '{{pythOracleAddress}}'
 
 export const FEES_ADDRESS = '{{feesAddress}}'
@@ -49,6 +54,9 @@ export function getDexByRouter(routerAddress: string): string { // use only lowe
     if (routerAddress == "0x8ffde23fba2d7aea9c3cbf2d5b7b533bb46754a8") return "Arbidex"
     if (routerAddress == "0xceff098c9199c5d9cf24078dc14eb8f787631cc0") return "Chronos"
     if (routerAddress == "0x101e1b65bb516fb5f4547c80bae0b51f1b8d7a22") return "DragonSwap"
+    if (routerAddress == "0x10ed1f36e4ebe76e161c9aadda20be841bc0082c") return "PancakeSwap"
+    if (routerAddress == "0xe20167871db616ddffd0fd870d9bc068c350dd1f") return "PancakeSwap"
+    if (routerAddress == "0x72e3e1fd5d2ee2f1c2eb695206d490a1d45c3835") return "Lynex"
     return "Unknown"
 }
 
@@ -80,6 +88,7 @@ export function getOracleAddress(asset: string): string | null {
     if (asset == "ETC") return '{{etc}}'
     if (asset == "FIL") return '{{fil}}'
     if (asset == "FTM" || asset == "WFTM") return '{{ftm}}'
+    if (asset == "FOXY") return '{{foxy}}'
     if (asset == "FXS") return '{{fxs}}'
     if (asset == "GMX") return '{{gmx}}'
     if (asset == "GNS") return '{{gns}}'
@@ -93,6 +102,7 @@ export function getOracleAddress(asset: string): string | null {
     if (asset == "OP") return '{{op}}'
     if (asset == "PENDLE") return '{{pendle}}'
     if (asset == "PEPE") return '{{pepe}}'
+    if (asset == "POL") return '{{pol}}'
     if (asset == "QNT") return '{{qnt}}'
     if (asset == "RDNT") return '{{rdnt}}'
     if (asset == "RPL") return '{{rpl}}'

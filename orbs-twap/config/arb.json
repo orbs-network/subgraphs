@@ -10,6 +10,7 @@
   "arxWethPool": "0x62fddfc2d4b35adec79c6082ca2894eab01ac0db",
   "arxDecimals": "1e18",
   "arbWethAddress": "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1",
+  "feesAddress": "0xfee0000a55d378afbcbbaeaef29b58f8872b7f02",
 
   "usdt": "0x3f3f5dF88dC9F13eac63DF89EC16ef6e7E25DdE7",
   "usdc": "0x50834F3163758fcC1Df9973b6e91f0F0F0434aD3",
