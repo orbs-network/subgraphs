@@ -1,8 +1,8 @@
 {
   "mainnet": {
-    "Protocol": {
-      "address": "0xeda03aDAbD68Da5B01326575712F01029d99703a",
-      "startBlock": 11191416
+    "GuardiansRegistration": {
+      "address": "0xcE97F8C79228C53B8B9Ad86800A493d1e7E5d1E3",
+      "startBlock": 11191421
     }
   }
 }

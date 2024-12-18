@@ -374,3 +374,55 @@ type VcOwnerChanged @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+#type ContractRegistryAddressUpdated @entity(immutable: true) {
+#  id: Bytes!
+#  addr: Bytes! # address
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+
+#type InitializationComplete @entity(immutable: true) {
+#  id: Bytes!
+#
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+#
+#type Locked @entity(immutable: true) {
+#  id: Bytes!
+#
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+
+type ProtocolVersionChanged @entity(immutable: true) {
+  id: Bytes!
+  deploymentSubset: String! # string
+  currentVersion: BigInt! # uint256
+  nextVersion: BigInt! # uint256
+  fromTimestamp: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+#type RegistryManagementTransferred @entity(immutable: true) {
+#  id: Bytes!
+#  previousRegistryAdmin: Bytes! # address
+#  newRegistryAdmin: Bytes! # address
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+#
+#type Unlocked @entity(immutable: true) {
+#  id: Bytes!
+#
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}

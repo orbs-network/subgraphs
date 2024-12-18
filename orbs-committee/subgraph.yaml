@@ -198,3 +198,38 @@ dataSources:
         - event: VcOwnerChanged(indexed uint256,address,address)
           handler: handleVcOwnerChanged
       file: ./src/subscriptions.ts
+  - kind: ethereum
+    name: Protocol
+    network: mainnet
+    source:
+      address: "0xeda03aDAbD68Da5B01326575712F01029d99703a"
+      abi: Protocol
+      startBlock: 11191416
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ContractRegistryAddressUpdated
+        - InitializationComplete
+        - Locked
+        - ProtocolVersionChanged
+        - RegistryManagementTransferred
+        - Unlocked
+      abis:
+        - name: Protocol
+          file: ./abis/Protocol.json
+      eventHandlers:
+        - event: ContractRegistryAddressUpdated(address)
+          handler: handleContractRegistryAddressUpdated
+        - event: InitializationComplete()
+          handler: handleInitializationComplete
+        - event: Locked()
+          handler: handleLocked
+        - event: ProtocolVersionChanged(string,uint256,uint256,uint256)
+          handler: handleProtocolVersionChanged
+        - event: RegistryManagementTransferred(indexed address,indexed address)
+          handler: handleRegistryManagementTransferred
+        - event: Unlocked()
+          handler: handleUnlocked
+      file: ./src/protocol.ts
