@@ -6,14 +6,6 @@ type ContractRegistryAddressUpdated @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type GenesisRefTimeDelayChanged @entity(immutable: true) {
-  id: Bytes!
-  newGenesisRefTimeDelay: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
 type InitializationComplete @entity(immutable: true) {
   id: Bytes!
 
@@ -30,21 +22,12 @@ type Locked @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type MinimumInitialVcPaymentChanged @entity(immutable: true) {
+type ProtocolVersionChanged @entity(immutable: true) {
   id: Bytes!
-  newMinimumInitialVcPayment: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type Payment @entity(immutable: true) {
-  id: Bytes!
-  vcId: BigInt! # uint256
-  by: Bytes! # address
-  amount: BigInt! # uint256
-  tier: String! # string
-  rate: BigInt! # uint256
+  deploymentSubset: String! # string
+  currentVersion: BigInt! # uint256
+  nextVersion: BigInt! # uint256
+  fromTimestamp: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -59,69 +42,9 @@ type RegistryManagementTransferred @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type SubscriberAdded @entity(immutable: true) {
-  id: Bytes!
-  subscriber: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SubscriberRemoved @entity(immutable: true) {
-  id: Bytes!
-  subscriber: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type SubscriptionChanged @entity(immutable: true) {
-  id: Bytes!
-  vcId: BigInt! # uint256
-  owner: Bytes! # address
-  name: String! # string
-  genRefTime: BigInt! # uint256
-  tier: String! # string
-  rate: BigInt! # uint256
-  expiresAt: BigInt! # uint256
-  isCertified: Boolean! # bool
-  deploymentSubset: String! # string
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
 type Unlocked @entity(immutable: true) {
   id: Bytes!
 
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type VcConfigRecordChanged @entity(immutable: true) {
-  id: Bytes!
-  vcId: BigInt! # uint256
-  key: String! # string
-  value: String! # string
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type VcCreated @entity(immutable: true) {
-  id: Bytes!
-  vcId: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type VcOwnerChanged @entity(immutable: true) {
-  id: Bytes!
-  vcId: BigInt! # uint256
-  previousOwner: Bytes! # address
-  newOwner: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!

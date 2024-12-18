@@ -14,7 +14,7 @@ import {
   VoteUnreadyCasted as VoteUnreadyCastedEvent,
   VoteUnreadyPercentMilleThresholdChanged as VoteUnreadyPercentMilleThresholdChangedEvent,
   VoteUnreadyTimeoutSecondsChanged as VoteUnreadyTimeoutSecondsChangedEvent
-} from "../x/generated/Elections/Elections"
+} from "../generated/Elections/Elections"
 import {
   ContractRegistryAddressUpdated,
   GuardianStatusUpdated,
@@ -31,7 +31,7 @@ import {
   VoteUnreadyCasted,
   VoteUnreadyPercentMilleThresholdChanged,
   VoteUnreadyTimeoutSecondsChanged
-} from "../x/generated/schema"
+} from "../generated/schema"
 
 export function handleContractRegistryAddressUpdated(
   event: ContractRegistryAddressUpdatedEvent

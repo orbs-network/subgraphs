@@ -8,9 +8,9 @@ import {
 } from "matchstick-as/assembly/index"
 import { Address, BigInt } from "@graphprotocol/graph-ts"
 import { ContractRegistryAddressUpdated } from "../generated/schema"
-import { ContractRegistryAddressUpdated as ContractRegistryAddressUpdatedEvent } from "../generated/Subscriptions/Subscriptions"
-import { handleContractRegistryAddressUpdated } from "../src/subscriptions"
-import { createContractRegistryAddressUpdatedEvent } from "./subscriptions-utils"
+import { ContractRegistryAddressUpdated as ContractRegistryAddressUpdatedEvent } from "../generated/Protocol/Protocol"
+import { handleContractRegistryAddressUpdated } from "../src/protocol"
+import { createContractRegistryAddressUpdatedEvent } from "./protocol-utils"
 
 // Tests structure (matchstick-as >=0.5.0)
 // https://thegraph.com/docs/en/developer/matchstick/#tests-structure-0-5-0

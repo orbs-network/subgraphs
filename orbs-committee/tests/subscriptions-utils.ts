@@ -15,7 +15,7 @@ import {
   VcConfigRecordChanged,
   VcCreated,
   VcOwnerChanged
-} from "../generated/Subscriptions/Subscriptions"
+} from "../x/generated/Subscriptions/Subscriptions"
 
 export function createContractRegistryAddressUpdatedEvent(
   addr: Address

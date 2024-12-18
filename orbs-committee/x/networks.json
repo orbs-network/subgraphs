@@ -1,8 +1,8 @@
 {
   "mainnet": {
-    "Subscriptions": {
-      "address": "0xD11EFC10cf3A54B12e3F04143070BE3865E7Bb8E",
-      "startBlock": 11191412
+    "Protocol": {
+      "address": "0xeda03aDAbD68Da5B01326575712F01029d99703a",
+      "startBlock": 11191416
     }
   }
 }
