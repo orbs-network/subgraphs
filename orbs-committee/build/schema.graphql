@@ -112,3 +112,136 @@ type ManagerChanged @entity(immutable: true) {
 #  blockTimestamp: BigInt!
 #  transactionHash: Bytes!
 #}
+
+#type ContractRegistryAddressUpdated @entity(immutable: true) {
+#  id: Bytes!
+#  addr: Bytes! # address
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+
+type GuardianStatusUpdated @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address
+  readyToSync: Boolean! # bool
+  readyForCommittee: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type GuardianVotedOut @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type GuardianVotedUnready @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+#type InitializationComplete @entity(immutable: true) {
+#  id: Bytes!
+#
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+#
+#type Locked @entity(immutable: true) {
+#  id: Bytes!
+#
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+
+type MinSelfStakePercentMilleChanged @entity(immutable: true) {
+  id: Bytes!
+  newValue: BigInt! # uint32
+  oldValue: BigInt! # uint32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+#type RegistryManagementTransferred @entity(immutable: true) {
+#  id: Bytes!
+#  previousRegistryAdmin: Bytes! # address
+#  newRegistryAdmin: Bytes! # address
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+
+type StakeChanged @entity(immutable: true) {
+  id: Bytes!
+  addr: Bytes! # address
+  selfDelegatedStake: BigInt! # uint256
+  delegatedStake: BigInt! # uint256
+  effectiveStake: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+#type Unlocked @entity(immutable: true) {
+#  id: Bytes!
+#
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+
+type VoteOutCasted @entity(immutable: true) {
+  id: Bytes!
+  voter: Bytes! # address
+  subject: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type VoteOutPercentMilleThresholdChanged @entity(immutable: true) {
+  id: Bytes!
+  newValue: BigInt! # uint32
+  oldValue: BigInt! # uint32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type VoteUnreadyCasted @entity(immutable: true) {
+  id: Bytes!
+  voter: Bytes! # address
+  subject: Bytes! # address
+  expiration: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type VoteUnreadyPercentMilleThresholdChanged @entity(immutable: true) {
+  id: Bytes!
+  newValue: BigInt! # uint32
+  oldValue: BigInt! # uint32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type VoteUnreadyTimeoutSecondsChanged @entity(immutable: true) {
+  id: Bytes!
+  newValue: BigInt! # uint32
+  oldValue: BigInt! # uint32
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

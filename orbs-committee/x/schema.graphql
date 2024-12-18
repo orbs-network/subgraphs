@@ -6,27 +6,9 @@ type ContractRegistryAddressUpdated @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type GuardianStatusUpdated @entity(immutable: true) {
+type GenesisRefTimeDelayChanged @entity(immutable: true) {
   id: Bytes!
-  guardian: Bytes! # address
-  readyToSync: Boolean! # bool
-  readyForCommittee: Boolean! # bool
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type GuardianVotedOut @entity(immutable: true) {
-  id: Bytes!
-  guardian: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type GuardianVotedUnready @entity(immutable: true) {
-  id: Bytes!
-  guardian: Bytes! # address
+  newGenesisRefTimeDelay: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -48,10 +30,21 @@ type Locked @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type MinSelfStakePercentMilleChanged @entity(immutable: true) {
+type MinimumInitialVcPaymentChanged @entity(immutable: true) {
   id: Bytes!
-  newValue: BigInt! # uint32
-  oldValue: BigInt! # uint32
+  newMinimumInitialVcPayment: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Payment @entity(immutable: true) {
+  id: Bytes!
+  vcId: BigInt! # uint256
+  by: Bytes! # address
+  amount: BigInt! # uint256
+  tier: String! # string
+  rate: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -66,12 +59,33 @@ type RegistryManagementTransferred @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type StakeChanged @entity(immutable: true) {
+type SubscriberAdded @entity(immutable: true) {
   id: Bytes!
-  addr: Bytes! # address
-  selfDelegatedStake: BigInt! # uint256
-  delegatedStake: BigInt! # uint256
-  effectiveStake: BigInt! # uint256
+  subscriber: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubscriberRemoved @entity(immutable: true) {
+  id: Bytes!
+  subscriber: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type SubscriptionChanged @entity(immutable: true) {
+  id: Bytes!
+  vcId: BigInt! # uint256
+  owner: Bytes! # address
+  name: String! # string
+  genRefTime: BigInt! # uint256
+  tier: String! # string
+  rate: BigInt! # uint256
+  expiresAt: BigInt! # uint256
+  isCertified: Boolean! # bool
+  deploymentSubset: String! # string
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
@@ -85,47 +99,29 @@ type Unlocked @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type VoteOutCasted @entity(immutable: true) {
+type VcConfigRecordChanged @entity(immutable: true) {
   id: Bytes!
-  voter: Bytes! # address
-  subject: Bytes! # address
+  vcId: BigInt! # uint256
+  key: String! # string
+  value: String! # string
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
-type VoteOutPercentMilleThresholdChanged @entity(immutable: true) {
+type VcCreated @entity(immutable: true) {
   id: Bytes!
-  newValue: BigInt! # uint32
-  oldValue: BigInt! # uint32
+  vcId: BigInt! # uint256
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
 
-type VoteUnreadyCasted @entity(immutable: true) {
+type VcOwnerChanged @entity(immutable: true) {
   id: Bytes!
-  voter: Bytes! # address
-  subject: Bytes! # address
-  expiration: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type VoteUnreadyPercentMilleThresholdChanged @entity(immutable: true) {
-  id: Bytes!
-  newValue: BigInt! # uint32
-  oldValue: BigInt! # uint32
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type VoteUnreadyTimeoutSecondsChanged @entity(immutable: true) {
-  id: Bytes!
-  newValue: BigInt! # uint32
-  oldValue: BigInt! # uint32
+  vcId: BigInt! # uint256
+  previousOwner: Bytes! # address
+  newOwner: Bytes! # address
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!

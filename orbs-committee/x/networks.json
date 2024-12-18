@@ -1,8 +1,8 @@
 {
   "mainnet": {
-    "Elections": {
-      "address": "0x02Ca9F2c5dD0635516241efD480091870277865b",
-      "startBlock": 11191410
+    "Subscriptions": {
+      "address": "0xD11EFC10cf3A54B12e3F04143070BE3865E7Bb8E",
+      "startBlock": 11191412
     }
   }
 }

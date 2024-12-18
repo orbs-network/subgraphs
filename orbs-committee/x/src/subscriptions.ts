@@ -1,36 +1,34 @@
 import {
   ContractRegistryAddressUpdated as ContractRegistryAddressUpdatedEvent,
-  GuardianStatusUpdated as GuardianStatusUpdatedEvent,
-  GuardianVotedOut as GuardianVotedOutEvent,
-  GuardianVotedUnready as GuardianVotedUnreadyEvent,
+  GenesisRefTimeDelayChanged as GenesisRefTimeDelayChangedEvent,
   InitializationComplete as InitializationCompleteEvent,
   Locked as LockedEvent,
-  MinSelfStakePercentMilleChanged as MinSelfStakePercentMilleChangedEvent,
+  MinimumInitialVcPaymentChanged as MinimumInitialVcPaymentChangedEvent,
+  Payment as PaymentEvent,
   RegistryManagementTransferred as RegistryManagementTransferredEvent,
-  StakeChanged as StakeChangedEvent,
+  SubscriberAdded as SubscriberAddedEvent,
+  SubscriberRemoved as SubscriberRemovedEvent,
+  SubscriptionChanged as SubscriptionChangedEvent,
   Unlocked as UnlockedEvent,
-  VoteOutCasted as VoteOutCastedEvent,
-  VoteOutPercentMilleThresholdChanged as VoteOutPercentMilleThresholdChangedEvent,
-  VoteUnreadyCasted as VoteUnreadyCastedEvent,
-  VoteUnreadyPercentMilleThresholdChanged as VoteUnreadyPercentMilleThresholdChangedEvent,
-  VoteUnreadyTimeoutSecondsChanged as VoteUnreadyTimeoutSecondsChangedEvent
-} from "../generated/Elections/Elections"
+  VcConfigRecordChanged as VcConfigRecordChangedEvent,
+  VcCreated as VcCreatedEvent,
+  VcOwnerChanged as VcOwnerChangedEvent
+} from "../generated/Subscriptions/Subscriptions"
 import {
   ContractRegistryAddressUpdated,
-  GuardianStatusUpdated,
-  GuardianVotedOut,
-  GuardianVotedUnready,
+  GenesisRefTimeDelayChanged,
   InitializationComplete,
   Locked,
-  MinSelfStakePercentMilleChanged,
+  MinimumInitialVcPaymentChanged,
+  Payment,
   RegistryManagementTransferred,
-  StakeChanged,
+  SubscriberAdded,
+  SubscriberRemoved,
+  SubscriptionChanged,
   Unlocked,
-  VoteOutCasted,
-  VoteOutPercentMilleThresholdChanged,
-  VoteUnreadyCasted,
-  VoteUnreadyPercentMilleThresholdChanged,
-  VoteUnreadyTimeoutSecondsChanged
+  VcConfigRecordChanged,
+  VcCreated,
+  VcOwnerChanged
 } from "../generated/schema"
 
 export function handleContractRegistryAddressUpdated(
@@ -48,43 +46,13 @@ export function handleContractRegistryAddressUpdated(
   entity.save()
 }
 
-export function handleGuardianStatusUpdated(
-  event: GuardianStatusUpdatedEvent
+export function handleGenesisRefTimeDelayChanged(
+  event: GenesisRefTimeDelayChangedEvent
 ): void {
-  let entity = new GuardianStatusUpdated(
+  let entity = new GenesisRefTimeDelayChanged(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.guardian = event.params.guardian
-  entity.readyToSync = event.params.readyToSync
-  entity.readyForCommittee = event.params.readyForCommittee
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleGuardianVotedOut(event: GuardianVotedOutEvent): void {
-  let entity = new GuardianVotedOut(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.guardian = event.params.guardian
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleGuardianVotedUnready(
-  event: GuardianVotedUnreadyEvent
-): void {
-  let entity = new GuardianVotedUnready(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.guardian = event.params.guardian
+  entity.newGenesisRefTimeDelay = event.params.newGenesisRefTimeDelay
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -119,14 +87,30 @@ export function handleLocked(event: LockedEvent): void {
   entity.save()
 }
 
-export function handleMinSelfStakePercentMilleChanged(
-  event: MinSelfStakePercentMilleChangedEvent
+export function handleMinimumInitialVcPaymentChanged(
+  event: MinimumInitialVcPaymentChangedEvent
 ): void {
-  let entity = new MinSelfStakePercentMilleChanged(
+  let entity = new MinimumInitialVcPaymentChanged(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.newValue = event.params.newValue
-  entity.oldValue = event.params.oldValue
+  entity.newMinimumInitialVcPayment = event.params.newMinimumInitialVcPayment
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handlePayment(event: PaymentEvent): void {
+  let entity = new Payment(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.vcId = event.params.vcId
+  entity.by = event.params.by
+  entity.amount = event.params.amount
+  entity.tier = event.params.tier
+  entity.rate = event.params.rate
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -151,14 +135,47 @@ export function handleRegistryManagementTransferred(
   entity.save()
 }
 
-export function handleStakeChanged(event: StakeChangedEvent): void {
-  let entity = new StakeChanged(
+export function handleSubscriberAdded(event: SubscriberAddedEvent): void {
+  let entity = new SubscriberAdded(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.addr = event.params.addr
-  entity.selfDelegatedStake = event.params.selfDelegatedStake
-  entity.delegatedStake = event.params.delegatedStake
-  entity.effectiveStake = event.params.effectiveStake
+  entity.subscriber = event.params.subscriber
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handleSubscriberRemoved(event: SubscriberRemovedEvent): void {
+  let entity = new SubscriberRemoved(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.subscriber = event.params.subscriber
+
+  entity.blockNumber = event.block.number
+  entity.blockTimestamp = event.block.timestamp
+  entity.transactionHash = event.transaction.hash
+
+  entity.save()
+}
+
+export function handleSubscriptionChanged(
+  event: SubscriptionChangedEvent
+): void {
+  let entity = new SubscriptionChanged(
+    event.transaction.hash.concatI32(event.logIndex.toI32())
+  )
+  entity.vcId = event.params.vcId
+  entity.owner = event.params.owner
+  entity.name = event.params.name
+  entity.genRefTime = event.params.genRefTime
+  entity.tier = event.params.tier
+  entity.rate = event.params.rate
+  entity.expiresAt = event.params.expiresAt
+  entity.isCertified = event.params.isCertified
+  entity.deploymentSubset = event.params.deploymentSubset
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -179,28 +196,15 @@ export function handleUnlocked(event: UnlockedEvent): void {
   entity.save()
 }
 
-export function handleVoteOutCasted(event: VoteOutCastedEvent): void {
-  let entity = new VoteOutCasted(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.voter = event.params.voter
-  entity.subject = event.params.subject
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleVoteOutPercentMilleThresholdChanged(
-  event: VoteOutPercentMilleThresholdChangedEvent
+export function handleVcConfigRecordChanged(
+  event: VcConfigRecordChangedEvent
 ): void {
-  let entity = new VoteOutPercentMilleThresholdChanged(
+  let entity = new VcConfigRecordChanged(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.newValue = event.params.newValue
-  entity.oldValue = event.params.oldValue
+  entity.vcId = event.params.vcId
+  entity.key = event.params.key
+  entity.value = event.params.value
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -209,13 +213,11 @@ export function handleVoteOutPercentMilleThresholdChanged(
   entity.save()
 }
 
-export function handleVoteUnreadyCasted(event: VoteUnreadyCastedEvent): void {
-  let entity = new VoteUnreadyCasted(
+export function handleVcCreated(event: VcCreatedEvent): void {
+  let entity = new VcCreated(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.voter = event.params.voter
-  entity.subject = event.params.subject
-  entity.expiration = event.params.expiration
+  entity.vcId = event.params.vcId
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp
@@ -224,30 +226,13 @@ export function handleVoteUnreadyCasted(event: VoteUnreadyCastedEvent): void {
   entity.save()
 }
 
-export function handleVoteUnreadyPercentMilleThresholdChanged(
-  event: VoteUnreadyPercentMilleThresholdChangedEvent
-): void {
-  let entity = new VoteUnreadyPercentMilleThresholdChanged(
+export function handleVcOwnerChanged(event: VcOwnerChangedEvent): void {
+  let entity = new VcOwnerChanged(
     event.transaction.hash.concatI32(event.logIndex.toI32())
   )
-  entity.newValue = event.params.newValue
-  entity.oldValue = event.params.oldValue
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
-
-export function handleVoteUnreadyTimeoutSecondsChanged(
-  event: VoteUnreadyTimeoutSecondsChangedEvent
-): void {
-  let entity = new VoteUnreadyTimeoutSecondsChanged(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.newValue = event.params.newValue
-  entity.oldValue = event.params.oldValue
+  entity.vcId = event.params.vcId
+  entity.previousOwner = event.params.previousOwner
+  entity.newOwner = event.params.newOwner
 
   entity.blockNumber = event.block.number
   entity.blockTimestamp = event.block.timestamp

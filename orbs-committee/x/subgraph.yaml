@@ -5,64 +5,61 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: Elections
+    name: Subscriptions
     network: mainnet
     source:
-      address: "0x02Ca9F2c5dD0635516241efD480091870277865b"
-      abi: Elections
-      startBlock: 11191410
+      address: "0xD11EFC10cf3A54B12e3F04143070BE3865E7Bb8E"
+      abi: Subscriptions
+      startBlock: 11191412
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - ContractRegistryAddressUpdated
-        - GuardianStatusUpdated
-        - GuardianVotedOut
-        - GuardianVotedUnready
+        - GenesisRefTimeDelayChanged
         - InitializationComplete
         - Locked
-        - MinSelfStakePercentMilleChanged
+        - MinimumInitialVcPaymentChanged
+        - Payment
         - RegistryManagementTransferred
-        - StakeChanged
+        - SubscriberAdded
+        - SubscriberRemoved
+        - SubscriptionChanged
         - Unlocked
-        - VoteOutCasted
-        - VoteOutPercentMilleThresholdChanged
-        - VoteUnreadyCasted
-        - VoteUnreadyPercentMilleThresholdChanged
-        - VoteUnreadyTimeoutSecondsChanged
+        - VcConfigRecordChanged
+        - VcCreated
+        - VcOwnerChanged
       abis:
-        - name: Elections
-          file: ./abis/Elections.json
+        - name: Subscriptions
+          file: ./abis/Subscriptions.json
       eventHandlers:
         - event: ContractRegistryAddressUpdated(address)
           handler: handleContractRegistryAddressUpdated
-        - event: GuardianStatusUpdated(indexed address,bool,bool)
-          handler: handleGuardianStatusUpdated
-        - event: GuardianVotedOut(indexed address)
-          handler: handleGuardianVotedOut
-        - event: GuardianVotedUnready(indexed address)
-          handler: handleGuardianVotedUnready
+        - event: GenesisRefTimeDelayChanged(uint256)
+          handler: handleGenesisRefTimeDelayChanged
         - event: InitializationComplete()
           handler: handleInitializationComplete
         - event: Locked()
           handler: handleLocked
-        - event: MinSelfStakePercentMilleChanged(uint32,uint32)
-          handler: handleMinSelfStakePercentMilleChanged
+        - event: MinimumInitialVcPaymentChanged(uint256)
+          handler: handleMinimumInitialVcPaymentChanged
+        - event: Payment(indexed uint256,address,uint256,string,uint256)
+          handler: handlePayment
         - event: RegistryManagementTransferred(indexed address,indexed address)
           handler: handleRegistryManagementTransferred
-        - event: StakeChanged(indexed address,uint256,uint256,uint256)
-          handler: handleStakeChanged
+        - event: SubscriberAdded(address)
+          handler: handleSubscriberAdded
+        - event: SubscriberRemoved(address)
+          handler: handleSubscriberRemoved
+        - event: SubscriptionChanged(indexed uint256,address,string,uint256,string,uint256,uint256,bool,string)
+          handler: handleSubscriptionChanged
         - event: Unlocked()
           handler: handleUnlocked
-        - event: VoteOutCasted(indexed address,indexed address)
-          handler: handleVoteOutCasted
-        - event: VoteOutPercentMilleThresholdChanged(uint32,uint32)
-          handler: handleVoteOutPercentMilleThresholdChanged
-        - event: VoteUnreadyCasted(indexed address,indexed address,uint256)
-          handler: handleVoteUnreadyCasted
-        - event: VoteUnreadyPercentMilleThresholdChanged(uint32,uint32)
-          handler: handleVoteUnreadyPercentMilleThresholdChanged
-        - event: VoteUnreadyTimeoutSecondsChanged(uint32,uint32)
-          handler: handleVoteUnreadyTimeoutSecondsChanged
-      file: ./src/elections.ts
+        - event: VcConfigRecordChanged(indexed uint256,string,string)
+          handler: handleVcConfigRecordChanged
+        - event: VcCreated(indexed uint256)
+          handler: handleVcCreated
+        - event: VcOwnerChanged(indexed uint256,address,address)
+          handler: handleVcOwnerChanged
+      file: ./src/subscriptions.ts

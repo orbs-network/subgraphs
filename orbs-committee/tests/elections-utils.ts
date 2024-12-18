@@ -16,7 +16,7 @@ import {
   VoteUnreadyCasted,
   VoteUnreadyPercentMilleThresholdChanged,
   VoteUnreadyTimeoutSecondsChanged
-} from "../generated/Elections/Elections"
+} from "../x/generated/Elections/Elections"
 
 export function createContractRegistryAddressUpdatedEvent(
   addr: Address
