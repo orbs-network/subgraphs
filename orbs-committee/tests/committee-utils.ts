@@ -9,7 +9,7 @@ import {
   MaxCommitteeSizeChanged,
   RegistryManagementTransferred,
   Unlocked
-} from "../generated/committee/committee"
+} from "../generated/Committee/Committee"
 
 export function createCommitteeChangeEvent(
   addr: Address,

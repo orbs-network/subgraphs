@@ -1,7 +1,7 @@
 {
   "mainnet": {
-    "committee": {
-      "address": "0x1a4c7891D2d04b2cD413B98bC3283c8D992f5fa7",
+    "Committee": {
+      "address": "0x1a4c7891d2d04b2cd413b98bc3283c8d992f5fa7",
       "startBlock": 11191418
     }
   }

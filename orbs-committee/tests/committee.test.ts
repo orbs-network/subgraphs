@@ -8,7 +8,7 @@ import {
 } from "matchstick-as/assembly/index"
 import { Address, BigInt } from "@graphprotocol/graph-ts"
 import { CommitteeChange } from "../generated/schema"
-import { CommitteeChange as CommitteeChangeEvent } from "../generated/committee/committee"
+import { CommitteeChange as CommitteeChangeEvent } from "../generated/Committee/Committee"
 import { handleCommitteeChange } from "../src/committee"
 import { createCommitteeChangeEvent } from "./committee-utils"
 

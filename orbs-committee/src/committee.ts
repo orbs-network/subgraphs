@@ -7,7 +7,7 @@ import {
   MaxCommitteeSizeChanged as MaxCommitteeSizeChangedEvent,
   RegistryManagementTransferred as RegistryManagementTransferredEvent,
   Unlocked as UnlockedEvent
-} from "../generated/committee/committee"
+} from "../generated/Committee/Committee"
 import {
   CommitteeChange,
   CommitteeSnapshot,
