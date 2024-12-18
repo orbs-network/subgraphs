@@ -1,0 +1,70 @@
+type CommitteeChange @entity(immutable: true) {
+  id: Bytes!
+  addr: Bytes! # address
+  weight: BigInt! # uint256
+  certification: Boolean! # bool
+  inCommittee: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type CommitteeSnapshot @entity(immutable: true) {
+  id: Bytes!
+  addrs: [Bytes!]! # address[]
+  weights: [BigInt!]! # uint256[]
+  certification: [Boolean!]! # bool[]
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ContractRegistryAddressUpdated @entity(immutable: true) {
+  id: Bytes!
+  addr: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type InitializationComplete @entity(immutable: true) {
+  id: Bytes!
+
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Locked @entity(immutable: true) {
+  id: Bytes!
+
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type MaxCommitteeSizeChanged @entity(immutable: true) {
+  id: Bytes!
+  newValue: Int! # uint8
+  oldValue: Int! # uint8
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type RegistryManagementTransferred @entity(immutable: true) {
+  id: Bytes!
+  previousRegistryAdmin: Bytes! # address
+  newRegistryAdmin: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type Unlocked @entity(immutable: true) {
+  id: Bytes!
+
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}

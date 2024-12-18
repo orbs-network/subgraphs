@@ -35,20 +35,20 @@ export function handleCommitteeChange(event: CommitteeChangeEvent): void {
   entity.save()
 }
 
-export function handleCommitteeSnapshot(event: CommitteeSnapshotEvent): void {
-  let entity = new CommitteeSnapshot(
-    event.transaction.hash.concatI32(event.logIndex.toI32())
-  )
-  entity.addrs = event.params.addrs
-  entity.weights = event.params.weights
-  entity.certification = event.params.certification
-
-  entity.blockNumber = event.block.number
-  entity.blockTimestamp = event.block.timestamp
-  entity.transactionHash = event.transaction.hash
-
-  entity.save()
-}
+// export function handleCommitteeSnapshot(event: CommitteeSnapshotEvent): void {
+//   let entity = new CommitteeSnapshot(
+//     event.transaction.hash.concatI32(event.logIndex.toI32())
+//   )
+//   entity.addrs = event.params.addrs
+//   entity.weights = event.params.weights
+//   entity.certification = event.params.certification
+//
+//   entity.blockNumber = event.block.number
+//   entity.blockTimestamp = event.block.timestamp
+//   entity.transactionHash = event.transaction.hash
+//
+//   entity.save()
+// }
 
 export function handleContractRegistryAddressUpdated(
   event: ContractRegistryAddressUpdatedEvent

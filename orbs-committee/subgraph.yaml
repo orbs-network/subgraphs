@@ -30,8 +30,8 @@ dataSources:
       eventHandlers:
         - event: CommitteeChange(indexed address,uint256,bool,bool)
           handler: handleCommitteeChange
-        - event: CommitteeSnapshot(address[],uint256[],bool[])
-          handler: handleCommitteeSnapshot
+#        - event: CommitteeSnapshot(address[],uint256[],bool[])
+#          handler: handleCommitteeSnapshot
         - event: ContractRegistryAddressUpdated(address)
           handler: handleContractRegistryAddressUpdated
         - event: InitializationComplete()

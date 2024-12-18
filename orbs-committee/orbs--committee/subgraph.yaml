@@ -1,0 +1,38 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ContractRegistry
+    network: mainnet
+    source:
+      address: "0xD859701C81119aB12A1e62AF6270aD2AE05c7AB3"
+      abi: ContractRegistry
+      startBlock: 11191401
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ContractAddressUpdated
+        - ContractRegistryUpdated
+        - InitializationComplete
+        - ManagerChanged
+        - RegistryManagementTransferred
+      abis:
+        - name: ContractRegistry
+          file: ./abis/ContractRegistry.json
+      eventHandlers:
+        - event: ContractAddressUpdated(string,address,bool)
+          handler: handleContractAddressUpdated
+        - event: ContractRegistryUpdated(address)
+          handler: handleContractRegistryUpdated
+        - event: InitializationComplete()
+          handler: handleInitializationComplete
+        - event: ManagerChanged(string,address)
+          handler: handleManagerChanged
+        - event: RegistryManagementTransferred(indexed address,indexed address)
+          handler: handleRegistryManagementTransferred
+      file: ./src/contract-registry.ts

@@ -1,0 +1,45 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Committee
+    network: mainnet
+    source:
+      address: "0x1a4c7891d2d04b2cd413b98bc3283c8d992f5fa7"
+      abi: Committee
+      startBlock: 11191418
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - CommitteeChange
+        - CommitteeSnapshot
+        - ContractRegistryAddressUpdated
+        - InitializationComplete
+        - Locked
+        - MaxCommitteeSizeChanged
+        - RegistryManagementTransferred
+        - Unlocked
+      abis:
+        - name: Committee
+          file: Committee/abis/Committee.json
+      eventHandlers:
+        - event: CommitteeChange(indexed address,uint256,bool,bool)
+          handler: handleCommitteeChange
+        - event: ContractRegistryAddressUpdated(address)
+          handler: handleContractRegistryAddressUpdated
+        - event: InitializationComplete()
+          handler: handleInitializationComplete
+        - event: Locked()
+          handler: handleLocked
+        - event: MaxCommitteeSizeChanged(uint8,uint8)
+          handler: handleMaxCommitteeSizeChanged
+        - event: RegistryManagementTransferred(indexed address,indexed address)
+          handler: handleRegistryManagementTransferred
+        - event: Unlocked()
+          handler: handleUnlocked
+      file: Committee/Committee.wasm
