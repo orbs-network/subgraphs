@@ -426,3 +426,85 @@ type ProtocolVersionChanged @entity(immutable: true) {
 #  blockTimestamp: BigInt!
 #  transactionHash: Bytes!
 #}
+
+#type ContractRegistryAddressUpdated @entity(immutable: true) {
+#  id: Bytes!
+#  addr: Bytes! # address
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+
+type GuardianDataUpdated @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address
+  isRegistered: Boolean! # bool
+  ip: Bytes! # bytes4
+  orbsAddr: Bytes! # address
+  name: String! # string
+  website: String! # string
+  registrationTime: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type GuardianMetadataChanged @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address
+  key: String! # string
+  newValue: String! # string
+  oldValue: String! # string
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type GuardianRegistered @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type GuardianUnregistered @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+#type InitializationComplete @entity(immutable: true) {
+#  id: Bytes!
+#
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+#
+#type Locked @entity(immutable: true) {
+#  id: Bytes!
+#
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+#
+#type RegistryManagementTransferred @entity(immutable: true) {
+#  id: Bytes!
+#  previousRegistryAdmin: Bytes! # address
+#  newRegistryAdmin: Bytes! # address
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+#
+#type Unlocked @entity(immutable: true) {
+#  id: Bytes!
+#
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}

@@ -1,8 +1,8 @@
 {
   "mainnet": {
-    "GuardiansRegistration": {
-      "address": "0xcE97F8C79228C53B8B9Ad86800A493d1e7E5d1E3",
-      "startBlock": 11191421
+    "Certification": {
+      "address": "0x8D2A2A4DbDF9C9D9DFF72ABc96a2751b70AB3011",
+      "startBlock": 11191417
     }
   }
 }

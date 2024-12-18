@@ -233,3 +233,47 @@ dataSources:
         - event: Unlocked()
           handler: handleUnlocked
       file: ./src/protocol.ts
+  - kind: ethereum
+    name: GuardiansRegistration
+    network: mainnet
+    source:
+      address: "0xcE97F8C79228C53B8B9Ad86800A493d1e7E5d1E3"
+      abi: GuardiansRegistration
+      startBlock: 11191421
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ContractRegistryAddressUpdated
+        - GuardianDataUpdated
+        - GuardianMetadataChanged
+        - GuardianRegistered
+        - GuardianUnregistered
+        - InitializationComplete
+        - Locked
+        - RegistryManagementTransferred
+        - Unlocked
+      abis:
+        - name: GuardiansRegistration
+          file: ./abis/GuardiansRegistration.json
+      eventHandlers:
+        - event: ContractRegistryAddressUpdated(address)
+          handler: handleContractRegistryAddressUpdated
+        - event: GuardianDataUpdated(indexed address,bool,bytes4,address,string,string,uint256)
+          handler: handleGuardianDataUpdated
+        - event: GuardianMetadataChanged(indexed address,string,string,string)
+          handler: handleGuardianMetadataChanged
+        - event: GuardianRegistered(indexed address)
+          handler: handleGuardianRegistered
+        - event: GuardianUnregistered(indexed address)
+          handler: handleGuardianUnregistered
+        - event: InitializationComplete()
+          handler: handleInitializationComplete
+        - event: Locked()
+          handler: handleLocked
+        - event: RegistryManagementTransferred(indexed address,indexed address)
+          handler: handleRegistryManagementTransferred
+        - event: Unlocked()
+          handler: handleUnlocked
+      file: ./src/guardians-registration.ts

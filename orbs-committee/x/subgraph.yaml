@@ -5,40 +5,31 @@ schema:
   file: ./schema.graphql
 dataSources:
   - kind: ethereum
-    name: GuardiansRegistration
+    name: Certification
     network: mainnet
     source:
-      address: "0xcE97F8C79228C53B8B9Ad86800A493d1e7E5d1E3"
-      abi: GuardiansRegistration
-      startBlock: 11191421
+      address: "0x8D2A2A4DbDF9C9D9DFF72ABc96a2751b70AB3011"
+      abi: Certification
+      startBlock: 11191417
     mapping:
       kind: ethereum/events
       apiVersion: 0.0.7
       language: wasm/assemblyscript
       entities:
         - ContractRegistryAddressUpdated
-        - GuardianDataUpdated
-        - GuardianMetadataChanged
-        - GuardianRegistered
-        - GuardianUnregistered
+        - GuardianCertificationUpdate
         - InitializationComplete
         - Locked
         - RegistryManagementTransferred
         - Unlocked
       abis:
-        - name: GuardiansRegistration
-          file: ./abis/GuardiansRegistration.json
+        - name: Certification
+          file: ./abis/Certification.json
       eventHandlers:
         - event: ContractRegistryAddressUpdated(address)
           handler: handleContractRegistryAddressUpdated
-        - event: GuardianDataUpdated(indexed address,bool,bytes4,address,string,string,uint256)
-          handler: handleGuardianDataUpdated
-        - event: GuardianMetadataChanged(indexed address,string,string,string)
-          handler: handleGuardianMetadataChanged
-        - event: GuardianRegistered(indexed address)
-          handler: handleGuardianRegistered
-        - event: GuardianUnregistered(indexed address)
-          handler: handleGuardianUnregistered
+        - event: GuardianCertificationUpdate(indexed address,bool)
+          handler: handleGuardianCertificationUpdate
         - event: InitializationComplete()
           handler: handleInitializationComplete
         - event: Locked()
@@ -47,4 +38,4 @@ dataSources:
           handler: handleRegistryManagementTransferred
         - event: Unlocked()
           handler: handleUnlocked
-      file: ./src/guardians-registration.ts
+      file: ./src/certification.ts

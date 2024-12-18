@@ -6,42 +6,10 @@ type ContractRegistryAddressUpdated @entity(immutable: true) {
   transactionHash: Bytes!
 }
 
-type GuardianDataUpdated @entity(immutable: true) {
+type GuardianCertificationUpdate @entity(immutable: true) {
   id: Bytes!
   guardian: Bytes! # address
-  isRegistered: Boolean! # bool
-  ip: Bytes! # bytes4
-  orbsAddr: Bytes! # address
-  name: String! # string
-  website: String! # string
-  registrationTime: BigInt! # uint256
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type GuardianMetadataChanged @entity(immutable: true) {
-  id: Bytes!
-  guardian: Bytes! # address
-  key: String! # string
-  newValue: String! # string
-  oldValue: String! # string
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type GuardianRegistered @entity(immutable: true) {
-  id: Bytes!
-  guardian: Bytes! # address
-  blockNumber: BigInt!
-  blockTimestamp: BigInt!
-  transactionHash: Bytes!
-}
-
-type GuardianUnregistered @entity(immutable: true) {
-  id: Bytes!
-  guardian: Bytes! # address
+  isCertified: Boolean! # bool
   blockNumber: BigInt!
   blockTimestamp: BigInt!
   transactionHash: Bytes!
