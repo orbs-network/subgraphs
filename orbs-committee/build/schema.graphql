@@ -68,3 +68,47 @@ type Unlocked @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+type ContractAddressUpdated @entity(immutable: true) {
+  id: Bytes!
+  contractName: String! # string
+  addr: Bytes! # address
+  managedContract: Boolean! # bool
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+type ContractRegistryUpdated @entity(immutable: true) {
+  id: Bytes!
+  newContractRegistry: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+#type InitializationComplete @entity(immutable: true) {
+#  id: Bytes!
+#
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}
+
+type ManagerChanged @entity(immutable: true) {
+  id: Bytes!
+  role: String! # string
+  newManager: Bytes! # address
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+}
+
+#type RegistryManagementTransferred @entity(immutable: true) {
+#  id: Bytes!
+#  previousRegistryAdmin: Bytes! # address
+#  newRegistryAdmin: Bytes! # address
+#  blockNumber: BigInt!
+#  blockTimestamp: BigInt!
+#  transactionHash: Bytes!
+#}

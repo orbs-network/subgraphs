@@ -1,0 +1,8 @@
+{
+  "mainnet": {
+    "Elections": {
+      "address": "0x02Ca9F2c5dD0635516241efD480091870277865b",
+      "startBlock": 11191410
+    }
+  }
+}

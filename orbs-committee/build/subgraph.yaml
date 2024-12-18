@@ -17,7 +17,6 @@ dataSources:
       language: wasm/assemblyscript
       entities:
         - CommitteeChange
-        - CommitteeSnapshot
         - ContractRegistryAddressUpdated
         - InitializationComplete
         - Locked
@@ -43,3 +42,29 @@ dataSources:
         - event: Unlocked()
           handler: handleUnlocked
       file: Committee/Committee.wasm
+  - kind: ethereum
+    name: ContractRegistry
+    network: mainnet
+    source:
+      address: "0xD859701C81119aB12A1e62AF6270aD2AE05c7AB3"
+      abi: ContractRegistry
+      startBlock: 11191401
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - ContractAddressUpdated
+        - ContractRegistryUpdated
+        - ManagerChanged
+      abis:
+        - name: ContractRegistry
+          file: ContractRegistry/abis/ContractRegistry.json
+      eventHandlers:
+        - event: ContractAddressUpdated(string,address,bool)
+          handler: handleContractAddressUpdated
+        - event: ContractRegistryUpdated(address)
+          handler: handleContractRegistryUpdated
+        - event: ManagerChanged(string,address)
+          handler: handleManagerChanged
+      file: ContractRegistry/ContractRegistry.wasm
