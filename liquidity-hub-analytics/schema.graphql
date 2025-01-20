@@ -74,3 +74,8 @@ type ExtraOut @entity(immutable: true) {
   blockTimestamp: BigInt!
   transactionHash: Bytes!
 }
+
+type OutputTokens @entity {
+  id: String!
+  tokenAddresses: [String!]!
+}

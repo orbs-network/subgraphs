@@ -1,10 +1,27 @@
 import {Address, BigDecimal, BigInt, ByteArray, crypto, log} from '@graphprotocol/graph-ts'
 import {Resolved as ResolvedEvent, Surplus as SurplusEvent} from "../generated/ExecutorV5/Executor"
-import {Resolved, Surplus, Swap, ExtraOut} from "../generated/schema"
+import {Resolved, Surplus, Swap, ExtraOut, OutputTokens} from "../generated/schema"
 import {ExtraOut as ExtraOutEvent} from "../generated/ExecutorV6/Executor"
 import {fetchTokenSymbol, fetchTokenUsdValue, formatTimestamp, hexStringToAmount,} from "./utils/utils"
 import {NATIVE_ASSET, TREASURY_ADDRESS, TREASURY_ADDRESS_NEW} from "./utils/constants";
 import {calcMetrics} from "./exclusive-dutch-order-reactor";
+
+function saveOutputToken(dstTokenAddress: string): void {
+  // save a list of distinct output token addresses (used for token refinery)
+  let outputTokens = OutputTokens.load("OutputTokens")
+  if (outputTokens == null) {
+    outputTokens = new OutputTokens("OutputTokens")
+    outputTokens.tokenAddresses = [dstTokenAddress]
+  } else {
+    const tokens = outputTokens.tokenAddresses
+    if (!tokens.includes(dstTokenAddress)) {
+      tokens.push(dstTokenAddress)
+      outputTokens.tokenAddresses = tokens
+    }
+  }
+  outputTokens.save()
+}
+
 
 export function handleResolved(event: ResolvedEvent): void {
   const id = event.transaction.hash;
@@ -69,6 +86,7 @@ export function handleResolved(event: ResolvedEvent): void {
   swap.save();
 
   calcMetrics(swap)
+  saveOutputToken(dstTokenAddress)
 }
 
 export function handleSurplus(event: SurplusEvent): void {
@@ -153,6 +171,7 @@ export function handleResolvedV6(event: ResolvedEvent): void {
   swap.save();
 
   calcMetrics(swap)
+  saveOutputToken(dstTokenAddress)
 }
 
 export function handleExtraOut(event: ExtraOutEvent): void {
