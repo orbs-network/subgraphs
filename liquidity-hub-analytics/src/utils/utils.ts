@@ -25,7 +25,8 @@ import {
     QUICK_ADDRESS,
     BOO_ADDRESS,
     THE_ADDRESS,
-    PYTH_ORACLE_ADDRESS
+    PYTH_ORACLE_ADDRESS,
+    LYNX_ADDRESS, LYNX_WETH_POOL, LINEA_WETH_ADDRESS
 } from "./constants";
 import {Swap} from "../../generated/schema";
 
@@ -149,6 +150,11 @@ export function fetchUSDValue(assetName: string, assetAddress: string): BigDecim
         const booWftm = getV2Price(BOO_WFTM_POOL);
         const ftmPrice = fetchUSDValue("WFTM", WFTM_ADDRESS);
         return booWftm * ftmPrice!;
+    }
+    if (assetName == "LYNX" && assetAddress == LYNX_ADDRESS) { // only for linea
+        const lynxWeth = getV2Price(LYNX_WETH_POOL);
+        const wethPrice = fetchUSDValue("WETH", LINEA_WETH_ADDRESS);
+        return wethPrice!/lynxWeth;
     }
     const oracleId = getOracleAddress(assetName);
     if (oracleId && oracleId != '') {

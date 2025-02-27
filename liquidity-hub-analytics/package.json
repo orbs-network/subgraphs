@@ -15,7 +15,11 @@
     "prepare-blast": "mustache config/blast.json subgraph.template.yaml > subgraph.yaml && mustache config/blast.json src/utils/constants.template.ts > src/utils/constants.ts",
     "deploy-blast": "npm run codegen && npm run prepare-blast && graph deploy --studio liquidyhub-analytics---blast",
     "prepare-mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml && mustache config/mainnet.json src/utils/constants.template.ts > src/utils/constants.ts",
-    "deploy-mainnet": "npm run codegen && npm run prepare-mainnet && graph deploy --studio liquidyhub-analytics---mainnet"
+    "deploy-mainnet": "npm run codegen && npm run prepare-mainnet && graph deploy --studio liquidyhub-analytics---mainnet",
+    "prepare-linea": "mustache config/linea.json subgraph.template.yaml > subgraph.yaml && mustache config/linea.json src/utils/constants.template.ts > src/utils/constants.ts",
+    "deploy-linea": "npm run codegen && npm run prepare-linea && graph deploy --studio liquidyhub-analytics---linea",
+    "prepare-zkevm": "mustache config/polygon-zkevm.json subgraph.template.yaml > subgraph.yaml && mustache config/polygon-zkevm.json src/utils/constants.template.ts > src/utils/constants.ts",
+    "deploy-zkevm": "npm run codegen && npm run prepare-zkevm && graph deploy --studio liquidyhub-analytics---zkevm"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.67.3",

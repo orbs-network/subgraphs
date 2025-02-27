@@ -32,6 +32,10 @@ export const BOO_WFTM_POOL = '{{booWftmPool}}'.toLowerCase()
 export const BOO_DECIMALS = '{{booDecimals}}'
 export const WFTM_ADDRESS = '{{wftmAddress}}'
 
+export const LYNX_ADDRESS = '{{lynxAddress}}'.toLowerCase()
+export const LYNX_WETH_POOL = '{{lynxWethPool}}'.toLowerCase()
+export const LINEA_WETH_ADDRESS = '{{lineaWethAddress}}'.toLowerCase()
+
 export const PYTH_ORACLE_ADDRESS = '{{pythOracleAddress}}'
 
 export const NATIVE_ASSET = '{{nativeAsset}}'
@@ -69,6 +73,7 @@ export function getOracleAddress(asset: string): string | null {
     if (asset == "ENS") return '{{ens}}'
     if (asset == "FIL") return '{{fil}}'
     if (asset == "FTM" || asset == "WFTM") return '{{ftm}}'
+    if (asset == "FOXY") return '{{foxy}}'
     if (asset == "FXS") return '{{fxs}}'
     if (asset == "GRT") return '{{grt}}'
     if (asset == "ICP") return '{{icp}}'
@@ -76,6 +81,7 @@ export function getOracleAddress(asset: string): string | null {
     if (asset == "LTC") return '{{ltc}}'
     if (asset == "MKR") return '{{mkr}}'
     if (asset == "pxETH") return '{{pxeth}}'
+    if (asset == "POL") return '{{pol}}'
     if (asset == "QNT") return '{{qnt}}'
     if (asset == "RDNT") return '{{rdnt}}'
     if (asset == "RPL") return '{{rpl}}'
@@ -83,7 +89,8 @@ export function getOracleAddress(asset: string): string | null {
     if (asset == "SHIB") return '{{shib}}'
     if (asset == "SOL") return '{{sol}}'
     if (asset == "SUSHI") return '{{sushi}}'
-    if (asset == "STETH") return '{{steth}}'
+    if (asset == "stETH") return '{{steth}}'
+    if (asset == "wstETH" ) return '{{wsteth}}'
     if (asset == "SNX") return '{{snx}}'
     if (asset == "TRX") return '{{trx}}'
     if (asset == "UNI") return '{{uni}}'
