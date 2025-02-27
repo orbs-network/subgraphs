@@ -2,7 +2,23 @@ import {Address, BigDecimal, crypto, log, ByteArray} from '@graphprotocol/graph-
 import {fetchTokenSymbol, fetchUSDValue, formatTimestamp, hexStringToAmount,} from "./utils/utils"
 import {TWAP_ADDRESS, getDexByRouter, FEES_ADDRESS} from "./utils/constants";
 import {OrderFilled as OrderFilledEvent, OrderCreated as OrderCreatedEvent, OrderCompleted as OrderCompletedEvent, OrderCanceled as OrderCanceledEvent, TWAP} from "../generated/TWAP/TWAP"
-import {OrderFilled, FilledDaily, FilledTotal, DailyActiveUsers, OrderCreated, CreatedDaily, CreatedTotal, Status} from "../generated/schema"
+import {OrderFilled, FilledDaily, FilledTotal, DailyActiveUsers, OrderCreated, CreatedDaily, CreatedTotal, Status, OutputTokens} from "../generated/schema"
+
+function saveOutputToken(dstTokenAddress: string): void {
+  // save a list of distinct output token addresses (used for token refinery)
+  let outputTokens = OutputTokens.load("OutputTokens")
+  if (outputTokens == null) {
+    outputTokens = new OutputTokens("OutputTokens")
+    outputTokens.tokenAddresses = [dstTokenAddress]
+  } else {
+    const tokens = outputTokens.tokenAddresses
+    if (!tokens.includes(dstTokenAddress)) {
+      tokens.push(dstTokenAddress)
+      outputTokens.tokenAddresses = tokens
+    }
+  }
+  outputTokens.save()
+}
 
 export function handleOrderFilled(event: OrderFilledEvent): void {
   let entity = new OrderFilled(
@@ -89,6 +105,8 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
     total.totalCount += 1
   }
   total.save()
+
+  saveOutputToken(dstTokenAddress.toHexString())
 }
 
 export function handleOrderCreated(event: OrderCreatedEvent): void {

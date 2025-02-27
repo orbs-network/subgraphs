@@ -87,3 +87,8 @@ type Status @entity {
     id: String!
     status: String
 }
+
+type OutputTokens @entity {
+    id: String!
+    tokenAddresses: [String!]!
+}

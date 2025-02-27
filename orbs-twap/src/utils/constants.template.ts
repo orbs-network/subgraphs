@@ -34,7 +34,6 @@ export const ARB_WETH_ADDRESS = '{{arbWethAddress}}'.toLowerCase()
 
 export const LYNX_ADDRESS = '{{lynxAddress}}'.toLowerCase()
 export const LYNX_WETH_POOL = '{{lynxWethPool}}'.toLowerCase()
-export const LYNX_DECIMALS = '{{lynxDecimals}}'
 export const LINEA_WETH_ADDRESS = '{{lineaWethAddress}}'.toLowerCase()
 
 export const PYTH_ORACLE_ADDRESS = '{{pythOracleAddress}}'
@@ -117,7 +116,7 @@ export function getOracleAddress(asset: string): string | null {
     if (asset == "XRP") return '{{xrp}}'
     if (asset == "TAO") return '{{tao}}'
     if (asset == "ENS") return '{{ens}}'
-    if (asset == "STETH") return '{{steth}}'
+    if (asset == "stETH") return '{{steth}}'
     if (asset == "SEI" || asset == "WSEI") return '{{sei}}'
     return null;
 }
