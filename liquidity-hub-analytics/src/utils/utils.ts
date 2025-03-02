@@ -166,10 +166,13 @@ export function fetchUSDValue(assetName: string, assetAddress: string): BigDecim
         } else {
             const oracleAddress: Address = Address.fromString(oracleId);
             const oracleContract = chainlinkOracle.bind(oracleAddress);
-            return oracleContract.latestAnswer().divDecimal(generateDivFactor(assetDecimals)).div(FACTOR_1E8); // divide by decimals and by 1e8
+            let oracleResult = oracleContract.try_latestAnswer()
+            if (!oracleResult.reverted) {
+                return oracleResult.value.divDecimal(generateDivFactor(assetDecimals)).div(FACTOR_1E8); // divide by decimals and by 1e8
+            }
         }
     }
-    log.info("no oracleId", [])
+    else log.info("no oracleId", [])
     return null;
 }
 
@@ -177,7 +180,8 @@ export function fetchTokenUsdValue(swap: Swap): BigDecimal {
     let baseAssetsUsd: BigDecimal | null;
 
     if (swap.srcAmount) {
-        baseAssetsUsd = fetchUSDValue(swap.srcTokenSymbol!, swap.srcTokenAddress!)
+        const srcTokenSymbol: string = swap.srcTokenSymbol !== null ? <string>swap.srcTokenSymbol : ""
+        baseAssetsUsd = fetchUSDValue(srcTokenSymbol, swap.srcTokenAddress!)
         if (baseAssetsUsd) {
             return baseAssetsUsd * BigDecimal.fromString(swap.srcAmount!)
         }

@@ -85,6 +85,7 @@ export function getOracleAddress(asset: string): string | null {
     if (asset == "QNT") return '{{qnt}}'
     if (asset == "RDNT") return '{{rdnt}}'
     if (asset == "RPL") return '{{rpl}}'
+    if (asset == "S" || asset == "wS") return '{{s}}'
     if (asset == "SAND") return '{{sand}}'
     if (asset == "SHIB") return '{{shib}}'
     if (asset == "SOL") return '{{sol}}'

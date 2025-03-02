@@ -19,7 +19,9 @@
     "prepare-linea": "mustache config/linea.json subgraph.template.yaml > subgraph.yaml && mustache config/linea.json src/utils/constants.template.ts > src/utils/constants.ts",
     "deploy-linea": "npm run codegen && npm run prepare-linea && graph deploy --studio liquidyhub-analytics---linea",
     "prepare-zkevm": "mustache config/polygon-zkevm.json subgraph.template.yaml > subgraph.yaml && mustache config/polygon-zkevm.json src/utils/constants.template.ts > src/utils/constants.ts",
-    "deploy-zkevm": "npm run codegen && npm run prepare-zkevm && graph deploy --studio liquidyhub-analytics---zkevm"
+    "deploy-zkevm": "npm run codegen && npm run prepare-zkevm && graph deploy --studio liquidyhub-analytics---zkevm",
+    "prepare-sonic": "mustache config/sonic.json subgraphV6.template.yaml > subgraph.yaml && mustache config/sonic.json src/utils/constants.template.ts > src/utils/constants.ts",
+    "deploy-sonic": "npm run codegen && npm run prepare-sonic && graph deploy --studio liquidyhub-analytics---sonic"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.67.3",
