@@ -50,12 +50,15 @@ export function getDexByRouter(routerAddress: string): string { // use only lowe
     if (routerAddress == "0x10695e3c265639e46d45c7bb427a4a4fd449af1e") return "SushiSwap"
     if (routerAddress == "0xc55943fa6509004b2903ed8f8ab7347bfc47d0ba") return "SushiSwap"
     if (routerAddress == "0x846f2b29ef314bf3d667981b4ffdadc5b858312a") return "SushiSwap"
+    if (routerAddress == "0x08c41f5d1c844061f6d952e25827eeaa576c6536") return "SushiSwap"
     if (routerAddress == "0x8ffde23fba2d7aea9c3cbf2d5b7b533bb46754a8") return "Arbidex"
     if (routerAddress == "0xceff098c9199c5d9cf24078dc14eb8f787631cc0") return "Chronos"
     if (routerAddress == "0x101e1b65bb516fb5f4547c80bae0b51f1b8d7a22") return "DragonSwap"
     if (routerAddress == "0x10ed1f36e4ebe76e161c9aadda20be841bc0082c") return "PancakeSwap"
     if (routerAddress == "0xe20167871db616ddffd0fd870d9bc068c350dd1f") return "PancakeSwap"
     if (routerAddress == "0x72e3e1fd5d2ee2f1c2eb695206d490a1d45c3835") return "Lynex"
+    if (routerAddress == "0xd54b17197f17e058f4a0859cffc8c9de42d87560") return "SpookySwap"
+    if (routerAddress == "0xad97b770ad64ae47fc7d64b3bd820dcdbf9ff7da") return "SpookySwap"
     return "Unknown"
 }
 
@@ -105,6 +108,7 @@ export function getOracleAddress(asset: string): string | null {
     if (asset == "QNT") return '{{qnt}}'
     if (asset == "RDNT") return '{{rdnt}}'
     if (asset == "RPL") return '{{rpl}}'
+    if (asset == "S" || asset == "wS") return '{{s}}'
     if (asset == "SAND") return '{{sand}}'
     if (asset == "SHIB") return '{{shib}}'
     if (asset == "SOL") return '{{sol}}'

@@ -17,7 +17,11 @@
     "prepare-sei": "mustache config/sei.json subgraph.template.yaml > subgraph.yaml && mustache config/sei.json src/utils/constants.template.ts > src/utils/constants.ts",
     "deploy-sei": "npm run codegen && npm run prepare-sei && graph deploy --studio orbs-twap---sei",
     "prepare-linea": "mustache config/linea.json subgraph.template.yaml > subgraph.yaml && mustache config/linea.json src/utils/constants.template.ts > src/utils/constants.ts",
-    "deploy-linea": "npm run codegen && npm run prepare-linea && graph deploy --studio orbs-twap---linea"
+    "deploy-linea": "npm run codegen && npm run prepare-linea && graph deploy --studio orbs-twap---linea",
+    "prepare-fantom": "mustache config/fantom.json subgraph.template.yaml > subgraph.yaml && mustache config/fantom.json src/utils/constants.template.ts > src/utils/constants.ts",
+    "deploy-fantom": "npm run codegen && npm run prepare-fantom && graph deploy --studio orbs-twap---fantom",
+    "prepare-sonic": "mustache config/sonic.json subgraph.template.yaml > subgraph.yaml && mustache config/sonic.json src/utils/constants.template.ts > src/utils/constants.ts",
+    "deploy-sonic": "npm run codegen && npm run prepare-sonic && graph deploy --studio orbs-twap---sonic"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.67.3",

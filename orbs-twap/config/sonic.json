@@ -1,0 +1,15 @@
+{
+  "network": "sonic",
+  "startBlock": "9820675",
+  "twapAddress": "0xe94E30ebe3d438dD1e7FE686503E392b1A601566",
+  "nativeAsset": "S",
+  "feesAddress": "",
+
+  "usdt": "0x76F4C040A792aFB7F6dBadC7e30ca3EEa140D216",
+  "usdc": "0x55bCa887199d5520B3Ce285D41e6dC10C08716C9",
+  "dai": "0x1654Df3d2543717534eE1c38eb9aF5F0407Ec708",
+  "eth": "0x824364077993847f71293B24ccA8567c00c2de11",
+  "btc": "0x8Bcd59Cb7eEEea8e2Da3080C891609483dae53EF",
+  "link": "0x26e450ca14D7bF598C89f212010c691434486119",
+  "s": "0xc76dFb89fF298145b417d221B2c747d84952e01d"
+}
