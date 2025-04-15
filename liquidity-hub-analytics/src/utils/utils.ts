@@ -26,7 +26,8 @@ import {
     BOO_ADDRESS,
     THE_ADDRESS,
     PYTH_ORACLE_ADDRESS,
-    LYNX_ADDRESS, LYNX_WETH_POOL, LINEA_WETH_ADDRESS
+    LYNX_ADDRESS, LYNX_WETH_POOL, LINEA_WETH_ADDRESS,
+    RAM_ADDRESS, RAM_WETH_POOL, ARB_WETH_ADDRESS
 } from "./constants";
 import {Swap} from "../../generated/schema";
 
@@ -155,6 +156,11 @@ export function fetchUSDValue(assetName: string, assetAddress: string): BigDecim
         const lynxWeth = getV2Price(LYNX_WETH_POOL);
         const wethPrice = fetchUSDValue("WETH", LINEA_WETH_ADDRESS);
         return wethPrice!/lynxWeth;
+    }
+    if (assetName == "RAM" && assetAddress == RAM_ADDRESS) { // only for arbitrum
+        const ramWeth = getV2Price(RAM_WETH_POOL);
+        const wethPrice = fetchUSDValue("WETH", ARB_WETH_ADDRESS);
+        return wethPrice!/ramWeth;
     }
     const oracleId = getOracleAddress(assetName);
     if (oracleId && oracleId != '') {
