@@ -3,6 +3,8 @@
   "startBlock": "1034999",
   "twapAddress": "0xbE7984eb48E2102549338B533dcF68035e413F66",
   "nativeAsset": "ETH",
+  "newTwapAddress": "0x48423e62acbfEF7779b5b4a5E7d6Fbd39E623d78",
+  "newTwapStartBlock": "17836359",
   "lynxWethPool": "0x1C6Fb08C1ef4E505a4Ae3Ffc3C99E443070Df64A",
   "lynxAddress": "0x1a51b19CE03dbE0Cb44C1528E34a7EDD7771E9Af",
   "lynxDecimals": "1e18",

@@ -112,6 +112,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
     orderCreateds(where:{timestamp_contains:"2023-06-21"}) {
         id
         Contract_id
+        twapAddress
         ask_bidDelay
         ask_data
         ask_deadline
@@ -142,6 +143,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
     orderCreateds(where:{type:"LIMIT"}) { # other option is TWAP
         id
         Contract_id
+        twapAddress
         ask_bidDelay
         ask_data
         ask_deadline
@@ -199,6 +201,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
   orderFilleds(where:{TWAP_id:445}) {
       id
       TWAP_id
+      twapAddress
       userAddress
       exchange
       dex
@@ -228,6 +231,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
   orderFilleds(where:{dex:"Thena"}) {
       id
       TWAP_id
+      twapAddress
       userAddress
       exchange
       dex
@@ -257,6 +261,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
   orderFilleds(where:{dex:"PancakeSwap"}) {
       id
       TWAP_id
+      twapAddress
       userAddress
       exchange
       dex
@@ -286,6 +291,7 @@ To utilize this subgraph, deploy it to a suitable indexing service such as The G
   orderFilleds(where:{srcTokenSymbol: "USDT", timestamp_contains:"2023-06-21"}) {
       id
       TWAP_id
+      twapAddress
       userAddress
       exchange
       dex

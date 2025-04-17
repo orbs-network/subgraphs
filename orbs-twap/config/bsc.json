@@ -2,6 +2,8 @@
   "network": "bsc",
   "startBlock": "28814551",
   "twapAddress": "0x25a0A78f5ad07b2474D3D42F1c1432178465936d",
+  "newTwapAddress": "0xa6F7444D2b92Aa9F94a2165c77aAF2B671e63994",
+  "newTwapStartBlock": "48032807",
   "nativeAsset": "BNB",
   "theBusdPool": "0x34b897289fccb43c048b2cea6405e840a129e021",
   "theAddress": "0xf4c8e32eadec4bfe97e0f595add0f4450a863a11",

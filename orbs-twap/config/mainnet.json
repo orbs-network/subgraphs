@@ -3,6 +3,8 @@
   "startBlock": "20586254",
   "twapAddress": "0x037E2bda7B1f03411ba5E96ACb7F36a7D19c3D83",
   "nativeAsset": "ETH",
+  "newTwapAddress": "0xb1ed8BCAD1EaC8a1DF0764700472391800D12946",
+  "newTwapStartBlock": "22224239",
   "feesAddress": "0xfee0000a55d378afbcbbaeaef29b58f8872b7f02",
 
   "usdt": "0x3E7d1eAB13ad0104d2750B8863b489D65364e32D",

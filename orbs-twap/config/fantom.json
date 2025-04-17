@@ -3,6 +3,8 @@
   "startBlock": "67534872",
   "twapAddress": "0xdb55107c17Cb433D322052BFA36069fDf7Cb1031",
   "nativeAsset": "FTM",
+  "newTwapAddress": "0xd3B290FEB04E353d1821bc0a12397FdEa9a846C0",
+  "newTwapStartBlock": "107965220",
   "booAddress": "0x841fad6eae12c286d1fd18d1d525dffa75c7effe",
   "booWftmPool": "0xEc7178F4C41f346b2721907F5cF7628E388A7a58",
   "booDecimals": "1e18",

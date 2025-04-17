@@ -2,6 +2,8 @@
   "network": "sonic",
   "startBlock": "9820675",
   "twapAddress": "0xe94E30ebe3d438dD1e7FE686503E392b1A601566",
+  "newTwapAddress": "0x8963992816b4EafE5a22b7DB2A99513c18be9afA",
+  "newTwapStartBlock": "18945153",
   "nativeAsset": "S",
   "feesAddress": "",
 

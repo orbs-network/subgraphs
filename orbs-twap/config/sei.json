@@ -3,6 +3,8 @@
   "startBlock": "110309777",
   "twapAddress": "0x18C3cEFb4b90bc854b1F7b1852b9862374a43778",
   "nativeAsset": "SEI",
+  "newTwapAddress": "0xde737dB24548F8d41A4a3Ca2Bac8aaaDc4DBA099",
+  "newTwapStartBlock": "141001467",
   "pythOracleAddress":"0x2880aB155794e7179c9eE2e38200202908C17B43",
 
   "sei": "0x53614f1cb0c031d4af66c04cb9c756234adad0e1cee85303795091499a4084eb",

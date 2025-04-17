@@ -2,7 +2,7 @@ import {Address, BigDecimal, crypto, log, ByteArray} from '@graphprotocol/graph-
 import {fetchTokenSymbol, fetchUSDValue, formatTimestamp, hexStringToAmount,} from "./utils/utils"
 import {TWAP_ADDRESS, getDexByRouter, FEES_ADDRESS} from "./utils/constants";
 import {OrderFilled as OrderFilledEvent, OrderCreated as OrderCreatedEvent, OrderCompleted as OrderCompletedEvent, OrderCanceled as OrderCanceledEvent, TWAP} from "../generated/TWAP/TWAP"
-import {OrderFilled, FilledDaily, FilledTotal, DailyActiveUsers, OrderCreated, CreatedDaily, CreatedTotal, Status, OutputTokens} from "../generated/schema"
+import {OrderFilled, FilledDaily, FilledTotal, DailyActiveUsers, OrderCreated, CreatedDaily, CreatedTotal, Status, StatusNew, OutputTokens} from "../generated/schema"
 
 function saveOutputToken(dstTokenAddress: string): void {
   // save a list of distinct output token addresses (used for token refinery)
@@ -25,6 +25,7 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
       event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.TWAP_id = event.params.id.toU32()
+  entity.twapAddress = event.address.toHexString()
   entity.userAddress = event.params.maker
   entity.exchange = event.params.exchange
   entity.taker = event.params.taker
@@ -114,6 +115,7 @@ export function handleOrderCreated(event: OrderCreatedEvent): void {
       event.transaction.hash.concatI32(event.logIndex.toI32())
   )
   entity.Contract_id = event.params.id
+  entity.twapAddress = event.address.toHexString()
   entity.maker = event.params.maker
   entity.exchange = event.params.exchange
   entity.ask_exchange = event.params.ask.exchange
@@ -150,6 +152,12 @@ export function handleOrderCreated(event: OrderCreatedEvent): void {
 
   let statusEntity = new Status(event.params.id.toString())
   statusEntity.save()
+
+  const id = `${event.address.toHexString()}_${event.params.id.toString()}`
+  let statusNewEntity = new StatusNew(id)
+  statusNewEntity.twapId = event.params.id.toString()
+  statusNewEntity.twapAddress = event.address.toHexString()
+  statusNewEntity.save()
 
   const day = entity.timestamp.slice(0, 10)
   const key = `${entity.dex}_${day}`
@@ -207,6 +215,13 @@ export function handleOrderCompleted(event: OrderCompletedEvent): void {
     entity.status = "COMPLETED"
     entity.save()
   }
+
+  const idNew = `${event.address.toHexString()}_${event.params.id.toString()}`
+  let entityNew = StatusNew.load(idNew)
+  if (entityNew != null) {
+    entityNew.status = "COMPLETED"
+    entityNew.save()
+  }
 }
 
 export function handleOrderCanceled(event: OrderCanceledEvent): void {
@@ -214,5 +229,12 @@ export function handleOrderCanceled(event: OrderCanceledEvent): void {
   if (entity != null) {
     entity.status = "CANCELED"
     entity.save()
+  }
+
+  const idNew = `${event.address.toHexString()}_${event.params.id.toString()}`
+  let entityNew = StatusNew.load(idNew)
+  if (entityNew != null) {
+    entityNew.status = "CANCELED"
+    entityNew.save()
   }
 }

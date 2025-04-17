@@ -2,6 +2,8 @@
   "network": "base",
   "startBlock": "3863077",
   "twapAddress": "0x25a0A78f5ad07b2474D3D42F1c1432178465936d",
+  "newTwapAddress": "0xc918bdC47264687796Cd54FE362FaC4f8b99Eb55",
+  "newTwapStartBlock": "28663219",
   "nativeAsset": "ETH",
   "bswapWethPool": "0xE80B4F755417FB4baF4dbd23C029db3F62786523",
   "bswapAddress": "0x78a087d713Be963Bf307b18F2Ff8122EF9A63ae9",

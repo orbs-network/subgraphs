@@ -43,3 +43,42 @@ dataSources:
         - event: OrderCompleted(indexed uint64,indexed address,indexed address,address)
           handler: handleOrderCompleted
       file: ./src/twap.ts
+  - kind: ethereum
+    name: newTWAP
+    network: {{network}}
+    source:
+      address: '{{newTwapAddress}}'
+      abi: TWAP
+      startBlock: {{newTwapStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - OrderFilled
+      abis:
+        - name: TWAP
+          file: ./abis/TWAP.json
+        - name: ERC20Contract
+          file: ./abis/ERC20.json
+        - name: ERC20SymbolBytes
+          file: ./abis/ERC20SymbolBytes.json
+        - name: chainlinkOracle
+          file: ./abis/oracle.json
+        - name: pythOracle
+          file: ./abis/pythOracle.json
+        - name: UniswapV2Pair
+          file: ./abis/UniswapV2Pair.json
+        - name: PancakePair
+          file: ./abis/PancakePair.json
+      eventHandlers:
+        - event: OrderFilled(indexed uint64,indexed address,indexed address,address,uint256,uint256,uint256,uint256)
+          handler: handleOrderFilled
+          receipt: true
+        - event: OrderCreated(indexed uint64,indexed address,indexed address,(address,address,address,uint256,uint256,uint256,uint32,uint32,uint32,bytes))
+          handler: handleOrderCreated
+        - event: OrderCanceled(indexed uint64,indexed address,address)
+          handler: handleOrderCanceled
+        - event: OrderCompleted(indexed uint64,indexed address,indexed address,address)
+          handler: handleOrderCompleted
+      file: ./src/twap.ts

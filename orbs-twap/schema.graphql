@@ -1,6 +1,7 @@
 type OrderFilled @entity(immutable: true) {
     id: Bytes!
     TWAP_id: Int
+    twapAddress: String!
     userAddress: Bytes! # address
     exchange: Bytes! # address
     dex: String!
@@ -46,6 +47,7 @@ type DailyActiveUsers @entity {
 type OrderCreated @entity(immutable: true) {
     id: Bytes!
     Contract_id: BigInt! # uint64
+    twapAddress: String!
     maker: Bytes! # address
     exchange: Bytes! # address
     ask_exchange: Bytes! # address
@@ -85,6 +87,13 @@ type CreatedTotal @entity {
 
 type Status @entity {
     id: String!
+    status: String
+}
+
+type StatusNew @entity {
+    id: String!
+    twapId: String!
+    twapAddress: String!
     status: String
 }
 
