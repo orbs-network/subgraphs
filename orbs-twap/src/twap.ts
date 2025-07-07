@@ -1,6 +1,6 @@
 import {Address, BigDecimal, crypto, log, ByteArray} from '@graphprotocol/graph-ts'
 import {fetchTokenSymbol, fetchUSDValue, formatTimestamp, hexStringToAmount,} from "./utils/utils"
-import {TWAP_ADDRESS, getDexByRouter, FEES_ADDRESS} from "./utils/constants";
+import {getDexByRouter, FEES_ADDRESS} from "./utils/constants";
 import {OrderFilled as OrderFilledEvent, OrderCreated as OrderCreatedEvent, OrderCompleted as OrderCompletedEvent, OrderCanceled as OrderCanceledEvent, TWAP} from "../generated/TWAP/TWAP"
 import {OrderFilled, FilledDaily, FilledTotal, DailyActiveUsers, OrderCreated, CreatedDaily, CreatedTotal, Status, StatusNew, OutputTokens} from "../generated/schema"
 
@@ -43,7 +43,7 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
   entity.timestamp = formatTimestamp(event.block.timestamp)
   entity.dex = getDexByRouter(event.params.exchange.toHexString())
 
-  const twapContract = TWAP.bind(Address.fromString(TWAP_ADDRESS));
+  const twapContract = TWAP.bind(Address.fromString(entity.twapAddress));
   const order = twapContract.order(event.params.id)
   const askTuple = order.at(6).toTuple()
   const srcTokenAddress = askTuple.at(1).toAddress()

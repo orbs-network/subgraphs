@@ -3,8 +3,6 @@ import {BigDecimal} from "@graphprotocol/graph-ts";
 export const FACTOR_1E8 = BigDecimal.fromString("1e8");
 export const UNIQUE_USERS_TODAY_ID = "UUT"
 
-export const TWAP_ADDRESS = '{{twapAddress}}'
-
 export const QUICK_ADDRESS = '{{quickAddress}}'.toLowerCase()
 export const QUICK_USDC_POOL = '{{quickUsdcPool}}'.toLowerCase()
 export const QUICK_DECIMALS = '{{quickDecimals}}'
@@ -51,6 +49,8 @@ export function getDexByRouter(routerAddress: string): string { // use only lowe
     if (routerAddress == "0x3a9df3ee209b802d0337383f5abce3204d623588") return "PancakeSwap"
     if (routerAddress == "0x807488adad033e95c438f998277be654152594dc") return "PancakeSwap"
     if (routerAddress == "0x3a9df3ee209b802d0337383f5abce3204d623588") return "PancakeSwap"
+    if (routerAddress == "0x1a2bb6b75d58b740d88413ef4840d6fa3f637940") return "PancakeSwap"
+    if (routerAddress == "0xb37cb9a058c03081ae6ef934313588cd53d408e7") return "PancakeSwap"
     if (routerAddress == "0x26d0ec4be402bce03aaa8aaf0cf67e9428ba54ef") return "QuickSwap"
     if (routerAddress == "0x8fcc245209be85c49d738d0ce5613f74e5d91e86") return "QuickSwap"
     if (routerAddress == "0xefe1b6096838949156e5130604434a2a13c68c68") return "BaseSwap"
@@ -60,6 +60,7 @@ export function getDexByRouter(routerAddress: string): string { // use only lowe
     if (routerAddress == "0x846f2b29ef314bf3d667981b4ffdadc5b858312a") return "SushiSwap"
     if (routerAddress == "0x08c41f5d1c844061f6d952e25827eeaa576c6536") return "SushiSwap"
     if (routerAddress == "0x1d1e69a706367e62a58cbc8c6924089ee379248f") return "SushiSwap"
+    if (routerAddress == "0x04eb53119079fa779492720d1efeaebf0af2e5ad") return "SushiSwap"
     if (routerAddress == "0x8ffde23fba2d7aea9c3cbf2d5b7b533bb46754a8") return "Arbidex"
     if (routerAddress == "0x49d21052f4695d16c7cce6ef561301aa4d840420") return "Arbidex"
     if (routerAddress == "0xceff098c9199c5d9cf24078dc14eb8f787631cc0") return "Chronos"
