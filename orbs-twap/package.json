@@ -21,7 +21,9 @@
     "prepare-fantom": "mustache config/fantom.json subgraph.template.yaml > subgraph.yaml && mustache config/fantom.json src/utils/constants.template.ts > src/utils/constants.ts",
     "deploy-fantom": "npm run codegen && npm run prepare-fantom && graph deploy --studio orbs-twap---fantom",
     "prepare-sonic": "mustache config/sonic.json subgraph.template.yaml > subgraph.yaml && mustache config/sonic.json src/utils/constants.template.ts > src/utils/constants.ts",
-    "deploy-sonic": "npm run codegen && npm run prepare-sonic && graph deploy --studio orbs-twap---sonic"
+    "deploy-sonic": "npm run codegen && npm run prepare-sonic && graph deploy --studio orbs-twap---sonic",
+    "prepare-katana": "mustache config/katana.json subgraph-new.template.yaml > subgraph.yaml && mustache config/katana.json src/utils/constants.template.ts > src/utils/constants.ts",
+    "deploy-katana": "npm run codegen && npm run prepare-katana && graph deploy --studio orbs-twap-katana"
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.67.3",

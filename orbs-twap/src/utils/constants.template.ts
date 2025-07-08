@@ -61,6 +61,7 @@ export function getDexByRouter(routerAddress: string): string { // use only lowe
     if (routerAddress == "0x08c41f5d1c844061f6d952e25827eeaa576c6536") return "SushiSwap"
     if (routerAddress == "0x1d1e69a706367e62a58cbc8c6924089ee379248f") return "SushiSwap"
     if (routerAddress == "0x04eb53119079fa779492720d1efeaebf0af2e5ad") return "SushiSwap"
+    if (routerAddress == "0x04eb53119079fa779492720d1efeaebf0af2e5ad") return "SushiSwap"
     if (routerAddress == "0x8ffde23fba2d7aea9c3cbf2d5b7b533bb46754a8") return "Arbidex"
     if (routerAddress == "0x49d21052f4695d16c7cce6ef561301aa4d840420") return "Arbidex"
     if (routerAddress == "0xceff098c9199c5d9cf24078dc14eb8f787631cc0") return "Chronos"
@@ -86,13 +87,14 @@ export function getDexByRouter(routerAddress: string): string { // use only lowe
 }
 
 export function getOracleAddress(asset: string): string | null {
-    if (asset == "USDT" || asset == "USDV" || asset == "lisUSD" || asset == "USD+") return '{{usdt}}'
-    if (asset == "USDC" || asset == "axlUSDC" || asset == "multiUSDC" || asset == "USDbC") return '{{usdc}}'
+    if (asset == "USDT" || asset == "USDV" || asset == "lisUSD" || asset == "USD+" || asset == "vbUSDT") return '{{usdt}}'
+    if (asset == "USDC" || asset == "axlUSDC" || asset == "multiUSDC" || asset == "USDbC" || asset == "vbUSDC") return '{{usdc}}'
+    if (asset == "USDS" || asset == "vbUSDS") return '{{usds}}'
     if (asset == "TUSD") return '{{tusd}}'
     if (asset == "DAI" || asset == "BUSD") return '{{dai}}'
     if (asset == "USDD") return '{{usdd}}'
-    if (asset == "ETH" || asset == "WETH" || asset == "BETH") return '{{eth}}'
-    if (asset == "BTC" || asset == "WBTC" || asset == "BTCB") return '{{btc}}'
+    if (asset == "ETH" || asset == "WETH" || asset == "BETH" || asset == "vbETH") return '{{eth}}'
+    if (asset == "BTC" || asset == "WBTC" || asset == "BTCB" || asset == "vbWBTC") return '{{btc}}'
     if (asset == "MATIC" || asset == "WMATIC") return '{{matic}}'
     if (asset == "BNB" || asset == "WBNB" || asset == "slisBNB") return '{{bnb}}'
     if (asset == "CAKE" || asset == "Cake") return '{{cake}}'
@@ -143,7 +145,9 @@ export function getOracleAddress(asset: string): string | null {
     if (asset == "XRP") return '{{xrp}}'
     if (asset == "TAO") return '{{tao}}'
     if (asset == "ENS") return '{{ens}}'
-    if (asset == "stETH") return '{{steth}}'
+    if (asset == "stETH" || asset == "wstETH") return '{{steth}}'
+    if (asset == "weETH") return '{{weeth}}'
     if (asset == "SEI" || asset == "WSEI") return '{{sei}}'
+    if (asset == "YFI") return '{{yfi}}'
     return null;
 }
