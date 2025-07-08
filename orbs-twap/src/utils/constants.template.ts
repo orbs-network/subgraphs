@@ -61,7 +61,7 @@ export function getDexByRouter(routerAddress: string): string { // use only lowe
     if (routerAddress == "0x08c41f5d1c844061f6d952e25827eeaa576c6536") return "SushiSwap"
     if (routerAddress == "0x1d1e69a706367e62a58cbc8c6924089ee379248f") return "SushiSwap"
     if (routerAddress == "0x04eb53119079fa779492720d1efeaebf0af2e5ad") return "SushiSwap"
-    if (routerAddress == "0x04eb53119079fa779492720d1efeaebf0af2e5ad") return "SushiSwap"
+    if (routerAddress == "0x92209481507e6B2d14C9b5b70Ed287024177220E") return "SushiSwap"
     if (routerAddress == "0x8ffde23fba2d7aea9c3cbf2d5b7b533bb46754a8") return "Arbidex"
     if (routerAddress == "0x49d21052f4695d16c7cce6ef561301aa4d840420") return "Arbidex"
     if (routerAddress == "0xceff098c9199c5d9cf24078dc14eb8f787631cc0") return "Chronos"
