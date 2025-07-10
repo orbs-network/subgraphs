@@ -23,7 +23,10 @@
     "prepare-sonic": "mustache config/sonic.json subgraph.template.yaml > subgraph.yaml && mustache config/sonic.json src/utils/constants.template.ts > src/utils/constants.ts",
     "deploy-sonic": "npm run codegen && npm run prepare-sonic && graph deploy --studio orbs-twap---sonic",
     "prepare-katana": "mustache config/katana.json subgraph-new.template.yaml > subgraph.yaml && mustache config/katana.json src/utils/constants.template.ts > src/utils/constants.ts",
-    "deploy-katana": "npm run codegen && npm run prepare-katana && graph deploy --studio orbs-twap-katana"
+    "deploy-katana": "npm run codegen && npm run prepare-katana && graph deploy --studio orbs-twap-katana",
+    "prepare-flare": "mustache config/flare.json subgraph-new.template.yaml > subgraph.yaml && mustache config/flare.json src/utils/constants.template.ts > src/utils/constants.ts",
+    "deploy-flare-dev": "npm run codegen && npm run build && npm run prepare-flare && goldsky subgraph deploy orbs-twap-flare/dev --path .",
+    "deploy-flare-prod": "npm run codegen && npm run build && npm run prepare-flare && goldsky subgraph deploy orbs-twap-flare/prod --path ."
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.67.3",

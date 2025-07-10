@@ -1,0 +1,7 @@
+{
+  "network": "flare",
+  "newTwapAddress": "0x9D70B0b90915Bb8b9bdAC7e6a7e6435bBF1feC4D",
+  "newTwapStartBlock": "39853654",
+  "nativeAsset": "FLR",
+  "feesAddress": ""
+}
