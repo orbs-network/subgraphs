@@ -87,6 +87,7 @@ export function handleOrderFilled(event: OrderFilledEvent): void {
     daily.dailyTotalCalculatedValue = dollarValue
     daily.dailyCount = 1
     daily.dex = entity.dex
+    daily.exchange = entity.exchange
   }
   else {
     daily.dailyTotalCalculatedValue = daily.dailyTotalCalculatedValue + dollarValue
@@ -170,6 +171,7 @@ export function handleOrderCreated(event: OrderCreatedEvent): void {
     // daily.dailyTotalCalculatedValue = entity.dollarValueIn
     daily.dailyCount = 1
     daily.dex = entity.dex
+    daily.exchange = entity.exchange
   }
   else {
     // daily.dailyTotalCalculatedValue = daily.dailyTotalCalculatedValue + entity.dollarValueIn

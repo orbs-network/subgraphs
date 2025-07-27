@@ -30,6 +30,7 @@ type FilledDaily @entity {
     dailyTotalCalculatedValue: BigDecimal!
     dailyCount: Int
     dex: String!
+    exchange: Bytes! # address
 }
 
 type FilledTotal @entity {
@@ -77,6 +78,7 @@ type CreatedDaily @entity {
 #    dailyTotalCalculatedValue: BigDecimal
     dailyCount: Int
     dex: String!
+    exchange: Bytes! # address
 }
 
 type CreatedTotal @entity {
