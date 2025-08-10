@@ -26,7 +26,10 @@
     "deploy-katana": "npm run codegen && npm run prepare-katana && graph deploy --studio orbs-twap-katana",
     "prepare-flare": "mustache config/flare.json subgraph-new.template.yaml > subgraph.yaml && mustache config/flare.json src/utils/constants.template.ts > src/utils/constants.ts",
     "deploy-flare-dev": "npm run codegen && npm run build && npm run prepare-flare && goldsky subgraph deploy orbs-twap-flare/dev --path .",
-    "deploy-flare-prod": "npm run codegen && npm run build && npm run prepare-flare && goldsky subgraph deploy orbs-twap-flare/prod --path ."
+    "deploy-flare-prod": "npm run codegen && npm run build && npm run prepare-flare && goldsky subgraph deploy orbs-twap-flare/prod --path .",
+    "prepare-cronos-zkevm": "mustache config/cronos-zkevm.json subgraph-new.template.yaml > subgraph.yaml && mustache config/cronos-zkevm.json src/utils/constants.template.ts > src/utils/constants.ts",
+    "deploy-cronos-zkevm-dev": "npm run codegen && npm run build && npm run prepare-cronos-zkevm && goldsky subgraph deploy orbs-twap-cronos-zkevm/dev --path .",
+    "deploy-cronos-zkevm-prod": "npm run codegen && npm run build && npm run prepare-cronos-zkevm && goldsky subgraph deploy orbs-twap-cronos-zkevm/prod --path ."
   },
   "dependencies": {
     "@graphprotocol/graph-cli": "0.67.3",

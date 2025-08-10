@@ -87,13 +87,13 @@ export function getDexByRouter(routerAddress: string): string { // use only lowe
 }
 
 export function getOracleAddress(asset: string): string | null {
-    if (asset == "USDT" || asset == "USDV" || asset == "lisUSD" || asset == "USD+" || asset == "vbUSDT") return '{{usdt}}'
+    if (asset == "USDT" || asset == "USDV" || asset == "lisUSD" || asset == "USD+" || asset == "vbUSDT" || asset == "vUSD") return '{{usdt}}'
     if (asset == "USDC" || asset == "axlUSDC" || asset == "multiUSDC" || asset == "USDbC" || asset == "vbUSDC") return '{{usdc}}'
     if (asset == "USDS" || asset == "vbUSDS") return '{{usds}}'
     if (asset == "TUSD") return '{{tusd}}'
     if (asset == "DAI" || asset == "BUSD") return '{{dai}}'
     if (asset == "USDD") return '{{usdd}}'
-    if (asset == "ETH" || asset == "WETH" || asset == "BETH" || asset == "vbETH") return '{{eth}}'
+    if (asset == "ETH" || asset == "WETH" || asset == "BETH" || asset == "vbETH" || asset == "vETH") return '{{eth}}'
     if (asset == "BTC" || asset == "WBTC" || asset == "BTCB" || asset == "vbWBTC") return '{{btc}}'
     if (asset == "MATIC" || asset == "WMATIC") return '{{matic}}'
     if (asset == "BNB" || asset == "WBNB" || asset == "slisBNB") return '{{bnb}}'
@@ -108,6 +108,7 @@ export function getOracleAddress(asset: string): string | null {
     if (asset == "AXS") return '{{axs}}'
     if (asset == "BAT") return '{{bat}}'
     if (asset == "BCH") return '{{bch}}'
+    if (asset == "CRO" || asset == "zkCRO" || asset == "wzkCRO") return '{{cro}}'
     if (asset == "CRV") return '{{crv}}'
     if (asset == "CVX") return '{{cvx}}'
     if (asset == "DOGE") return '{{doge}}'

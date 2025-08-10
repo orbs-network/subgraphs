@@ -1,0 +1,18 @@
+{
+  "network": "cronos-zkevm",
+  "newTwapAddress": "0xc32cAA0F7AD9ED88e22Fc214fc24cCb5C0595D68",
+  "newTwapStartBlock": "1635958",
+  "nativeAsset": "zkCRO",
+  "pythOracleAddress": "0x056f829183Ec806A78c26C98961678c24faB71af",
+  "feesAddress": "",
+
+  "eth": "0xff61491a931112ddf1bd8147cd1b641375f79f5825126d665480874634fd0ace",
+  "btc": "0xe62df6c8b4a85fe1a67db44dc12de5db330f7ac66b72dc658afedf0f4a415b43",
+  "usdt": "0x2b89b9dc8fdf9f34709a5b106b472f0f39bb6ca9ce04b0fd7f2e971688e2e53b",
+  "usdc": "0xeaa020c61cc479712813461ce153894a96a6c00b21ed0cfc2798d1f9a9e9c94a",
+  "cro": "0x23199c2bcb1303f667e733b9934db9eca5991e765b45f5ed18bc4b231415f2fe",
+  "dai": "0xb0948a5e5313200c632b51bb5ca32f6de0d36e9950a942d19751e833f70dabfd",
+  "arb": "0x3fa4252848f9f0a1480be62745a4629d9eb1322aebab8a791e344b3b9c1adcf5",
+  "bnb": "0x2f95862b045670cd22bee3114c39763a4a08beeb663b145d283c31d7d1101c4f",
+  "crv": "0xa19d04ac696c7a6616d291c7e5d1377cc8be437c327b75adb5dc1bad745fcae8"
+}
