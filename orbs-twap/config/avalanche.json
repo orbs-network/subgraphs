@@ -1,0 +1,14 @@
+{
+  "network": "avalanche",
+  "newTwapAddress": "0xf77Ad005aBF7e31f669ce89a6568B2f39Ca92cDe",
+  "newTwapStartBlock": "68399975",
+  "nativeAsset": "AVAX",
+  "feesAddress": "",
+
+  "usdt": "0x7898AcCC83587C3C55116c5230C17a6Cd9C71bad",
+  "usdc": "0x97FE42a7E96640D932bbc0e1580c73E705A8EB73",
+  "eth": "0x86d67c3D38D2bCeE722E601025C25a575021c6EA",
+  "btc": "0x31CF013A08c6Ac228C94551d535d5BAfE19c602a",
+  "link": "0x34C4c526902d88a3Aa98DB8a9b802603EB1E3470",
+  "avax": "0x0A77230d17318075983913bC2145DB16C7366156"
+}

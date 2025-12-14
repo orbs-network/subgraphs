@@ -83,6 +83,8 @@ export function getDexByRouter(routerAddress: string): string { // use only lowe
     if (routerAddress == "0xb7a3d74895bfd3aff6780525e36d79fcf26a895f") return "Retro"
     if (routerAddress == "0xe5012ebde5e26ee3ea41992154731a03023cf274") return "SwapX"
     if (routerAddress == "0xda902994b7f7a1ecdd8de02e4a17dbff2e6f67b7") return "SwapX"
+    if (routerAddress == "0xe9fbf0e5a67214d8659f5b53d28ce88b80a633f6") return "Blackhole"
+    if (routerAddress == "0x69b7ae1250b8d1309954cad65b6607ae478ec6ee") return "Kodiak"
     return "Unknown"
 }
 
