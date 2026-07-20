@@ -1,0 +1,13 @@
+{
+  "network": "mainnet",
+  "stakeAddress": "0x01D59Af68E2dcb44e04C50e05F62E7043F2656C3",
+  "stakeStartBlock": 9830000,
+  "delegationsAddress": "0xB97178870F39d4389210086E4BcaccACD715c71d",
+  "delegationsStartBlock": 11191436,
+  "stakingRewardsAddress": "0xB5303c22396333D9D27Dc45bDcC8E7Fc502b4B32",
+  "stakingRewardsStartBlock": 11191431,
+  "feesAddress": "0xDa7e381544Fc73cad7D9E63C86e561452b9B9E9C",
+  "feesStartBlock": 11191436,
+  "guardiansAddress": "0xcE97F8C79228C53B8B9Ad86800A493d1e7E5d1E3",
+  "guardiansStartBlock": 11191436
+}

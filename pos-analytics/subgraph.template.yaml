@@ -1,0 +1,136 @@
+specVersion: 1.0.0
+indexerHints:
+  prune: auto
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: Stake
+    network: {{network}}
+    source:
+      address: "{{stakeAddress}}"
+      abi: Stake
+      startBlock: {{stakeStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Staked
+        - Restaked
+        - Unstaked
+        - Withdrew
+      abis:
+        - name: Stake
+          file: ./abis/Stake.json
+      eventHandlers:
+        - event: Staked(indexed address,uint256,uint256)
+          handler: handleStaked
+        - event: Restaked(indexed address,uint256,uint256)
+          handler: handleRestaked
+        - event: Unstaked(indexed address,uint256,uint256)
+          handler: handleUnstaked
+        - event: Withdrew(indexed address,uint256,uint256)
+          handler: handleWithdrew
+      file: ./src/stake.ts
+  - kind: ethereum
+    name: Delegations
+    network: {{network}}
+    source:
+      address: "{{delegationsAddress}}"
+      abi: Delegations
+      startBlock: {{delegationsStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - Delegated
+        - DelegatedStakeChanged
+      abis:
+        - name: Delegations
+          file: ./abis/Delegations.json
+      eventHandlers:
+        - event: Delegated(indexed address,indexed address)
+          handler: handleDelegated
+        - event: DelegatedStakeChanged(indexed address,uint256,uint256,indexed address,uint256)
+          handler: handleDelegatedStakeChanged
+      file: ./src/delegations.ts
+  - kind: ethereum
+    name: StakingRewards
+    network: {{network}}
+    source:
+      address: "{{stakingRewardsAddress}}"
+      abi: StakingRewards
+      startBlock: {{stakingRewardsStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - StakingRewardsAllocated
+        - DelegatorStakingRewardsAssigned
+        - GuardianStakingRewardsAssigned
+        - StakingRewardsClaimed
+      abis:
+        - name: StakingRewards
+          file: ./abis/StakingRewards.json
+      eventHandlers:
+        - event: StakingRewardsAllocated(uint256,uint256)
+          handler: handleStakingRewardsAllocated
+        - event: DelegatorStakingRewardsAssigned(indexed address,uint256,uint256,address,uint256,uint256)
+          handler: handleDelegatorStakingRewardsAssigned
+        - event: GuardianStakingRewardsAssigned(indexed address,uint256,uint256,uint256,uint256,uint256,uint256)
+          handler: handleGuardianStakingRewardsAssigned
+        - event: StakingRewardsClaimed(indexed address,uint256,uint256,uint256,uint256)
+          handler: handleStakingRewardsClaimed
+      file: ./src/staking-rewards.ts
+  - kind: ethereum
+    name: FeesAndBootstrapRewards
+    network: {{network}}
+    source:
+      address: "{{feesAddress}}"
+      abi: FeesAndBootstrapRewards
+      startBlock: {{feesStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - BootstrapRewardsAssigned
+        - FeesAssigned
+        - BootstrapRewardsWithdrawn
+        - FeesWithdrawn
+      abis:
+        - name: FeesAndBootstrapRewards
+          file: ./abis/FeesAndBootstrapRewards.json
+      eventHandlers:
+        - event: BootstrapRewardsAssigned(indexed address,uint256,uint256,bool,uint256)
+          handler: handleBootstrapRewardsAssigned
+        - event: FeesAssigned(indexed address,uint256,uint256,bool,uint256)
+          handler: handleFeesAssigned
+        - event: BootstrapRewardsWithdrawn(indexed address,uint256,uint256)
+          handler: handleBootstrapRewardsWithdrawn
+        - event: FeesWithdrawn(indexed address,uint256,uint256)
+          handler: handleFeesWithdrawn
+      file: ./src/fees.ts
+  - kind: ethereum
+    name: GuardiansRegistration
+    network: {{network}}
+    source:
+      address: "{{guardiansAddress}}"
+      abi: GuardiansRegistration
+      startBlock: {{guardiansStartBlock}}
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.7
+      language: wasm/assemblyscript
+      entities:
+        - GuardianRegistered
+      abis:
+        - name: GuardiansRegistration
+          file: ./abis/GuardiansRegistration.json
+      eventHandlers:
+        - event: GuardianRegistered(indexed address)
+          handler: handleGuardianRegistered
+      file: ./src/guardians.ts
