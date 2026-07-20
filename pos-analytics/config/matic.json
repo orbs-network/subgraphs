@@ -1,0 +1,13 @@
+{
+  "network": "matic",
+  "stakeAddress": "0xeeae6791F684117B7028b48Cb5dD21186dF80B9c",
+  "stakeStartBlock": 25487295,
+  "delegationsAddress": "0x513d30e66641cB1f2670b5994DD8E2B61ED3C23c",
+  "delegationsStartBlock": 25502851,
+  "stakingRewardsAddress": "0x295d1982b1b20Cc0C02A0Da7285826C69EF71Fac",
+  "stakingRewardsStartBlock": 25502851,
+  "feesAddress": "0x932BA5478CB06d61A6FB12e067Bb4c606CAB3B06",
+  "feesStartBlock": 25502851,
+  "guardiansAddress": "0x49E77B78275d6C69C807727870682dBc725e4Dc9",
+  "guardiansStartBlock": 25502851
+}

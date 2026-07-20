@@ -1,0 +1,21 @@
+{
+  "name": "pos-analytics",
+  "license": "UNLICENSED",
+  "scripts": {
+    "codegen": "graph codegen",
+    "build": "graph build",
+    "prepare-mainnet": "mustache config/mainnet.json subgraph.template.yaml > subgraph.yaml",
+    "prepare-matic": "mustache config/matic.json subgraph.template.yaml > subgraph.yaml",
+    "create-local": "graph create --node http://localhost:8020/ pos-analytics",
+    "deploy-local": "graph deploy --node http://localhost:8020/ --ipfs http://localhost:5001 pos-analytics",
+    "test": "graph test"
+  },
+  "dependencies": {
+    "@graphprotocol/graph-cli": "0.67.3",
+    "@graphprotocol/graph-ts": "0.32.0",
+    "mustache": "^4.2.0"
+  },
+  "devDependencies": {
+    "matchstick-as": "0.5.0"
+  }
+}

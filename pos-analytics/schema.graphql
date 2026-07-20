@@ -1,0 +1,203 @@
+# Raw immutable event entities consumed by @orbs-network/pos-analytics-lib.
+# One entity type per event the lib currently fetches via eth_getLogs.
+
+# --- Stake ---
+
+type Staked @entity(immutable: true) {
+  id: Bytes!
+  stakeOwner: Bytes! # address indexed
+  amount: BigInt! # uint256
+  totalStakedAmount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+type Restaked @entity(immutable: true) {
+  id: Bytes!
+  stakeOwner: Bytes! # address indexed
+  amount: BigInt! # uint256
+  totalStakedAmount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+type Unstaked @entity(immutable: true) {
+  id: Bytes!
+  stakeOwner: Bytes! # address indexed
+  amount: BigInt! # uint256
+  totalStakedAmount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+type Withdrew @entity(immutable: true) {
+  id: Bytes!
+  stakeOwner: Bytes! # address indexed
+  amount: BigInt! # uint256
+  totalStakedAmount: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+# --- Delegations ---
+
+type Delegated @entity(immutable: true) {
+  id: Bytes!
+  from: Bytes! # address indexed
+  to: Bytes! # address indexed
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+type DelegatedStakeChanged @entity(immutable: true) {
+  id: Bytes!
+  addr: Bytes! # address indexed
+  selfDelegatedStake: BigInt! # uint256
+  delegatedStake: BigInt! # uint256
+  delegator: Bytes! # address indexed
+  delegatorContributedStake: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+# --- StakingRewards ---
+
+type StakingRewardsAllocated @entity(immutable: true) {
+  id: Bytes!
+  allocatedRewards: BigInt! # uint256
+  stakingRewardsPerWeight: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+type DelegatorStakingRewardsAssigned @entity(immutable: true) {
+  id: Bytes!
+  delegator: Bytes! # address indexed
+  amount: BigInt! # uint256
+  totalAwarded: BigInt! # uint256
+  guardian: Bytes! # address
+  delegatorRewardsPerToken: BigInt! # uint256
+  delegatorRewardsPerTokenDelta: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+type GuardianStakingRewardsAssigned @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address indexed
+  amount: BigInt! # uint256
+  totalAwarded: BigInt! # uint256
+  delegatorRewardsPerToken: BigInt! # uint256
+  delegatorRewardsPerTokenDelta: BigInt! # uint256
+  stakingRewardsPerWeight: BigInt! # uint256
+  stakingRewardsPerWeightDelta: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+type StakingRewardsClaimed @entity(immutable: true) {
+  id: Bytes!
+  addr: Bytes! # address indexed
+  claimedDelegatorRewards: BigInt! # uint256
+  claimedGuardianRewards: BigInt! # uint256
+  totalClaimedDelegatorRewards: BigInt! # uint256
+  totalClaimedGuardianRewards: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+# --- FeesAndBootstrapRewards ---
+
+type BootstrapRewardsAssigned @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address indexed
+  amount: BigInt! # uint256
+  totalAwarded: BigInt! # uint256
+  certification: Boolean! # bool
+  bootstrapPerMember: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+type FeesAssigned @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address indexed
+  amount: BigInt! # uint256
+  totalAwarded: BigInt! # uint256
+  certification: Boolean! # bool
+  feesPerMember: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+type BootstrapRewardsWithdrawn @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address indexed
+  amount: BigInt! # uint256
+  totalWithdrawn: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+type FeesWithdrawn @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address indexed
+  amount: BigInt! # uint256
+  totalWithdrawn: BigInt! # uint256
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
+
+# --- GuardiansRegistration ---
+
+type GuardianRegistered @entity(immutable: true) {
+  id: Bytes!
+  guardian: Bytes! # address indexed
+  blockNumber: BigInt!
+  blockTimestamp: BigInt!
+  transactionHash: Bytes!
+  logIndex: BigInt!
+  txIndex: BigInt!
+}
